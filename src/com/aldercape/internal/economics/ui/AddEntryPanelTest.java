@@ -21,7 +21,7 @@ public class AddEntryPanelTest {
 	@SuppressWarnings("serial")
 	@Before
 	public void setUp() {
-		mainPanel = new AbstractEntryPanel() {
+		mainPanel = new AbstractEntryPanel(null) {
 			@Override
 			public void addEntry() {
 				addEntryCalled = true;

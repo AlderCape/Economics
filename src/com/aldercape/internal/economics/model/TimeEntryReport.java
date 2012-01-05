@@ -24,6 +24,10 @@ public class TimeEntryReport {
 			GroupingKey key = new GroupingKey(time);
 			groups.put(key, getCurrent(groups, time, key).addTime(time.units()));
 		}
+		return getValuesOrderedByKey(groups);
+	}
+
+	private List<InvoiceEntry> getValuesOrderedByKey(Map<GroupingKey, InvoiceEntry> groups) {
 		ArrayList<InvoiceEntry> result = new ArrayList<InvoiceEntry>();
 		for (GroupingKey month : new TreeSet<GroupingKey>(groups.keySet())) {
 			result.add(groups.get(month));
@@ -43,27 +47,42 @@ public class TimeEntryReport {
 
 		private Month month;
 		private Colaborator colaborator;
+		private Client client;
+		private Euro rate;
 
 		public GroupingKey(TimeEntry time) {
 			this.month = time.month();
 			this.colaborator = time.colaborator();
+			this.client = time.client();
+			this.rate = time.rate();
 		}
 
 		@Override
 		public boolean equals(Object arg0) {
 			GroupingKey other = (GroupingKey) arg0;
-			return month.equals(other.month) && colaborator.name().equals(other.colaborator.name());
+			return month.equals(other.month) && colaborator.name().equals(other.colaborator.name()) && client.name().equals(other.client.name()) && rate.equals(other.rate);
 		}
 
 		@Override
 		public int hashCode() {
-			return month.hashCode() ^ colaborator.name().hashCode();
+			return month.hashCode() ^ colaborator.name().hashCode() ^ client.name().hashCode() ^ rate.hashCode();
 		}
 
 		@Override
 		public int compareTo(GroupingKey arg0) {
-			return month.compareTo(arg0.month);
+			int result = month.compareTo(arg0.month);
+			if (result != 0) {
+				return result;
+			}
+			result = colaborator.name().compareToIgnoreCase(arg0.colaborator.name());
+			if (result != 0) {
+				return result;
+			}
+			result = client.name().compareToIgnoreCase(arg0.client.name());
+			if (result != 0) {
+				return result;
+			}
+			return rate.compareTo(arg0.rate);
 		}
-
 	}
 }

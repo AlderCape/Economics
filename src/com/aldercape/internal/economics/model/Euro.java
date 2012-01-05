@@ -1,6 +1,6 @@
 package com.aldercape.internal.economics.model;
 
-public class Euro implements SelfRenderable {
+public class Euro implements SelfRenderable, Comparable<Euro> {
 
 	private int amount;
 
@@ -51,6 +51,11 @@ public class Euro implements SelfRenderable {
 	@Override
 	public void render(RenderTarget target) {
 		target.setDisplayText("" + amount);
+	}
+
+	@Override
+	public int compareTo(Euro rate) {
+		return amount - rate.amount;
 	}
 
 }

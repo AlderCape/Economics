@@ -24,4 +24,9 @@ public class ApplicationModel {
 
 	}
 
+	public void addEntry(TimeEntry entry) {
+		// TODO Auto-generated method stub
+
+	}
+
 }

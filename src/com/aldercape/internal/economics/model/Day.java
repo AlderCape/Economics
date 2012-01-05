@@ -1,6 +1,6 @@
 package com.aldercape.internal.economics.model;
 
-public class Day implements Comparable<Day> {
+public class Day implements SelfRenderable, Comparable<Day> {
 
 	private int day;
 	private Month month;
@@ -94,5 +94,14 @@ public class Day implements Comparable<Day> {
 
 	public Month month() {
 		return month;
+	}
+
+	@Override
+	public void render(RenderTarget target) {
+		target.setDisplayText("" + day);
+	}
+
+	public static Day createFrom(MonthLiteral month, String day, String year) {
+		return new Day(Integer.parseInt(day), Month.createFrom(month, year));
 	}
 }

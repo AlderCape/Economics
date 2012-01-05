@@ -66,6 +66,36 @@ public class TimeEntryReportTest {
 		assertInvoiceEntryEquals(expected2, entry.get(1));
 	}
 
+	@Test
+	public void createTwoInvoiceEntriesDifferentClients() {
+		List<TimeEntry> entries = new ArrayList<TimeEntry>();
+		entries.add(new TimeEntry(Unit.days(1), new Euro(200), new Colaborator("Me"), new Client("Client"), Day.january(10, 2012)));
+		entries.add(new TimeEntry(Unit.days(1), new Euro(200), new Colaborator("Me"), new Client("Other Client"), Day.january(11, 2012)));
+
+		TimeEntryReport report = new TimeEntryReport(entries);
+		InvoiceEntry expected1 = new InvoiceEntry(Unit.days(1), new Euro(200), new Colaborator("Me"), new Client("Client"), Month.january(2012), Month.january(2012));
+		InvoiceEntry expected2 = new InvoiceEntry(Unit.days(1), new Euro(200), new Colaborator("Me"), new Client("Other Client"), Month.january(2012), Month.january(2012));
+		List<InvoiceEntry> entry = report.getInvoiceEntry();
+		assertEquals(2, entry.size());
+		assertInvoiceEntryEquals(expected1, entry.get(0));
+		assertInvoiceEntryEquals(expected2, entry.get(1));
+	}
+
+	@Test
+	public void createTwoInvoiceEntriesDifferentRate() {
+		List<TimeEntry> entries = new ArrayList<TimeEntry>();
+		entries.add(new TimeEntry(Unit.days(1), new Euro(200), new Colaborator("Me"), new Client("Client"), Day.january(10, 2012)));
+		entries.add(new TimeEntry(Unit.days(1), new Euro(201), new Colaborator("Me"), new Client("Client"), Day.january(11, 2012)));
+
+		TimeEntryReport report = new TimeEntryReport(entries);
+		InvoiceEntry expected1 = new InvoiceEntry(Unit.days(1), new Euro(200), new Colaborator("Me"), new Client("Client"), Month.january(2012), Month.january(2012));
+		InvoiceEntry expected2 = new InvoiceEntry(Unit.days(1), new Euro(201), new Colaborator("Me"), new Client("Client"), Month.january(2012), Month.january(2012));
+		List<InvoiceEntry> entry = report.getInvoiceEntry();
+		assertEquals(2, entry.size());
+		assertInvoiceEntryEquals(expected1, entry.get(0));
+		assertInvoiceEntryEquals(expected2, entry.get(1));
+	}
+
 	private void assertInvoiceEntryEquals(InvoiceEntry entry, InvoiceEntry expected) {
 		assertEquals("Units", expected.units(), entry.units());
 		assertEquals("Rate", expected.rate(), entry.rate());
