@@ -33,6 +33,9 @@ public class DayTest {
 		assertTrue(Day.january(1, 2012).compareTo(Day.january(1, 2011)) > 0);
 		assertTrue(Day.january(1, 2011).compareTo(Day.january(2, 2011)) < 0);
 		assertTrue(Day.january(2, 2011).compareTo(Day.january(1, 2011)) > 0);
+		assertTrue(Day.LAST_DAY.compareTo(Day.LAST_DAY) == 0);
+		assertTrue(Day.LAST_DAY.compareTo(Day.december(31, 3000)) > 0);
+		assertTrue(Day.december(31, 3000).compareTo(Day.LAST_DAY) < 0);
 	}
 
 	@Test

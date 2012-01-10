@@ -18,7 +18,7 @@ public class UnitFieldTest {
 
 	@Test
 	public void textReflectsEuroAmountUponConstruction() {
-		assertEquals("16", textField.getText());
+		assertEquals((Integer) 16, textField.getValue());
 	}
 
 	@Test
@@ -28,7 +28,7 @@ public class UnitFieldTest {
 
 	@Test
 	public void changingTextChangesAmount() {
-		textField.setDisplayText("100");
+		textField.setValue(100);
 		assertEquals(Unit.days(100), textField.getUnits());
 	}
 

@@ -39,7 +39,6 @@ public class EuroTest {
 
 	@Test
 	public void canBeCreatedFromString() {
-		assertEquals(new Euro(42), Euro.createFrom("42"));
-		assertEquals(new Euro(42), Euro.createFrom(new Euro(42).toString()));
+		assertEquals(new Euro(42), Euro.createFrom(42));
 	}
 }

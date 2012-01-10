@@ -1,6 +1,6 @@
 package com.aldercape.internal.economics.model;
 
-public class Month implements SelfRenderable, Comparable<Month> {
+public class Month extends TimePoint implements Comparable<Month> {
 
 	private MonthLiteral month;
 	private int year;
@@ -90,14 +90,29 @@ public class Month implements SelfRenderable, Comparable<Month> {
 		return month.compareTo(o.month);
 	}
 
-	public static Month createFrom(MonthLiteral month, String year) {
-		return new Month(month, Integer.parseInt(year));
+	public static Month createFrom(MonthLiteral month, int year) {
+		return new Month(month, year);
 	}
 
-	@Override
-	public void render(RenderTarget target) {
-		target.setDisplayText("" + year);
-		target.setSelectedItem(month);
+	public MonthLiteral month() {
+		return month;
+	}
+
+	public int year() {
+		return year;
+	}
+
+	public static interface MonthTargetRenderer {
+
+		public void renderMonth(MonthLiteral month);
+
+		public void renderYear(int year);
+
+	}
+
+	public void render(MonthTargetRenderer target) {
+		target.renderMonth(month());
+		target.renderYear(year());
 	}
 
 }

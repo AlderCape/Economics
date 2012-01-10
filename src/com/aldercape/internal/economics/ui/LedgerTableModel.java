@@ -2,7 +2,8 @@ package com.aldercape.internal.economics.ui;
 
 import javax.swing.table.AbstractTableModel;
 
-import com.aldercape.internal.economics.model.InvoiceEntry;
+import com.aldercape.internal.economics.model.Day;
+import com.aldercape.internal.economics.model.Entry;
 import com.aldercape.internal.economics.model.Ledger;
 import com.aldercape.internal.economics.model.LedgerListener;
 
@@ -14,28 +15,21 @@ public class LedgerTableModel extends AbstractTableModel implements LedgerListen
 
 		BookKeepingMonth("Bookkeeping month") {
 			@Override
-			public Object getValue(InvoiceEntry entry) {
-				return entry.bookkeepingMonth();
-			}
-		},
-
-		CashflowMonth("Cashflow month") {
-			@Override
-			public Object getValue(InvoiceEntry entry) {
-				return entry.cashflowMonth();
+			public Object getValue(Entry<Day> entry) {
+				return entry.getTimePoint().month();
 			}
 		},
 
 		Person("Person") {
 			@Override
-			public Object getValue(InvoiceEntry entry) {
+			public Object getValue(Entry<Day> entry) {
 				return entry.colaborator().name();
 			}
 		},
 
 		Client("Client") {
 			@Override
-			public Object getValue(InvoiceEntry entry) {
+			public Object getValue(Entry<Day> entry) {
 				return entry.client().name();
 			}
 		},
@@ -43,28 +37,28 @@ public class LedgerTableModel extends AbstractTableModel implements LedgerListen
 		Unit("Days") {
 
 			@Override
-			public Object getValue(InvoiceEntry entry) {
+			public Object getValue(Entry<Day> entry) {
 				return entry.units();
 			}
 		},
 
 		Rate("Daily rate") {
 			@Override
-			public Object getValue(InvoiceEntry entry) {
+			public Object getValue(Entry<Day> entry) {
 				return entry.rate();
 			}
 		},
 
 		Amount("Amount") {
 			@Override
-			public Object getValue(InvoiceEntry entry) {
+			public Object getValue(Entry<Day> entry) {
 				return entry.amount();
 			}
 		},
 
 		Vat("Vat") {
 			@Override
-			public Object getValue(InvoiceEntry entry) {
+			public Object getValue(Entry<Day> entry) {
 				return entry.vat();
 			}
 		};
@@ -75,7 +69,7 @@ public class LedgerTableModel extends AbstractTableModel implements LedgerListen
 			this.colName = colName;
 		}
 
-		public abstract Object getValue(InvoiceEntry entry);
+		public abstract Object getValue(Entry<Day> entry);
 
 		public String columnTitle() {
 			return colName;

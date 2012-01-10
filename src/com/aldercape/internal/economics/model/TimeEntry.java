@@ -1,16 +1,13 @@
 package com.aldercape.internal.economics.model;
 
-public class TimeEntry extends Entry {
-
-	private Day day;
+public class TimeEntry extends Entry<Day> {
 
 	public TimeEntry(Unit unit, Euro rate, Colaborator colaborator, Client client, Day day) {
-		super(unit, rate, colaborator, client);
-		this.day = day;
+		super(unit, rate, colaborator, client, day);
 	}
 
 	public Day day() {
-		return day;
+		return getTimePoint();
 	}
 
 	public Month month() {

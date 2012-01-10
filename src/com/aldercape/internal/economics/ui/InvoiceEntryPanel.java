@@ -3,23 +3,19 @@ package com.aldercape.internal.economics.ui;
 import javax.swing.JLabel;
 
 import com.aldercape.internal.economics.model.ApplicationModel;
-import com.aldercape.internal.economics.model.Client;
-import com.aldercape.internal.economics.model.Colaborator;
+import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.Euro;
 import com.aldercape.internal.economics.model.InvoiceEntry;
-import com.aldercape.internal.economics.model.Month;
-import com.aldercape.internal.economics.model.Unit;
 
 public class InvoiceEntryPanel extends AbstractEntryPanel {
 
 	private static final long serialVersionUID = 4465473290587827631L;
 	private ApplicationModel applicationModel;
-	private TextFieldRenderTarget<Unit> units;
-	private TextFieldRenderTarget<Euro> rate;
-	private TextFieldRenderTarget<Colaborator> person;
-	private TextFieldRenderTarget<Client> client;
-	private MonthField bookkeepingMonth;
-	private MonthField cashflowMonth;
+	private UnitTextField units;
+	private EuroTextField rate;
+	private ColaboratorTextField person;
+	private ClientTextField client;
+	private DayTextField bookkeepingMonth;
 
 	public InvoiceEntryPanel(ApplicationModel ledger) {
 		super(ledger);
@@ -32,23 +28,23 @@ public class InvoiceEntryPanel extends AbstractEntryPanel {
 		add(new JLabel("Rate"));
 		rate = new EuroTextField(new Euro(0));
 		add(rate);
+
 		add(new JLabel("Person"));
 		person = new ColaboratorTextField();
 		add(person);
+
 		add(new JLabel("Client"));
 		client = new ClientTextField();
 		add(client);
+
 		add(new JLabel("Bookkeeping month"));
-		bookkeepingMonth = new MonthField(Month.december(2011));
+		bookkeepingMonth = new DayTextField(Day.january(1, 2012));
 		add(bookkeepingMonth);
-		add(new JLabel("Cashflow month"));
-		cashflowMonth = new MonthField(Month.february(2012));
-		add(cashflowMonth);
 	}
 
 	@Override
 	public void addEntry() {
-		applicationModel.addEntry(new InvoiceEntry(units.createDomainObject(), rate.createDomainObject(), person.createDomainObject(), client.createDomainObject(), bookkeepingMonth.getMonth(), cashflowMonth.getMonth()));
+		applicationModel.addEntry(new InvoiceEntry(units.createDomainObject(), rate.createDomainObject(), person.createDomainObject(), client.createDomainObject(), bookkeepingMonth.createDomainObject()));
 	}
 
 	public void setEntry(InvoiceEntry populatWith) {
@@ -56,7 +52,6 @@ public class InvoiceEntryPanel extends AbstractEntryPanel {
 		populatWith.rate().render(rate);
 		populatWith.colaborator().render(person);
 		populatWith.client().render(client);
-		populatWith.bookkeepingMonth().render(bookkeepingMonth);
-		populatWith.cashflowMonth().render(cashflowMonth);
+		populatWith.issueDate().render(bookkeepingMonth);
 	}
 }

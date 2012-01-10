@@ -57,6 +57,6 @@ public class MonthTest {
 
 	@Test
 	public void createFrom() {
-		assertEquals(Month.february(2013), Month.createFrom(MonthLiteral.February, "2013"));
+		assertEquals(Month.february(2013), Month.createFrom(MonthLiteral.February, 2013));
 	}
 }

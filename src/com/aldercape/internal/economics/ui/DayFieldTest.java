@@ -6,7 +6,6 @@ import java.awt.Component;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
-import javax.swing.JTextField;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,8 +30,8 @@ public class DayFieldTest {
 		assertEquals(BoxLayout.class, field.getLayout().getClass());
 		assertEquals(BoxLayout.X_AXIS, ((BoxLayout) field.getLayout()).getAxis());
 		assertEquals(JComboBox.class, components[0].getClass());
-		assertEquals(JTextField.class, components[1].getClass());
-		assertEquals(JTextField.class, components[2].getClass());
+		assertEquals(IntTextField.class, components[1].getClass());
+		assertEquals(IntTextField.class, components[2].getClass());
 	}
 
 	@Test
@@ -54,7 +53,7 @@ public class DayFieldTest {
 
 	@Test
 	public void canRetreiveDay() {
-		assertEquals(Day.february(1, 2011), field.getDay());
+		assertEquals(Day.february(1, 2011), field.createDomainObject());
 	}
 
 	// @Test

@@ -10,19 +10,19 @@ import java.util.TreeSet;
 
 public class Ledger {
 
-	private List<InvoiceEntry> entries = new ArrayList<InvoiceEntry>();
+	private List<Entry<Day>> entries = new ArrayList<Entry<Day>>();
 
 	public int numberOfEntries() {
 		return entries.size();
 	}
 
-	public void addEntry(InvoiceEntry entry) {
+	public void addEntry(Entry<Day> entry) {
 		entries.add(entry);
 	}
 
 	public Euro totalAmount() {
 		Euro result = new Euro(0);
-		for (InvoiceEntry entry : entries) {
+		for (Entry<Day> entry : entries) {
 			result = result.plus(entry.amount());
 		}
 		return result;
@@ -30,38 +30,19 @@ public class Ledger {
 
 	public Set<Month> bookkeepingMonths() {
 		Set<Month> result = new HashSet<Month>();
-		for (InvoiceEntry entry : entries) {
-			result.add(entry.bookkeepingMonth());
-		}
-		return result;
-	}
-
-	public Set<Month> cashflowMonths() {
-		Set<Month> result = new HashSet<Month>();
-		for (InvoiceEntry entry : entries) {
-			result.add(entry.cashflowMonth());
+		for (Entry<Day> entry : entries) {
+			result.add(entry.getTimePoint().month());
 		}
 		return result;
 	}
 
 	public List<Ledger> groupByBookkeepingMonth() {
 		Map<Month, Ledger> resultMap = new HashMap<Month, Ledger>();
-		for (InvoiceEntry entry : entries) {
-			if (resultMap.get(entry.bookkeepingMonth()) == null) {
-				resultMap.put(entry.bookkeepingMonth(), new Ledger());
+		for (Entry<Day> entry : entries) {
+			if (resultMap.get(entry.getTimePoint().month()) == null) {
+				resultMap.put(entry.getTimePoint().month(), new Ledger());
 			}
-			resultMap.get(entry.bookkeepingMonth()).addEntry(entry);
-		}
-		return createResult(resultMap);
-	}
-
-	public List<Ledger> groupByCashflowMonth() {
-		Map<Month, Ledger> resultMap = new HashMap<Month, Ledger>();
-		for (InvoiceEntry entry : entries) {
-			if (resultMap.get(entry.cashflowMonth()) == null) {
-				resultMap.put(entry.cashflowMonth(), new Ledger());
-			}
-			resultMap.get(entry.cashflowMonth()).addEntry(entry);
+			resultMap.get(entry.getTimePoint().month()).addEntry(entry);
 		}
 		return createResult(resultMap);
 	}
@@ -75,7 +56,7 @@ public class Ledger {
 		return result;
 	}
 
-	public InvoiceEntry entry(int index) {
+	public Entry<Day> entry(int index) {
 		return entries.get(index);
 	}
 

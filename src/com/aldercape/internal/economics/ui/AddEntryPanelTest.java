@@ -5,9 +5,11 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -27,14 +29,15 @@ public class AddEntryPanelTest {
 				addEntryCalled = true;
 			}
 		};
-		panel = new AddEntryPanel(mainPanel);
+		panel = new AddEntryPanel();
 	}
 
 	@Test
 	public void layout() {
 		assertEquals(BorderLayout.class, panel.getLayout().getClass());
-		BorderLayout layout = (BorderLayout) panel.getLayout();
-		assertEquals("passed in panel should be in center", mainPanel, layout.getLayoutComponent(BorderLayout.CENTER));
+		BorderLayout layout = getLayout();
+		assertEquals("Tabbed panel in center on construction", JTabbedPane.class, layout.getLayoutComponent(BorderLayout.CENTER).getClass());
+
 		assertEquals("Sout component class", JPanel.class, layout.getLayoutComponent(BorderLayout.SOUTH).getClass());
 		JPanel southComponent = (JPanel) layout.getLayoutComponent(BorderLayout.SOUTH);
 		assertEquals("# of South components", 2, southComponent.getComponents().length);
@@ -44,16 +47,59 @@ public class AddEntryPanelTest {
 		assertEquals(JButton.class, southComponent.getComponent(1).getClass());
 		JButton addButton = getAddButton();
 		assertEquals("Add", addButton.getText());
+
+	}
+
+	@Test
+	public void whenOnlyOneTypeItShouldBeDisplayedInCenter() {
+		panel.addType("Test type", mainPanel);
+		assertEquals(mainPanel, getSelectedTabComponent());
+		// assertEquals("", getTypeCombo().getRenderer().);
+	}
+
+	private Component getSelectedTabComponent() {
+		JTabbedPane layoutComponent = (JTabbedPane) getLayout().getLayoutComponent(BorderLayout.CENTER);
+		return layoutComponent.getSelectedComponent();
+	}
+
+	@Test
+	public void whenMoreThenOneTypeTheFirstShouldBeDisplayedInCenter() {
+		panel.addType("Test type", mainPanel);
+		panel.addType("Test again type", new AbstractEntryPanel(null) {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void addEntry() {
+			}
+		});
+		assertEquals(mainPanel, getSelectedTabComponent());
 	}
 
 	@Test
 	public void addButtonShouldCallMainPanelsAddEntryMethod() {
+		panel.addType("Test type", mainPanel);
+		panel.addType("Test again type", new AbstractEntryPanel(null) {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void addEntry() {
+			}
+		});
+
 		assertFalse(addEntryCalled);
 		getAddButton().doClick();
 		assertTrue(addEntryCalled);
 	}
 
 	private JButton getAddButton() {
-		return (JButton) ((JPanel) ((BorderLayout) panel.getLayout()).getLayoutComponent(BorderLayout.SOUTH)).getComponent(1);
+		return (JButton) getComponent(BorderLayout.SOUTH).getComponent(1);
+	}
+
+	private JPanel getComponent(String position) {
+		return (JPanel) getLayout().getLayoutComponent(position);
+	}
+
+	private BorderLayout getLayout() {
+		return (BorderLayout) panel.getLayout();
 	}
 }

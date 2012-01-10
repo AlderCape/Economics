@@ -21,10 +21,6 @@ public class CustomUiAsserts {
 		CustomUiAsserts.assertFormField(message, label, ClientTextField.class, field, panel);
 	}
 
-	public static void assertFormMonthField(String message, Component label, Component field, JPanel panel) {
-		CustomUiAsserts.assertFormField(message, label, MonthField.class, field, panel);
-	}
-
 	public static void assertFormUnitField(String message, Component label, Component field, JPanel panel) {
 		CustomUiAsserts.assertFormField(message, label, UnitTextField.class, field, panel);
 	}
@@ -33,7 +29,7 @@ public class CustomUiAsserts {
 		CustomUiAsserts.assertFormField(message, label, EuroTextField.class, field, panel);
 	}
 
-	public static void assertFormDayField(String message, Component label, Component field, TimeEntryPanel panel) {
+	public static void assertFormDayField(String message, Component label, Component field, JPanel panel) {
 		CustomUiAsserts.assertFormField(message, label, DayTextField.class, field, panel);
 	}
 

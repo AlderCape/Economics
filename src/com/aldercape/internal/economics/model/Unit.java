@@ -1,6 +1,6 @@
 package com.aldercape.internal.economics.model;
 
-public class Unit implements SelfRenderable {
+public class Unit {
 
 	int amount;
 	private TimeUnit unit;
@@ -46,17 +46,24 @@ public class Unit implements SelfRenderable {
 		return hours();
 	}
 
-	@Override
-	public void render(RenderTarget target) {
-		target.setDisplayText("" + days());
-	}
-
-	public static Unit createFrom(String amount) {
-		return days(Integer.parseInt(amount));
+	public static Unit createFrom(int amount) {
+		return days(amount);
 	}
 
 	public Unit plus(Unit units) {
 		return new Unit(days() + units.days(), TimeUnit.DAY);
+	}
+
+	public static interface UnitRenderTarget {
+
+		public void renderAmount(int amount);
+
+		public void renderTimeUnit(TimeUnit unit);
+	}
+
+	public void render(UnitRenderTarget target) {
+		target.renderAmount(amount);
+		target.renderTimeUnit(unit);
 	}
 
 }

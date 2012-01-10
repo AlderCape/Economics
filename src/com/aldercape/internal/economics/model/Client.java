@@ -1,6 +1,6 @@
 package com.aldercape.internal.economics.model;
 
-public class Client implements SelfRenderable {
+public class Client {
 
 	private String name;
 
@@ -12,9 +12,14 @@ public class Client implements SelfRenderable {
 		return name;
 	}
 
-	@Override
-	public void render(RenderTarget target) {
-		target.setDisplayText(name);
+	public static interface ClientRenderTarget {
+
+		public void renderName(String name);
+
+	}
+
+	public void render(ClientRenderTarget target) {
+		target.renderName(name);
 	}
 
 }

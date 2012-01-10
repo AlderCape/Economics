@@ -11,7 +11,7 @@ public class EuroTextFieldTest {
 	@Test
 	public void textReflectsEuroAmountUponConstruction() {
 		EuroTextField textField = new EuroTextField(new Euro(42));
-		assertEquals("42", textField.getText());
+		assertEquals((Integer) 42, textField.getValue());
 	}
 
 	@Test
@@ -23,7 +23,7 @@ public class EuroTextFieldTest {
 	@Test
 	public void changingTextChangesAmount() {
 		EuroTextField textField = new EuroTextField(new Euro(42));
-		textField.setDisplayText("100");
+		textField.setValue(100);
 		assertEquals(new Euro(100), textField.getEuros());
 	}
 }

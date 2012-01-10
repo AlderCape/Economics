@@ -14,6 +14,7 @@ import com.aldercape.internal.economics.model.ApplicationModel;
 import com.aldercape.internal.economics.model.Client;
 import com.aldercape.internal.economics.model.Colaborator;
 import com.aldercape.internal.economics.model.Day;
+import com.aldercape.internal.economics.model.Entry;
 import com.aldercape.internal.economics.model.Euro;
 import com.aldercape.internal.economics.model.Ledger;
 import com.aldercape.internal.economics.model.TimeEntry;
@@ -23,19 +24,11 @@ public class TimeEntryPanelTest {
 	private TimeEntryPanel panel;
 	private Ledger ledger;
 	private ApplicationModel model;
-	private TimeEntry addedEntry;
 
 	@Before
 	public void setUp() {
 		ledger = new Ledger();
-		model = new ApplicationModel(ledger) {
-
-			@Override
-			public void addEntry(TimeEntry entry) {
-				super.addEntry(entry);
-				addedEntry = entry;
-			}
-		};
+		model = new ApplicationModel(ledger);
 		panel = new TimeEntryPanel(model);
 	}
 
@@ -65,12 +58,13 @@ public class TimeEntryPanelTest {
 		TimeEntry populateWith = new TimeEntry(Unit.days(19), new Euro(250), new Colaborator("Other"), new Client("Second client"), Day.january(1, 2011));
 		panel.setEntry(populateWith);
 		panel.addEntry();
+		Entry<Day> addedEntry = ledger.entry(0);
 		assertNotNull(addedEntry);
 		assertEquals(populateWith.units(), addedEntry.units());
 		assertEquals(populateWith.rate(), addedEntry.rate());
 		assertEquals(populateWith.colaborator().name(), addedEntry.colaborator().name());
 		assertEquals(populateWith.client().name(), addedEntry.client().name());
-		assertEquals(populateWith.day(), addedEntry.day());
+		assertEquals(populateWith.day(), addedEntry.getTimePoint());
 	}
 
 }

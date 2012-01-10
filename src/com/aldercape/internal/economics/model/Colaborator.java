@@ -1,6 +1,6 @@
 package com.aldercape.internal.economics.model;
 
-public class Colaborator implements SelfRenderable {
+public class Colaborator {
 
 	private String name;
 
@@ -12,9 +12,13 @@ public class Colaborator implements SelfRenderable {
 		return name;
 	}
 
-	@Override
-	public void render(RenderTarget target) {
-		target.setDisplayText(name);
+	public static interface ColaboratorRenderTarget {
+
+		public void renderName(String name);
+	}
+
+	public void render(ColaboratorRenderTarget target) {
+		target.renderName(name);
 	}
 
 }

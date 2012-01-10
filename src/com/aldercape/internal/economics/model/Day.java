@@ -1,7 +1,8 @@
 package com.aldercape.internal.economics.model;
 
-public class Day implements SelfRenderable, Comparable<Day> {
+public class Day extends TimePoint implements Comparable<Day> {
 
+	public static final Day LAST_DAY = new Day(-1, Month.january(1000));
 	private int day;
 	private Month month;
 
@@ -85,6 +86,17 @@ public class Day implements SelfRenderable, Comparable<Day> {
 
 	@Override
 	public int compareTo(Day arg0) {
+		if (this == arg0) {
+			return 0;
+		}
+		if (this == LAST_DAY) {
+			return 1;
+		}
+
+		if (arg0 == LAST_DAY) {
+			return -1;
+		}
+
 		int result = month.compareTo(arg0.month);
 		if (result != 0) {
 			return result;
@@ -96,12 +108,27 @@ public class Day implements SelfRenderable, Comparable<Day> {
 		return month;
 	}
 
-	@Override
-	public void render(RenderTarget target) {
-		target.setDisplayText("" + day);
+	public static Day createFrom(MonthLiteral month, int day, int year) {
+		return new Day(day, Month.createFrom(month, year));
 	}
 
-	public static Day createFrom(MonthLiteral month, String day, String year) {
-		return new Day(Integer.parseInt(day), Month.createFrom(month, year));
+	public static interface DayRenderTarget {
+
+		public void renderDay(int day);
+
+		public void renderMonth(MonthLiteral month);
+
+		public void renderYear(int year);
+
+	}
+
+	public void render(DayRenderTarget target) {
+		target.renderDay(day);
+		target.renderMonth(month.month());
+		target.renderYear(month.year());
+	}
+
+	public boolean sameMonth(Day other) {
+		return month().equals(other.month);
 	}
 }

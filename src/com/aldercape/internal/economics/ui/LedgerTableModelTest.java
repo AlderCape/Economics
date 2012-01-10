@@ -13,6 +13,8 @@ import org.junit.Test;
 
 import com.aldercape.internal.economics.model.Client;
 import com.aldercape.internal.economics.model.Colaborator;
+import com.aldercape.internal.economics.model.Day;
+import com.aldercape.internal.economics.model.Entry;
 import com.aldercape.internal.economics.model.Euro;
 import com.aldercape.internal.economics.model.InvoiceEntry;
 import com.aldercape.internal.economics.model.Ledger;
@@ -34,34 +36,34 @@ public class LedgerTableModelTest {
 	@Test
 	public void oneRowPerEntry() {
 		assertEquals(0, model.getRowCount());
-		ledger.addEntry(new InvoiceEntry(Unit.days(2), new Euro(10), new Colaborator("Me"), new Client("Client"), Month.february(2010), Month.mars(2010)));
+		Entry<Day> entry = new Entry<Day>(Unit.days(2), new Euro(10), new Colaborator("Me"), new Client("Client"), Day.february(1, 2010)) {
+		};
+		ledger.addEntry(entry);
 		assertEquals(1, model.getRowCount());
 	}
 
 	@Test
 	public void columnValues() {
-		ledger.addEntry(new InvoiceEntry(Unit.days(2), new Euro(50), new Colaborator("Me"), new Client("Client"), Month.february(2010), Month.mars(2010)));
+		ledger.addEntry(new InvoiceEntry(Unit.days(2), new Euro(50), new Colaborator("Me"), new Client("Client"), Day.february(1, 2010)));
 		assertEquals(Month.february(2010), model.getValueAt(0, 0));
-		assertEquals(Month.mars(2010), model.getValueAt(0, 1));
-		assertEquals("Me", model.getValueAt(0, 2));
-		assertEquals("Client", model.getValueAt(0, 3));
-		assertEquals(Unit.days(2), model.getValueAt(0, 4));
-		assertEquals(new Euro(50), model.getValueAt(0, 5));
-		assertEquals(new Euro(100), model.getValueAt(0, 6));
-		assertEquals(new Euro(21), model.getValueAt(0, 7));
+		assertEquals("Me", model.getValueAt(0, 1));
+		assertEquals("Client", model.getValueAt(0, 2));
+		assertEquals(Unit.days(2), model.getValueAt(0, 3));
+		assertEquals(new Euro(50), model.getValueAt(0, 4));
+		assertEquals(new Euro(100), model.getValueAt(0, 5));
+		assertEquals(new Euro(21), model.getValueAt(0, 6));
 	}
 
 	@Test
 	public void columnCount() {
-		assertEquals(8, model.getColumnCount());
+		assertEquals(7, model.getColumnCount());
 		assertEquals("Bookkeeping month", model.getColumnName(0));
-		assertEquals("Cashflow month", model.getColumnName(1));
-		assertEquals("Person", model.getColumnName(2));
-		assertEquals("Client", model.getColumnName(3));
-		assertEquals("Days", model.getColumnName(4));
-		assertEquals("Daily rate", model.getColumnName(5));
-		assertEquals("Amount", model.getColumnName(6));
-		assertEquals("Vat", model.getColumnName(7));
+		assertEquals("Person", model.getColumnName(1));
+		assertEquals("Client", model.getColumnName(2));
+		assertEquals("Days", model.getColumnName(3));
+		assertEquals("Daily rate", model.getColumnName(4));
+		assertEquals("Amount", model.getColumnName(5));
+		assertEquals("Vat", model.getColumnName(6));
 
 		try {
 			model.getColumnName(model.getColumnCount());

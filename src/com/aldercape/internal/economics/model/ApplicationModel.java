@@ -12,8 +12,8 @@ public class ApplicationModel {
 		this.ledger = ledger;
 	}
 
-	public void addEntry(InvoiceEntry invoiceEntry) {
-		ledger.addEntry(invoiceEntry);
+	public void addEntry(Entry<Day> entry) {
+		ledger.addEntry(entry);
 		for (LedgerListener listener : ledgerListeners) {
 			listener.ledgerUpdated();
 		}
@@ -21,11 +21,6 @@ public class ApplicationModel {
 
 	public void addLedgerListner(LedgerListener ledgerListener) {
 		this.ledgerListeners.add(ledgerListener);
-
-	}
-
-	public void addEntry(TimeEntry entry) {
-		// TODO Auto-generated method stub
 
 	}
 

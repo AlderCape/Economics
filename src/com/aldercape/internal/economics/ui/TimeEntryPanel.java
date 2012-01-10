@@ -15,7 +15,6 @@ public class TimeEntryPanel extends AbstractEntryPanel {
 	private ColaboratorTextField person;
 	private ClientTextField client;
 	private DayTextField day;
-	private TimeEntry currentEntry;
 
 	public TimeEntryPanel(ApplicationModel model) {
 		super(model);
@@ -40,14 +39,17 @@ public class TimeEntryPanel extends AbstractEntryPanel {
 		add(day);
 	}
 
-	public void setEntry(TimeEntry populateWith) {
-		this.currentEntry = populateWith;
+	public void setEntry(TimeEntry populatWith) {
+		populatWith.units().render(units);
+		populatWith.rate().render(rate);
+		populatWith.colaborator().render(person);
+		populatWith.client().render(client);
+		populatWith.day().render(day);
 	}
 
 	@Override
 	public void addEntry() {
 		model.addEntry(new TimeEntry(units.createDomainObject(), rate.createDomainObject(), person.createDomainObject(), client.createDomainObject(), day.createDomainObject()));
-		model.addEntry(currentEntry);
 	}
 
 }

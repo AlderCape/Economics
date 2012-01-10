@@ -2,61 +2,44 @@ package com.aldercape.internal.economics.ui;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
-import javax.swing.JTextField;
+import javax.swing.JPanel;
 
 import com.aldercape.internal.economics.model.Day;
+import com.aldercape.internal.economics.model.Day.DayRenderTarget;
 import com.aldercape.internal.economics.model.MonthLiteral;
-import com.aldercape.internal.economics.model.RenderTarget;
 
-public class DayTextField extends JTextField implements RenderTarget {
+public class DayTextField extends JPanel implements DayRenderTarget {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -4011989890153583631L;
 	private JComboBox month;
-	private JTextField dayField;
-	private JTextField year;
+	private IntTextField dayField;
+	private IntTextField year;
 
 	public DayTextField(Day day) {
+		setLayout();
+		createComponents();
+		render(day);
+	}
+
+	private void setLayout() {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+	}
+
+	private void render(Day day) {
+		day.render(this);
+	}
+
+	private void createComponents() {
 		month = new JComboBox(MonthLiteral.values());
 		add(month);
-		dayField = new JTextField();
+		dayField = new IntTextField();
 		add(dayField);
-		year = new JTextField();
+		year = new IntTextField();
 		add(year);
-		day.month().render(new RenderTarget() {
-
-			@Override
-			public void setDisplayText(String text) {
-				year.setText(text);
-			}
-
-			@Override
-			public void setSelectedItem(Object item) {
-				month.setSelectedItem(item);
-			}
-		});
-		day.render(new RenderTarget() {
-
-			@Override
-			public void setDisplayText(String text) {
-				dayField.setText(text);
-			}
-
-			@Override
-			public void setSelectedItem(Object item) {
-				// TODO Auto-generated method stub
-
-			}
-		});
 	}
 
 	public Day createDomainObject() {
-		return Day.createFrom((MonthLiteral) month.getSelectedItem(), dayField.getText(), year.getText());
-	}
-
-	public MonthLiteral getSelectedItem() {
-		// TODO Auto-generated method stub
-		return null;
+		return Day.createFrom((MonthLiteral) month.getSelectedItem(), dayField.getValue(), year.getValue());
 	}
 
 	public Day getDay() {
@@ -64,15 +47,18 @@ public class DayTextField extends JTextField implements RenderTarget {
 	}
 
 	@Override
-	public void setDisplayText(String text) {
-		// TODO Auto-generated method stub
-
+	public void renderDay(int day) {
+		this.dayField.setValue(day);
 	}
 
 	@Override
-	public void setSelectedItem(Object item) {
-		// TODO Auto-generated method stub
+	public void renderMonth(MonthLiteral month) {
+		this.month.setSelectedItem(month);
+	}
 
+	@Override
+	public void renderYear(int year) {
+		this.year.setValue(year);
 	}
 
 }

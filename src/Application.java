@@ -9,6 +9,7 @@ import com.aldercape.internal.economics.model.Ledger;
 import com.aldercape.internal.economics.ui.AddEntryPanel;
 import com.aldercape.internal.economics.ui.InvoiceEntryPanel;
 import com.aldercape.internal.economics.ui.LedgerTableModel;
+import com.aldercape.internal.economics.ui.TimeEntryPanel;
 
 public class Application {
 
@@ -21,7 +22,10 @@ public class Application {
 		table.setModel(tableModel);
 		model.addLedgerListner(tableModel);
 		frame.add(new JScrollPane(table));
-		frame.add(new AddEntryPanel(new InvoiceEntryPanel(model)), BorderLayout.NORTH);
+		AddEntryPanel addEntryPanel = new AddEntryPanel();
+		addEntryPanel.addType("Invoice Entry", new InvoiceEntryPanel(model));
+		addEntryPanel.addType("Time Entry", new TimeEntryPanel(model));
+		frame.add(addEntryPanel, BorderLayout.SOUTH);
 
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

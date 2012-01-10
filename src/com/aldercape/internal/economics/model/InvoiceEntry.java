@@ -1,26 +1,21 @@
 package com.aldercape.internal.economics.model;
 
-public class InvoiceEntry extends Entry {
+public class InvoiceEntry extends Entry<Day> {
 
-	private Month bookkeepingMonth;
-	private Month cashflowMonth;
-
-	public InvoiceEntry(Unit units, Euro rate, Colaborator person, Client client, Month bookkeepingMonth, Month cashflowMonth) {
-		super(units, rate, person, client);
-		this.bookkeepingMonth = bookkeepingMonth;
-		this.cashflowMonth = cashflowMonth;
+	public InvoiceEntry(Unit units, Euro rate, Colaborator person, Client client, Day issueDate) {
+		super(units, rate, person, client, issueDate);
 	}
 
 	public Month bookkeepingMonth() {
-		return bookkeepingMonth;
+		return getTimePoint().month();
 	}
 
-	public Month cashflowMonth() {
-		return cashflowMonth;
+	public Day issueDate() {
+		return getTimePoint();
 	}
 
 	public InvoiceEntry addTime(Unit units) {
-		return new InvoiceEntry(units().plus(units), rate(), colaborator(), client(), bookkeepingMonth(), cashflowMonth());
+		return new InvoiceEntry(units().plus(units), rate(), colaborator(), client(), issueDate());
 	}
 
 }
