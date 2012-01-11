@@ -96,4 +96,38 @@ public class InvoiceEntryBuilderTest {
 		InvoiceEntry expected2 = new InvoiceEntry(Unit.days(1), new Euro(150), new Colaborator("Me"), new Client("Client"), Day.january(3, 2012));
 		assertInvoiceEntryEquals(expected2, iterator.next());
 	}
+
+	@Test
+	public void twoEqualEntries() {
+		Set<TimeEntry> entries = new HashSet<TimeEntry>();
+		entries.add(new TimeEntry(Unit.days(1), new Euro(50), new Colaborator("Me"), new Client("Client"), Day.january(3, 2012)));
+		entries.add(new TimeEntry(Unit.days(1), new Euro(50), new Colaborator("Me"), new Client("Client"), Day.january(3, 2012)));
+		InvoiceEntryBuilder builder = new InvoiceEntryBuilder(entries);
+		InvoiceEntry invoiceEntry = builder.createInvoiceEntry().iterator().next();
+		InvoiceEntry expected = new InvoiceEntry(Unit.days(2), new Euro(50), new Colaborator("Me"), new Client("Client"), Day.january(3, 2012));
+		assertInvoiceEntryEquals(expected, invoiceEntry);
+	}
+
+	@Test
+	public void manyEntriesSortedByColaborator() {
+		Set<TimeEntry> entries = new HashSet<TimeEntry>();
+		entries.add(new TimeEntry(Unit.days(1), new Euro(200), new Colaborator("Me"), new Client("Client"), Day.january(1, 2012)));
+		entries.add(new TimeEntry(Unit.days(1), new Euro(200), new Colaborator("Me"), new Client("Client"), Day.january(2, 2012)));
+		entries.add(new TimeEntry(Unit.days(1), new Euro(200), new Colaborator("Me"), new Client("Client"), Day.january(3, 2012)));
+		entries.add(new TimeEntry(Unit.days(1), new Euro(200), new Colaborator("Other"), new Client("Client"), Day.january(1, 2012)));
+		entries.add(new TimeEntry(Unit.days(1), new Euro(200), new Colaborator("Other"), new Client("Client"), Day.january(2, 2012)));
+		entries.add(new TimeEntry(Unit.days(1), new Euro(200), new Colaborator("Other"), new Client("Client"), Day.january(3, 2012)));
+
+		InvoiceEntryBuilder builder = new InvoiceEntryBuilder(entries);
+		Iterator<? extends InvoiceEntry> result = builder.createInvoiceEntry().iterator();
+		InvoiceEntry invoiceEntry = result.next();
+		InvoiceEntry expected = new InvoiceEntry(Unit.days(3), new Euro(200), new Colaborator("Me"), new Client("Client"), Day.january(1, 2012));
+		assertInvoiceEntryEquals(expected, invoiceEntry);
+
+		invoiceEntry = result.next();
+		expected = new InvoiceEntry(Unit.days(3), new Euro(200), new Colaborator("Other"), new Client("Client"), Day.january(1, 2012));
+		assertInvoiceEntryEquals(expected, invoiceEntry);
+
+	}
+
 }

@@ -2,7 +2,7 @@ package com.aldercape.internal.economics.ui;
 
 import javax.swing.JLabel;
 
-import com.aldercape.internal.economics.model.ApplicationModel;
+import com.aldercape.internal.economics.ApplicationModel;
 import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.Euro;
 import com.aldercape.internal.economics.model.TimeEntry;

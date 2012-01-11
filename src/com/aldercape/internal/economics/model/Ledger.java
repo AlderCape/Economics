@@ -60,4 +60,12 @@ public class Ledger {
 		return entries.get(index);
 	}
 
+	public void removeEntries(Set<? extends Entry<Day>> toRemove) {
+		entries.removeAll(toRemove);
+	}
+
+	public void addEntries(Set<? extends Entry<Day>> toAdd) {
+		entries.addAll(toAdd);
+	}
+
 }

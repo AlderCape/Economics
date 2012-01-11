@@ -1,10 +1,20 @@
-package com.aldercape.internal.economics.model;
+package com.aldercape.internal.economics;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.aldercape.internal.economics.model.Client;
+import com.aldercape.internal.economics.model.Colaborator;
+import com.aldercape.internal.economics.model.Day;
+import com.aldercape.internal.economics.model.Entry;
+import com.aldercape.internal.economics.model.Euro;
+import com.aldercape.internal.economics.model.InvoiceEntry;
+import com.aldercape.internal.economics.model.Ledger;
+import com.aldercape.internal.economics.model.LedgerListener;
+import com.aldercape.internal.economics.model.Unit;
 
 public class ApplicationModelTest {
 

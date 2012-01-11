@@ -47,4 +47,8 @@ public class AddEntryPanel extends JPanel {
 		jTabbedPane.setSelectedIndex(0);
 	}
 
+	public int getTabCount() {
+		return jTabbedPane.getTabCount();
+	}
+
 }

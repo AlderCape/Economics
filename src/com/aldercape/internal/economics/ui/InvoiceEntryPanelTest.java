@@ -10,7 +10,7 @@ import net.miginfocom.swing.MigLayout;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.aldercape.internal.economics.model.ApplicationModel;
+import com.aldercape.internal.economics.ApplicationModel;
 import com.aldercape.internal.economics.model.Client;
 import com.aldercape.internal.economics.model.Colaborator;
 import com.aldercape.internal.economics.model.Day;

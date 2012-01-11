@@ -1,11 +1,15 @@
 package com.aldercape.internal.economics.ui;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import javax.swing.table.AbstractTableModel;
 
 import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.Entry;
 import com.aldercape.internal.economics.model.Ledger;
 import com.aldercape.internal.economics.model.LedgerListener;
+import com.aldercape.internal.economics.model.TimeEntry;
 
 public class LedgerTableModel extends AbstractTableModel implements LedgerListener {
 
@@ -109,6 +113,17 @@ public class LedgerTableModel extends AbstractTableModel implements LedgerListen
 	@Override
 	public void ledgerUpdated() {
 		fireTableDataChanged();
+	}
+
+	public Set<TimeEntry> getRows(int[] rows) {
+		Set<TimeEntry> result = new LinkedHashSet<TimeEntry>();
+		for (int row : rows) {
+			Entry<Day> entry = ledger.entry(row);
+			if (entry instanceof TimeEntry) {
+				result.add((TimeEntry) entry);
+			}
+		}
+		return result;
 	}
 
 }

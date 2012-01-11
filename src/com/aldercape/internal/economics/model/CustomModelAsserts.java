@@ -12,4 +12,12 @@ public class CustomModelAsserts {
 		assertEquals(populateWith.getTimePoint(), entry.getTimePoint());
 	}
 
+	public static void assertTimeEntryEquals(TimeEntry expected, TimeEntry actual) {
+		assertEquals(expected.units(), actual.units());
+		assertEquals(expected.rate(), actual.rate());
+		assertEquals(expected.colaborator().name(), actual.colaborator().name());
+		assertEquals(expected.client().name(), actual.client().name());
+		assertEquals(expected.getTimePoint(), actual.getTimePoint());
+	}
+
 }

@@ -4,7 +4,7 @@ import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
 
-import com.aldercape.internal.economics.model.ApplicationModel;
+import com.aldercape.internal.economics.ApplicationModel;
 
 public abstract class AbstractEntryPanel extends JPanel {
 

@@ -14,10 +14,7 @@ public class InvoiceEntryBuilder {
 		this.entries = new TreeSet<TimeEntry>(new Comparator<TimeEntry>() {
 			@Override
 			public int compare(TimeEntry o1, TimeEntry o2) {
-				int result = o1.getTimePoint().compareTo(o2.getTimePoint());
-				if (result != 0) {
-					return result;
-				}
+				int result;
 				result = o1.colaborator().name().compareTo(o2.colaborator().name());
 				if (result != 0) {
 					return result;
@@ -26,7 +23,22 @@ public class InvoiceEntryBuilder {
 				if (result != 0) {
 					return result;
 				}
-				return o1.rate().compareTo(o2.rate());
+				result = o1.rate().compareTo(o2.rate());
+				if (result != 0) {
+					return result;
+				}
+				result = o1.getTimePoint().compareTo(o2.getTimePoint());
+				if (result != 0) {
+					return result;
+				}
+				if (o1.hashCode() == o2.hashCode()) {
+					return 0;
+				}
+				if (o1.hashCode() < o2.hashCode()) {
+					return 1;
+				}
+				return -1;
+
 			}
 		});
 		this.entries.addAll(entries);
