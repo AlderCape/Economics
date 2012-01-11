@@ -2,6 +2,7 @@ package com.aldercape.internal.economics.model;
 
 public class Client {
 
+	public static final Client UNKNOWN = new Client("");
 	private String name;
 
 	public Client(String name) {

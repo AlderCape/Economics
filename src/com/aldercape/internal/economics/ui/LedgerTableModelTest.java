@@ -26,17 +26,20 @@ public class LedgerTableModelTest {
 	private LedgerTableModel model;
 	private Ledger ledger;
 	private boolean tableChangedCalled;
+	private Colaborator me;
+	private Client myCompany = new Client("My Company");
 
 	@Before
 	public void setUp() {
 		ledger = new Ledger();
 		model = new LedgerTableModel(ledger);
+		me = new Colaborator("Me");
 	}
 
 	@Test
 	public void oneRowPerEntry() {
 		assertEquals(0, model.getRowCount());
-		Entry<Day> entry = new Entry<Day>(Unit.days(2), new Euro(10), new Colaborator("Me"), new Client("Client"), Day.february(1, 2010)) {
+		Entry<Day> entry = new Entry<Day>(Unit.days(2), new Euro(10), me, myCompany, Day.february(1, 2010)) {
 		};
 		ledger.addEntry(entry);
 		assertEquals(1, model.getRowCount());
@@ -44,10 +47,10 @@ public class LedgerTableModelTest {
 
 	@Test
 	public void columnValues() {
-		ledger.addEntry(new InvoiceEntry(Unit.days(2), new Euro(50), new Colaborator("Me"), new Client("Client"), Day.february(1, 2010)));
+		ledger.addEntry(new InvoiceEntry(Unit.days(2), new Euro(50), me, myCompany, Day.february(1, 2010)));
 		assertEquals(Month.february(2010), model.getValueAt(0, 0));
 		assertEquals("Me", model.getValueAt(0, 1));
-		assertEquals("Client", model.getValueAt(0, 2));
+		assertEquals("My Company", model.getValueAt(0, 2));
 		assertEquals(Unit.days(2), model.getValueAt(0, 3));
 		assertEquals(new Euro(50), model.getValueAt(0, 4));
 		assertEquals(new Euro(100), model.getValueAt(0, 5));

@@ -1,6 +1,6 @@
 package com.aldercape.internal.economics.model;
 
-public class Entry<T extends TimePoint> {
+public class Entry<T extends TimePoint> { // TODO should become an interface
 
 	private Colaborator colaborator;
 	private Client client;

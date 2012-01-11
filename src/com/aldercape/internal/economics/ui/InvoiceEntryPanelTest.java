@@ -24,12 +24,16 @@ public class InvoiceEntryPanelTest {
 	private InvoiceEntryPanel panel;
 	private Ledger ledger;
 	private ApplicationModel model;
+	private Colaborator me;
+	private Client myCompany;
 
 	@Before
 	public void setUp() {
 		ledger = new Ledger();
 		model = new ApplicationModel(ledger);
 		panel = new InvoiceEntryPanel(model);
+		me = new Colaborator("Me");
+		myCompany = new Client("My Company");
 	}
 
 	@Test
@@ -51,7 +55,7 @@ public class InvoiceEntryPanelTest {
 	@Test
 	public void addEntryShouldCreateANewIncomeEntryAndAddItToApplicationModel() {
 		assertEquals(0, ledger.numberOfEntries());
-		InvoiceEntry populateWith = new InvoiceEntry(Unit.days(19), new Euro(250), new Colaborator("Other"), new Client("Second client"), Day.january(1, 2011));
+		InvoiceEntry populateWith = new InvoiceEntry(Unit.days(19), new Euro(250), me, myCompany, Day.january(1, 2011));
 		panel.setEntry(populateWith);
 		panel.addEntry();
 		assertEquals(1, ledger.numberOfEntries());

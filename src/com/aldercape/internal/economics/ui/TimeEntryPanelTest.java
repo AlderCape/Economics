@@ -24,12 +24,16 @@ public class TimeEntryPanelTest {
 	private TimeEntryPanel panel;
 	private Ledger ledger;
 	private ApplicationModel model;
+	private Colaborator me;
+	private Client myCompany;
 
 	@Before
 	public void setUp() {
 		ledger = new Ledger();
 		model = new ApplicationModel(ledger);
 		panel = new TimeEntryPanel(model);
+		me = new Colaborator("Me");
+		myCompany = new Client("My Company");
 	}
 
 	@Test
@@ -55,7 +59,7 @@ public class TimeEntryPanelTest {
 	@Test
 	public void addEntryShouldCreateANewIncomeEntryAndAddItToApplicationModel() {
 		assertEquals(0, ledger.numberOfEntries());
-		TimeEntry populateWith = new TimeEntry(Unit.days(19), new Euro(250), new Colaborator("Other"), new Client("Second client"), Day.january(1, 2011));
+		TimeEntry populateWith = new TimeEntry(Unit.days(19), new Euro(250), me, myCompany, Day.january(1, 2011));
 		panel.setEntry(populateWith);
 		panel.addEntry();
 		Entry<Day> addedEntry = ledger.entry(0);

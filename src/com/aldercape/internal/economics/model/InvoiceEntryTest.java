@@ -8,10 +8,12 @@ import org.junit.Test;
 public class InvoiceEntryTest {
 
 	private InvoiceEntry entry;
+	private Client myCompany;
 
 	@Before
 	public void setUp() {
-		entry = new InvoiceEntry(Unit.days(2), new Euro(50), new Colaborator("Johan"), new Client("My client"), Day.january(1, 2011));
+		myCompany = new Client("My client");
+		entry = new InvoiceEntry(Unit.days(2), new Euro(50), new Colaborator("Johan"), myCompany, Day.january(1, 2011));
 	}
 
 	@Test

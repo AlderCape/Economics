@@ -1,6 +1,5 @@
 package com.aldercape.internal.economics.model;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -45,17 +44,15 @@ public class InvoiceEntryBuilder {
 	}
 
 	public Set<? extends InvoiceEntry> createInvoiceEntry() {
-		if (entries.isEmpty()) {
-			return Collections.singleton(new InvoiceEntry(Unit.createFrom(0), new Euro(0), new Colaborator(""), new Client(""), Day.LAST_DAY));
-		}
 		ComposedInvoiceEntry currentInvoiceEntry = null;
 		LinkedHashSet<ComposedInvoiceEntry> result = new LinkedHashSet<ComposedInvoiceEntry>();
 		for (TimeEntry entry : entries) {
 			if (currentInvoiceEntry == null || !belongsTo(currentInvoiceEntry, entry)) {
-				currentInvoiceEntry = new ComposedInvoiceEntry();
+				currentInvoiceEntry = new ComposedInvoiceEntry(entry);
 				result.add(currentInvoiceEntry);
+			} else {
+				currentInvoiceEntry.addTimeEntry(entry);
 			}
-			currentInvoiceEntry.addTimeEntry(entry);
 		}
 		return result;
 	}
@@ -68,8 +65,9 @@ public class InvoiceEntryBuilder {
 
 		private Set<TimeEntry> entries = new LinkedHashSet<TimeEntry>();
 
-		public ComposedInvoiceEntry() {
-			super(Unit.days(0), new Euro(0), new Colaborator(""), new Client(""), Day.LAST_DAY);
+		public ComposedInvoiceEntry(TimeEntry entry) {
+			super(Unit.days(0), new Euro(0), Colaborator.UNKNOWN, Client.UNKNOWN, Day.LAST_DAY);
+			addTimeEntry(entry);
 		}
 
 		public void addTimeEntry(TimeEntry entry) {

@@ -9,9 +9,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class LedgerTest {
+
+	private Colaborator me;
+	private Client myCompany;
+
+	@Before
+	public void setUp() {
+		me = new Colaborator("Me");
+		myCompany = new Client("My Company");
+	}
 
 	@Test
 	public void noEntries() {
@@ -24,7 +34,7 @@ public class LedgerTest {
 	@Test
 	public void oneEntry() {
 		Ledger ledger = new Ledger();
-		ledger.addEntry(new InvoiceEntry(Unit.days(2), new Euro(200), new Colaborator("Me"), new Client("Client"), Day.january(1, 2011)));
+		ledger.addEntry(new InvoiceEntry(Unit.days(2), new Euro(200), me, myCompany, Day.january(1, 2011)));
 		assertEquals("One entry after addition", 1, ledger.numberOfEntries());
 		assertEquals("Amount with one entry", new Euro(400), ledger.totalAmount());
 		assertEquals("BookkeepingMonths", Collections.singleton(Month.january(2011)), ledger.bookkeepingMonths());
@@ -47,8 +57,8 @@ public class LedgerTest {
 
 	private Ledger createLEdgerWithTwoEntries() {
 		Ledger ledger = new Ledger();
-		ledger.addEntry(new InvoiceEntry(Unit.days(2), new Euro(200), new Colaborator("Me"), new Client("Client"), Day.january(1, 2011)));
-		ledger.addEntry(new InvoiceEntry(Unit.days(3), new Euro(150), new Colaborator("Me"), new Client("Client"), Day.february(1, 2011)));
+		ledger.addEntry(new InvoiceEntry(Unit.days(2), new Euro(200), me, myCompany, Day.january(1, 2011)));
+		ledger.addEntry(new InvoiceEntry(Unit.days(3), new Euro(150), me, myCompany, Day.february(1, 2011)));
 		return ledger;
 	}
 
@@ -67,14 +77,14 @@ public class LedgerTest {
 
 	private Ledger createLedgerWithThreeEntries() {
 		Ledger ledger = createLEdgerWithTwoEntries();
-		ledger.addEntry(new InvoiceEntry(Unit.days(2), new Euro(200), new Colaborator("Someone"), new Client("Client"), Day.january(1, 2011)));
+		ledger.addEntry(new InvoiceEntry(Unit.days(2), new Euro(200), me, myCompany, Day.january(1, 2011)));
 		return ledger;
 	}
 
 	@Test
 	public void entriesShouldBeRetreivable() {
 		Ledger ledger = new Ledger();
-		InvoiceEntry entry = new InvoiceEntry(Unit.days(2), new Euro(200), new Colaborator("Me"), new Client("Client"), Day.january(1, 2011));
+		InvoiceEntry entry = new InvoiceEntry(Unit.days(2), new Euro(200), me, myCompany, Day.january(1, 2011));
 		ledger.addEntry(entry);
 		assertSame(entry, ledger.entry(0));
 	}

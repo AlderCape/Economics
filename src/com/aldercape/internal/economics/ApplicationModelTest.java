@@ -22,6 +22,7 @@ public class ApplicationModelTest {
 	private boolean addEntryCalled;
 	private Ledger ledger;
 	private ApplicationModel model;
+	private InvoiceEntry entry;
 
 	@Before
 	public void setUp() {
@@ -39,13 +40,14 @@ public class ApplicationModelTest {
 				ledgerUpdated = true;
 			}
 		});
+		entry = new InvoiceEntry(Unit.days(1), new Euro(10), new Colaborator("Col"), new Client("client"), Day.january(1, 2011));
 	}
 
 	@Test
 	public void addInvoiceEntryShouldCallLedgerAndNotifyListeners() {
 		assertFalse(addEntryCalled);
 		assertFalse(ledgerUpdated);
-		model.addEntry(new InvoiceEntry(Unit.days(1), new Euro(10), new Colaborator("Col"), new Client("client"), Day.january(1, 2011)));
+		model.addEntry(entry);
 		assertTrue(addEntryCalled);
 		assertTrue(ledgerUpdated);
 	}

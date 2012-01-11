@@ -2,6 +2,7 @@ package com.aldercape.internal.economics.model;
 
 public class Colaborator {
 
+	public static final Colaborator UNKNOWN = new Colaborator("");
 	private String name;
 
 	public Colaborator(String name) {

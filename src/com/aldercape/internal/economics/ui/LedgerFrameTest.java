@@ -31,16 +31,22 @@ public class LedgerFrameTest {
 
 	private LedgerFrame frame;
 	private ApplicationModel model;
+	private Colaborator other;
+	private Colaborator me;
+	private Client myCompany;
 
 	@Before
 	public void setUp() {
+		myCompany = new Client("My Company");
+		me = new Colaborator("Me");
+		other = new Colaborator("Other");
 		Ledger ledger = new Ledger();
-		ledger.addEntry(new TimeEntry(Unit.days(1), new Euro(200), new Colaborator("Me"), new Client("Client"), Day.january(1, 2012)));
-		ledger.addEntry(new TimeEntry(Unit.days(1), new Euro(200), new Colaborator("Me"), new Client("Client"), Day.january(2, 2012)));
-		ledger.addEntry(new TimeEntry(Unit.days(1), new Euro(200), new Colaborator("Me"), new Client("Client"), Day.january(3, 2012)));
-		ledger.addEntry(new TimeEntry(Unit.days(1), new Euro(200), new Colaborator("Other"), new Client("Client"), Day.january(1, 2012)));
-		ledger.addEntry(new TimeEntry(Unit.days(1), new Euro(200), new Colaborator("Other"), new Client("Client"), Day.january(2, 2012)));
-		ledger.addEntry(new TimeEntry(Unit.days(1), new Euro(200), new Colaborator("Other"), new Client("Client"), Day.january(3, 2012)));
+		ledger.addEntry(new TimeEntry(Unit.days(1), new Euro(200), me, myCompany, Day.january(1, 2012)));
+		ledger.addEntry(new TimeEntry(Unit.days(1), new Euro(200), me, myCompany, Day.january(2, 2012)));
+		ledger.addEntry(new TimeEntry(Unit.days(1), new Euro(200), me, myCompany, Day.january(3, 2012)));
+		ledger.addEntry(new TimeEntry(Unit.days(1), new Euro(200), other, myCompany, Day.january(1, 2012)));
+		ledger.addEntry(new TimeEntry(Unit.days(1), new Euro(200), other, myCompany, Day.january(2, 2012)));
+		ledger.addEntry(new TimeEntry(Unit.days(1), new Euro(200), other, myCompany, Day.january(3, 2012)));
 		model = new ApplicationModel(ledger);
 		frame = new LedgerFrame(model);
 	}
