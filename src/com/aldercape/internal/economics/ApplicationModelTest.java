@@ -6,8 +6,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.aldercape.internal.economics.model.Client;
-import com.aldercape.internal.economics.model.Colaborator;
 import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.Entry;
 import com.aldercape.internal.economics.model.Euro;
@@ -15,6 +13,7 @@ import com.aldercape.internal.economics.model.InvoiceEntry;
 import com.aldercape.internal.economics.model.Ledger;
 import com.aldercape.internal.economics.model.LedgerListener;
 import com.aldercape.internal.economics.model.Unit;
+import com.aldercape.internal.economics.ui.__TestObjectMother;
 
 public class ApplicationModelTest {
 
@@ -40,7 +39,8 @@ public class ApplicationModelTest {
 				ledgerUpdated = true;
 			}
 		});
-		entry = new InvoiceEntry(Unit.days(1), new Euro(10), new Colaborator("Col"), new Client("client"), Day.january(1, 2011));
+		__TestObjectMother objectMother = new __TestObjectMother();
+		entry = new InvoiceEntry(Unit.days(1), new Euro(10), objectMother.me(), objectMother.myCompany(), Day.january(1, 2011));
 	}
 
 	@Test

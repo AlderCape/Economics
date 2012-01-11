@@ -10,7 +10,6 @@ public class ColaboratorTest {
 	public void test() {
 		Colaborator colaborator = new Colaborator("Name");
 		assertEquals("Name", colaborator.name());
-
 	}
 
 }

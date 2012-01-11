@@ -12,6 +12,8 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.aldercape.internal.economics.ui.__TestObjectMother;
+
 public class InvoiceEntryBuilderTest {
 
 	private Colaborator other;
@@ -21,10 +23,11 @@ public class InvoiceEntryBuilderTest {
 
 	@Before
 	public void setUp() {
-		other = new Colaborator("Other");
-		me = new Colaborator("Me");
-		myCompany = new Client("My Company");
-		otherCompany = new Client("Other Company");
+		__TestObjectMother objectMother = new __TestObjectMother();
+		other = objectMother.other();
+		me = objectMother.me();
+		myCompany = objectMother.myCompany();
+		otherCompany = objectMother.otherCompany();
 	}
 
 	@Test

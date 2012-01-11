@@ -37,9 +37,10 @@ public class LedgerFrameTest {
 
 	@Before
 	public void setUp() {
-		myCompany = new Client("My Company");
-		me = new Colaborator("Me");
-		other = new Colaborator("Other");
+		__TestObjectMother objectMother = new __TestObjectMother();
+		myCompany = objectMother.myCompany();
+		me = objectMother.me();
+		other = objectMother.other();
 		Ledger ledger = new Ledger();
 		ledger.addEntry(new TimeEntry(Unit.days(1), new Euro(200), me, myCompany, Day.january(1, 2012)));
 		ledger.addEntry(new TimeEntry(Unit.days(1), new Euro(200), me, myCompany, Day.january(2, 2012)));

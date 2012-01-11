@@ -27,13 +27,15 @@ public class LedgerTableModelTest {
 	private Ledger ledger;
 	private boolean tableChangedCalled;
 	private Colaborator me;
-	private Client myCompany = new Client("My Company");
+	private Client myCompany;
 
 	@Before
 	public void setUp() {
+		__TestObjectMother objectMother = new __TestObjectMother();
 		ledger = new Ledger();
 		model = new LedgerTableModel(ledger);
-		me = new Colaborator("Me");
+		me = objectMother.me();
+		myCompany = objectMother.myCompany();
 	}
 
 	@Test

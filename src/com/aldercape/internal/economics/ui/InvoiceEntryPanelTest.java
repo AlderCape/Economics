@@ -29,11 +29,12 @@ public class InvoiceEntryPanelTest {
 
 	@Before
 	public void setUp() {
+		__TestObjectMother objectMother = new __TestObjectMother();
 		ledger = new Ledger();
 		model = new ApplicationModel(ledger);
 		panel = new InvoiceEntryPanel(model);
-		me = new Colaborator("Me");
-		myCompany = new Client("My Company");
+		me = objectMother.me();
+		myCompany = objectMother.myCompany();
 	}
 
 	@Test

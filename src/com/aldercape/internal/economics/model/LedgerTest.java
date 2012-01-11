@@ -12,6 +12,8 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.aldercape.internal.economics.ui.__TestObjectMother;
+
 public class LedgerTest {
 
 	private Colaborator me;
@@ -19,8 +21,9 @@ public class LedgerTest {
 
 	@Before
 	public void setUp() {
-		me = new Colaborator("Me");
-		myCompany = new Client("My Company");
+		__TestObjectMother objectMother = new __TestObjectMother();
+		me = objectMother.me();
+		myCompany = objectMother.myCompany();
 	}
 
 	@Test

@@ -32,8 +32,9 @@ public class TimeEntryPanelTest {
 		ledger = new Ledger();
 		model = new ApplicationModel(ledger);
 		panel = new TimeEntryPanel(model);
-		me = new Colaborator("Me");
-		myCompany = new Client("My Company");
+		__TestObjectMother objectMother = new __TestObjectMother();
+		me = objectMother.me();
+		myCompany = objectMother.myCompany();
 	}
 
 	@Test

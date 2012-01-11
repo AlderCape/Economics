@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.aldercape.internal.economics.ui.__TestObjectMother;
+
 public class InvoiceEntryTest {
 
 	private InvoiceEntry entry;
@@ -12,16 +14,18 @@ public class InvoiceEntryTest {
 
 	@Before
 	public void setUp() {
-		myCompany = new Client("My client");
-		entry = new InvoiceEntry(Unit.days(2), new Euro(50), new Colaborator("Johan"), myCompany, Day.january(1, 2011));
+		__TestObjectMother objectMother = new __TestObjectMother();
+		myCompany = objectMother.myCompany();
+		Colaborator me = objectMother.me();
+		entry = new InvoiceEntry(Unit.days(2), new Euro(50), me, myCompany, Day.january(1, 2011));
 	}
 
 	@Test
 	public void shouldHaveBasicInformation() {
 		assertEquals(new Euro(50), entry.rate());
 		assertEquals(new Euro(100), entry.amount());
-		assertEquals("Johan", entry.colaborator().name());
-		assertEquals("My client", entry.client().name());
+		assertEquals("Me", entry.colaborator().name());
+		assertEquals("My Company", entry.client().name());
 		assertEquals(Month.january(2011), entry.bookkeepingMonth());
 		assertEquals(new Euro(21), entry.vat());
 	}

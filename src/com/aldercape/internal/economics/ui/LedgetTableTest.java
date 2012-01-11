@@ -29,8 +29,9 @@ public class LedgetTableTest {
 
 	@Before
 	public void setUp() {
-		me = new Colaborator("Me");
-		myCompany = new Client("Client");
+		__TestObjectMother objectMother = new __TestObjectMother();
+		me = objectMother.me();
+		myCompany = objectMother.myCompany();
 	}
 
 	@Test

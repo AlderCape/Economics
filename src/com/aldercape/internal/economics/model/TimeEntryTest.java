@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.aldercape.internal.economics.ui.__TestObjectMother;
+
 public class TimeEntryTest {
 
 	private Colaborator me;
@@ -12,8 +14,9 @@ public class TimeEntryTest {
 
 	@Before
 	public void setUp() {
-		me = new Colaborator("Me");
-		myCompany = new Client("My Company");
+		__TestObjectMother objectMother = new __TestObjectMother();
+		me = objectMother.me();
+		myCompany = objectMother.myCompany();
 	}
 
 	@Test
