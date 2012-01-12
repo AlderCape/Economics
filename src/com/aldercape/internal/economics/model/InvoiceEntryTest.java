@@ -9,7 +9,7 @@ import com.aldercape.internal.economics.ui.__TestObjectMother;
 
 public class InvoiceEntryTest {
 
-	private InvoiceEntry entry;
+	private SimpleInvoiceEntry entry;
 	private Client myCompany;
 
 	@Before
@@ -17,7 +17,7 @@ public class InvoiceEntryTest {
 		__TestObjectMother objectMother = new __TestObjectMother();
 		myCompany = objectMother.myCompany();
 		Colaborator me = objectMother.me();
-		entry = new InvoiceEntry(Unit.days(2), new Euro(50), me, myCompany, Day.january(1, 2011));
+		entry = new SimpleInvoiceEntry(Unit.days(2), new Euro(50), me, myCompany, Day.january(1, 2011));
 	}
 
 	@Test

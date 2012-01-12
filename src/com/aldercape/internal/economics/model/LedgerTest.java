@@ -37,7 +37,7 @@ public class LedgerTest {
 	@Test
 	public void oneEntry() {
 		Ledger ledger = new Ledger();
-		ledger.addEntry(new InvoiceEntry(Unit.days(2), new Euro(200), me, myCompany, Day.january(1, 2011)));
+		ledger.addEntry(new SimpleInvoiceEntry(Unit.days(2), new Euro(200), me, myCompany, Day.january(1, 2011)));
 		assertEquals("One entry after addition", 1, ledger.numberOfEntries());
 		assertEquals("Amount with one entry", new Euro(400), ledger.totalAmount());
 		assertEquals("BookkeepingMonths", Collections.singleton(Month.january(2011)), ledger.bookkeepingMonths());
@@ -60,8 +60,8 @@ public class LedgerTest {
 
 	private Ledger createLEdgerWithTwoEntries() {
 		Ledger ledger = new Ledger();
-		ledger.addEntry(new InvoiceEntry(Unit.days(2), new Euro(200), me, myCompany, Day.january(1, 2011)));
-		ledger.addEntry(new InvoiceEntry(Unit.days(3), new Euro(150), me, myCompany, Day.february(1, 2011)));
+		ledger.addEntry(new SimpleInvoiceEntry(Unit.days(2), new Euro(200), me, myCompany, Day.january(1, 2011)));
+		ledger.addEntry(new SimpleInvoiceEntry(Unit.days(3), new Euro(150), me, myCompany, Day.february(1, 2011)));
 		return ledger;
 	}
 
@@ -80,14 +80,14 @@ public class LedgerTest {
 
 	private Ledger createLedgerWithThreeEntries() {
 		Ledger ledger = createLEdgerWithTwoEntries();
-		ledger.addEntry(new InvoiceEntry(Unit.days(2), new Euro(200), me, myCompany, Day.january(1, 2011)));
+		ledger.addEntry(new SimpleInvoiceEntry(Unit.days(2), new Euro(200), me, myCompany, Day.january(1, 2011)));
 		return ledger;
 	}
 
 	@Test
 	public void entriesShouldBeRetreivable() {
 		Ledger ledger = new Ledger();
-		InvoiceEntry entry = new InvoiceEntry(Unit.days(2), new Euro(200), me, myCompany, Day.january(1, 2011));
+		SimpleInvoiceEntry entry = new SimpleInvoiceEntry(Unit.days(2), new Euro(200), me, myCompany, Day.january(1, 2011));
 		ledger.addEntry(entry);
 		assertSame(entry, ledger.entry(0));
 	}

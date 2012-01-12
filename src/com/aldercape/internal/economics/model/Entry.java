@@ -1,47 +1,19 @@
 package com.aldercape.internal.economics.model;
 
-public class Entry<T extends TimePoint> { // TODO should become an interface
+public interface Entry<T extends TimePoint> {
 
-	private Colaborator colaborator;
-	private Client client;
-	private Euro rate;
-	private Unit units;
-	private T time;
+	public Euro amount();
 
-	public Entry(Unit units, Euro rate, Colaborator colaborator, Client client, T time) {
-		this.units = units;
-		this.rate = rate;
-		this.colaborator = colaborator;
-		this.client = client;
-		this.time = time;
-	}
+	public T getTimePoint();
 
-	public Client client() {
-		return client;
-	}
+	public Colaborator colaborator();
 
-	public Colaborator colaborator() {
-		return colaborator;
-	}
+	public Client client();
 
-	public Euro rate() {
-		return rate;
-	}
+	public Unit units();
 
-	public Unit units() {
-		return units;
-	}
+	public Euro rate();
 
-	public Euro amount() {
-		return rate().times(units().days());
-	}
-
-	public Euro vat() {
-		return amount().percentage(21);
-	}
-
-	public T getTimePoint() {
-		return time;
-	}
+	public Euro vat();
 
 }

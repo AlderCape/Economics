@@ -14,9 +14,9 @@ import org.junit.Test;
 import com.aldercape.internal.economics.model.Client;
 import com.aldercape.internal.economics.model.Colaborator;
 import com.aldercape.internal.economics.model.Day;
-import com.aldercape.internal.economics.model.Entry;
+import com.aldercape.internal.economics.model.AbstractEntry;
 import com.aldercape.internal.economics.model.Euro;
-import com.aldercape.internal.economics.model.InvoiceEntry;
+import com.aldercape.internal.economics.model.SimpleInvoiceEntry;
 import com.aldercape.internal.economics.model.Ledger;
 import com.aldercape.internal.economics.model.Month;
 import com.aldercape.internal.economics.model.Unit;
@@ -41,7 +41,7 @@ public class LedgerTableModelTest {
 	@Test
 	public void oneRowPerEntry() {
 		assertEquals(0, model.getRowCount());
-		Entry<Day> entry = new Entry<Day>(Unit.days(2), new Euro(10), me, myCompany, Day.february(1, 2010)) {
+		AbstractEntry<Day> entry = new AbstractEntry<Day>(Unit.days(2), new Euro(10), me, myCompany, Day.february(1, 2010)) {
 		};
 		ledger.addEntry(entry);
 		assertEquals(1, model.getRowCount());
@@ -49,7 +49,7 @@ public class LedgerTableModelTest {
 
 	@Test
 	public void columnValues() {
-		ledger.addEntry(new InvoiceEntry(Unit.days(2), new Euro(50), me, myCompany, Day.february(1, 2010)));
+		ledger.addEntry(new SimpleInvoiceEntry(Unit.days(2), new Euro(50), me, myCompany, Day.february(1, 2010)));
 		assertEquals(Month.february(2010), model.getValueAt(0, 0));
 		assertEquals("Me", model.getValueAt(0, 1));
 		assertEquals("My Company", model.getValueAt(0, 2));

@@ -61,12 +61,11 @@ public class InvoiceEntryBuilder {
 		return currentInvoiceEntry.getTimePoint().sameMonth(entry.getTimePoint()) && currentInvoiceEntry.colaborator().name().equals(entry.colaborator().name()) && currentInvoiceEntry.client().name().equals(entry.client().name()) && currentInvoiceEntry.rate().equals(entry.rate());
 	}
 
-	private class ComposedInvoiceEntry extends InvoiceEntry {
+	private class ComposedInvoiceEntry implements InvoiceEntry {
 
 		private Set<TimeEntry> entries = new LinkedHashSet<TimeEntry>();
 
 		public ComposedInvoiceEntry(TimeEntry entry) {
-			super(Unit.days(0), new Euro(0), Colaborator.UNKNOWN, Client.UNKNOWN, Day.LAST_DAY);
 			addTimeEntry(entry);
 		}
 
@@ -113,6 +112,16 @@ public class InvoiceEntryBuilder {
 				return b;
 			}
 			return a;
+		}
+
+		@Override
+		public Euro amount() {
+			return rate().times(units().days());
+		}
+
+		@Override
+		public Euro vat() {
+			return amount().percentage(21);
 		}
 
 	}

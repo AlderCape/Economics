@@ -9,7 +9,7 @@ import org.junit.Test;
 import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.Entry;
 import com.aldercape.internal.economics.model.Euro;
-import com.aldercape.internal.economics.model.InvoiceEntry;
+import com.aldercape.internal.economics.model.SimpleInvoiceEntry;
 import com.aldercape.internal.economics.model.Ledger;
 import com.aldercape.internal.economics.model.LedgerListener;
 import com.aldercape.internal.economics.model.Unit;
@@ -21,7 +21,7 @@ public class ApplicationModelTest {
 	private boolean addEntryCalled;
 	private Ledger ledger;
 	private ApplicationModel model;
-	private InvoiceEntry entry;
+	private SimpleInvoiceEntry entry;
 
 	@Before
 	public void setUp() {
@@ -40,7 +40,7 @@ public class ApplicationModelTest {
 			}
 		});
 		__TestObjectMother objectMother = new __TestObjectMother();
-		entry = new InvoiceEntry(Unit.days(1), new Euro(10), objectMother.me(), objectMother.myCompany(), Day.january(1, 2011));
+		entry = new SimpleInvoiceEntry(Unit.days(1), new Euro(10), objectMother.me(), objectMother.myCompany(), Day.january(1, 2011));
 	}
 
 	@Test

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.aldercape.internal.economics.model.AbstractEntry;
 import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.Entry;
 import com.aldercape.internal.economics.model.Ledger;
@@ -18,7 +19,7 @@ public class ApplicationModel {
 		this.ledger = ledger;
 	}
 
-	public void addEntry(Entry<Day> entry) {
+	public void addEntry(AbstractEntry<Day> entry) {
 		ledger.addEntry(entry);
 		notifyListeners();
 	}

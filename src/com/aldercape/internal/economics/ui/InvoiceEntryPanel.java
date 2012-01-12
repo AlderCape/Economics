@@ -5,7 +5,7 @@ import javax.swing.JLabel;
 import com.aldercape.internal.economics.ApplicationModel;
 import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.Euro;
-import com.aldercape.internal.economics.model.InvoiceEntry;
+import com.aldercape.internal.economics.model.SimpleInvoiceEntry;
 
 public class InvoiceEntryPanel extends AbstractEntryPanel {
 
@@ -44,10 +44,10 @@ public class InvoiceEntryPanel extends AbstractEntryPanel {
 
 	@Override
 	public void addEntry() {
-		applicationModel.addEntry(new InvoiceEntry(units.createDomainObject(), rate.createDomainObject(), person.createDomainObject(), client.createDomainObject(), bookkeepingMonth.createDomainObject()));
+		applicationModel.addEntry(new SimpleInvoiceEntry(units.createDomainObject(), rate.createDomainObject(), person.createDomainObject(), client.createDomainObject(), bookkeepingMonth.createDomainObject()));
 	}
 
-	public void setEntry(InvoiceEntry populatWith) {
+	public void setEntry(SimpleInvoiceEntry populatWith) {
 		populatWith.units().render(units);
 		populatWith.rate().render(rate);
 		populatWith.colaborator().render(person);

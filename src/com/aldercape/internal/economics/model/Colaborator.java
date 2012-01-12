@@ -14,7 +14,6 @@ public class Colaborator {
 	}
 
 	public static interface ColaboratorRenderTarget {
-
 		public void renderName(String name);
 	}
 
