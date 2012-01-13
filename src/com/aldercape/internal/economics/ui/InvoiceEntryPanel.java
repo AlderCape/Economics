@@ -14,12 +14,12 @@ public class InvoiceEntryPanel extends AbstractEntryPanel {
 	private UnitTextField units;
 	private EuroTextField rate;
 	private ColaboratorTextField person;
-	private ClientTextField client;
+	private ClientField client;
 	private DayTextField bookkeepingMonth;
 
-	public InvoiceEntryPanel(ApplicationModel ledger) {
-		super(ledger);
-		this.applicationModel = ledger;
+	public InvoiceEntryPanel(ApplicationModel model) {
+		super(model);
+		this.applicationModel = model;
 
 		add(new JLabel("Unit"));
 		units = new UnitTextField();
@@ -34,7 +34,7 @@ public class InvoiceEntryPanel extends AbstractEntryPanel {
 		add(person);
 
 		add(new JLabel("Client"));
-		client = new ClientTextField();
+		client = new ClientField(model.getClientRepository());
 		add(client);
 
 		add(new JLabel("Bookkeeping month"));

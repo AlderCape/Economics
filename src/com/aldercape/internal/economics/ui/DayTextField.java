@@ -11,7 +11,7 @@ import com.aldercape.internal.economics.model.MonthLiteral;
 public class DayTextField extends JPanel implements DayRenderTarget {
 
 	private static final long serialVersionUID = -4011989890153583631L;
-	private JComboBox month;
+	private JComboBox<MonthLiteral> month;
 	private IntTextField dayField;
 	private IntTextField year;
 
@@ -30,7 +30,7 @@ public class DayTextField extends JPanel implements DayRenderTarget {
 	}
 
 	private void createComponents() {
-		month = new JComboBox(MonthLiteral.values());
+		month = new JComboBox<MonthLiteral>(MonthLiteral.values());
 		add(month);
 		dayField = new IntTextField();
 		add(dayField);

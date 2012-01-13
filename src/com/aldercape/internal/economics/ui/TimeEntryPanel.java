@@ -13,7 +13,7 @@ public class TimeEntryPanel extends AbstractEntryPanel {
 	private UnitTextField units;
 	private EuroTextField rate;
 	private ColaboratorTextField person;
-	private ClientTextField client;
+	private ClientField client;
 	private DayTextField day;
 
 	public TimeEntryPanel(ApplicationModel model) {
@@ -31,7 +31,7 @@ public class TimeEntryPanel extends AbstractEntryPanel {
 		add(person);
 
 		add(new JLabel("Client"));
-		client = new ClientTextField();
+		client = new ClientField(model.getClientRepository());
 		add(client);
 
 		add(new JLabel("Day"));

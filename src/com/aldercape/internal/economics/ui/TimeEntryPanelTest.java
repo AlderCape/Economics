@@ -35,6 +35,7 @@ public class TimeEntryPanelTest {
 		__TestObjectMother objectMother = new __TestObjectMother();
 		me = objectMother.me();
 		myCompany = objectMother.myCompany();
+		model.getClientRepository().add(myCompany);
 	}
 
 	@Test

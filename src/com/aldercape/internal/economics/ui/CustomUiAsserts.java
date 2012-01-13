@@ -18,7 +18,7 @@ public class CustomUiAsserts {
 	}
 
 	public static void assertFormClientField(String message, Component label, Component field, JPanel panel) {
-		CustomUiAsserts.assertFormField(message, label, ClientTextField.class, field, panel);
+		CustomUiAsserts.assertFormField(message, label, ClientField.class, field, panel);
 	}
 
 	public static void assertFormUnitField(String message, Component label, Component field, JPanel panel) {

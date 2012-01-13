@@ -36,13 +36,14 @@ public class DayFieldTest {
 
 	@Test
 	public void comboboxShouldHaveAllMonths() {
-		JComboBox monthCombo = getMonthComboBox();
+		JComboBox<MonthLiteral> monthCombo = getMonthComboBox();
 		assertEquals(12, monthCombo.getModel().getSize());
 		assertEquals("valus should be month enumeration", MonthLiteral.class, monthCombo.getModel().getElementAt(0).getClass());
 	}
 
-	private JComboBox getMonthComboBox() {
-		return (JComboBox) components[0];
+	@SuppressWarnings("unchecked")
+	private JComboBox<MonthLiteral> getMonthComboBox() {
+		return (JComboBox<MonthLiteral>) components[0];
 	}
 
 	// @Test

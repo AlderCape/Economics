@@ -20,4 +20,8 @@ public class CustomModelAsserts {
 		assertEquals(expected.getTimePoint(), actual.getTimePoint());
 	}
 
+	public static void assertClientEquals(Client expected, Client actual) {
+		assertEquals(expected.name(), actual.name());
+	}
+
 }

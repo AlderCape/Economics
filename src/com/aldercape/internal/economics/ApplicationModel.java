@@ -5,15 +5,21 @@ import java.util.List;
 import java.util.Set;
 
 import com.aldercape.internal.economics.model.AbstractEntry;
+import com.aldercape.internal.economics.model.ClientRepository;
+import com.aldercape.internal.economics.model.ColaboratorRepository;
 import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.Entry;
 import com.aldercape.internal.economics.model.Ledger;
 import com.aldercape.internal.economics.model.LedgerListener;
+import com.aldercape.internal.economics.persistence.InMemoryClientRepository;
+import com.aldercape.internal.economics.persistence.InMemoryColaboratorRepository;
 
 public class ApplicationModel {
 
 	private List<LedgerListener> ledgerListeners = new ArrayList<LedgerListener>();
 	private Ledger ledger;
+	private InMemoryClientRepository clientRepository = new InMemoryClientRepository();
+	private InMemoryColaboratorRepository colaboratorRepository = new InMemoryColaboratorRepository();
 
 	public ApplicationModel(Ledger ledger) {
 		this.ledger = ledger;
@@ -47,6 +53,14 @@ public class ApplicationModel {
 	public void addEntries(Set<? extends Entry<Day>> toAdd) {
 		ledger.addEntries(toAdd);
 		notifyListeners();
+	}
+
+	public ClientRepository getClientRepository() {
+		return clientRepository;
+	}
+
+	public ColaboratorRepository getColaboratorRepository() {
+		return colaboratorRepository;
 	}
 
 }
