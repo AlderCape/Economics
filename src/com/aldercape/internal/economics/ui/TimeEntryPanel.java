@@ -12,7 +12,7 @@ public class TimeEntryPanel extends AbstractEntryPanel {
 	private static final long serialVersionUID = 1L;
 	private UnitTextField units;
 	private EuroTextField rate;
-	private ColaboratorTextField person;
+	private ColaboratorField person;
 	private ClientField client;
 	private DayTextField day;
 
@@ -27,7 +27,7 @@ public class TimeEntryPanel extends AbstractEntryPanel {
 		add(rate);
 
 		add(new JLabel("Person"));
-		person = new ColaboratorTextField();
+		person = new ColaboratorField(model.getColaboratorRepository());
 		add(person);
 
 		add(new JLabel("Client"));

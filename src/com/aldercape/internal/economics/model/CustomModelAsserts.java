@@ -24,4 +24,8 @@ public class CustomModelAsserts {
 		assertEquals(expected.name(), actual.name());
 	}
 
+	public static void assertColaboratorEquals(Colaborator expected, Colaborator actual) {
+		assertEquals(expected.name(), actual.name());
+	}
+
 }

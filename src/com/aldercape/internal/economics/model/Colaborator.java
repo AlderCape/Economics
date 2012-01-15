@@ -14,11 +14,11 @@ public class Colaborator {
 	}
 
 	public static interface ColaboratorRenderTarget {
-		public void renderName(String name);
+		public void renderName(Colaborator name);
 	}
 
 	public void render(ColaboratorRenderTarget target) {
-		target.renderName(name);
+		target.renderName(this);
 	}
 
 }

@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.aldercape.internal.economics.model.Client;
-import com.aldercape.internal.economics.model.ClientRepository.Listener;
+import com.aldercape.internal.economics.model.BaseRepository.Listener;
 
 public class InMemoryClientRepositoryTest extends __InMemoryRepositoryTest<Client> implements Listener {
 
