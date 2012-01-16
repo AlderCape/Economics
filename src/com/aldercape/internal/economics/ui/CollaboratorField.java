@@ -21,7 +21,15 @@ public class CollaboratorField extends JComboBox<Collaborator> implements Collab
 	}
 
 	@Override
-	public void renderName(Collaborator name) {
+	public void renderFullName(Collaborator name) {
 		model.setSelectedItem(name);
+	}
+
+	@Override
+	public void renderFirstName(String name) {
+	}
+
+	@Override
+	public void renderLastName(String name) {
 	}
 }

@@ -14,11 +14,13 @@ public class CollaboratorPanel extends AbstractEntryPanel implements Collaborato
 		firstName = new StringTextField();
 		add(firstName);
 		add(new JLabel("Last name"));
-		add(new StringTextField());
+		lastname = new StringTextField();
+		add(lastname);
 	}
 
 	private static final long serialVersionUID = -2723575180585263347L;
 	private StringTextField firstName;
+	private StringTextField lastname;
 
 	@Override
 	public void addEntry() {
@@ -26,7 +28,7 @@ public class CollaboratorPanel extends AbstractEntryPanel implements Collaborato
 	}
 
 	private Collaborator createCollaborator() {
-		return new Collaborator(firstName.getValue());
+		return new Collaborator(firstName.getValue(), lastname.getValue());
 	}
 
 	public void setEntry(Collaborator collaborator) {
@@ -34,8 +36,17 @@ public class CollaboratorPanel extends AbstractEntryPanel implements Collaborato
 	}
 
 	@Override
-	public void renderName(Collaborator name) {
-		firstName.setValue(name.name());
+	public void renderFullName(Collaborator name) {
+	}
+
+	@Override
+	public void renderFirstName(String name) {
+		firstName.setValue(name);
+	}
+
+	@Override
+	public void renderLastName(String name) {
+		lastname.setValue(name);
 	}
 
 }

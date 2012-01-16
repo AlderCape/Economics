@@ -24,7 +24,7 @@ public class InvoiceEntryTest {
 	public void shouldHaveBasicInformation() {
 		assertEquals(new Euro(50), entry.rate());
 		assertEquals(new Euro(100), entry.amount());
-		assertEquals("Me", entry.collaborator().name());
+		assertEquals("Me Surname", entry.collaborator().fullname());
 		assertEquals("My Company", entry.client().name());
 		assertEquals(Month.january(2011), entry.bookkeepingMonth());
 		assertEquals(new Euro(21), entry.vat());

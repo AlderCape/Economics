@@ -8,8 +8,10 @@ public class CollaboratorTest {
 
 	@Test
 	public void test() {
-		Collaborator collaborator = new Collaborator("Firstname");
-		assertEquals("Firstname", collaborator.name());
+		Collaborator collaborator = new Collaborator("Firstname", "Lastname");
+		assertEquals("Firstname Lastname", collaborator.fullname());
+		assertEquals("Firstname", collaborator.firstname());
+		assertEquals("Lastname", collaborator.lastname());
 	}
 
 }

@@ -37,7 +37,7 @@ public class CollaboratorPanelTest {
 
 	@Test
 	public void addEntryShouldCreateANewIncomeEntryAndAddItToApplicationModel() {
-		Collaborator populateWith = new Collaborator("Johan Aludden");
+		Collaborator populateWith = new Collaborator("Johan", "Aludden");
 		panel.setEntry(populateWith);
 		assertEquals(0, model.getCollaboratorRepository().getAll().size());
 		panel.addEntry();

@@ -68,7 +68,7 @@ public class TimeEntryPanelTest {
 		assertNotNull(addedEntry);
 		assertEquals(populateWith.units(), addedEntry.units());
 		assertEquals(populateWith.rate(), addedEntry.rate());
-		assertEquals(populateWith.collaborator().name(), addedEntry.collaborator().name());
+		assertEquals(populateWith.collaborator().fullname(), addedEntry.collaborator().fullname());
 		assertEquals(populateWith.client().name(), addedEntry.client().name());
 		assertEquals(populateWith.day(), addedEntry.getTimePoint());
 	}

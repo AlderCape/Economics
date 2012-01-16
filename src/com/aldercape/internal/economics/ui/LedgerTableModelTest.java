@@ -11,14 +11,14 @@ import javax.swing.event.TableModelListener;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.aldercape.internal.economics.model.AbstractEntry;
 import com.aldercape.internal.economics.model.Client;
 import com.aldercape.internal.economics.model.Collaborator;
 import com.aldercape.internal.economics.model.Day;
-import com.aldercape.internal.economics.model.AbstractEntry;
 import com.aldercape.internal.economics.model.Euro;
-import com.aldercape.internal.economics.model.SimpleInvoiceEntry;
 import com.aldercape.internal.economics.model.Ledger;
 import com.aldercape.internal.economics.model.Month;
+import com.aldercape.internal.economics.model.SimpleInvoiceEntry;
 import com.aldercape.internal.economics.model.Unit;
 
 public class LedgerTableModelTest {
@@ -51,7 +51,7 @@ public class LedgerTableModelTest {
 	public void columnValues() {
 		ledger.addEntry(new SimpleInvoiceEntry(Unit.days(2), new Euro(50), me, myCompany, Day.february(1, 2010)));
 		assertEquals(Month.february(2010), model.getValueAt(0, 0));
-		assertEquals("Me", model.getValueAt(0, 1));
+		assertEquals("Me Surname", model.getValueAt(0, 1));
 		assertEquals("My Company", model.getValueAt(0, 2));
 		assertEquals(Unit.days(2), model.getValueAt(0, 3));
 		assertEquals(new Euro(50), model.getValueAt(0, 4));

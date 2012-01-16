@@ -7,8 +7,8 @@ public class __TestObjectMother {
 
 	private Client myCompany = new Client("My Company");
 	private Client otherCompany = new Client("Other Company");
-	private Collaborator me = new Collaborator("Me");
-	private Collaborator other = new Collaborator("Other");
+	private Collaborator me = new Collaborator("Me", "Surname");
+	private Collaborator other = new Collaborator("Other", "Something");
 
 	public Client otherCompany() {
 		return otherCompany;
