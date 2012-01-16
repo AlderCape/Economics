@@ -8,16 +8,16 @@ import com.aldercape.internal.economics.model.BaseRepository;
 
 public abstract class InMemoryRepository<T> implements BaseRepository<T> {
 
-	private List<T> colaborators = new ArrayList<T>();
+	private List<T> entries = new ArrayList<T>();
 	private List<Listener> listeners = new ArrayList<Listener>();
 
 	@Override
 	public List<T> getAll() {
-		return Collections.unmodifiableList(colaborators);
+		return Collections.unmodifiableList(entries);
 	}
 
 	public void add(T toAdd) {
-		colaborators.add(toAdd);
+		entries.add(toAdd);
 		notifyListeners();
 	}
 

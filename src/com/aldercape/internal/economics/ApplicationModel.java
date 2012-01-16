@@ -12,14 +12,14 @@ import com.aldercape.internal.economics.model.Entry;
 import com.aldercape.internal.economics.model.Ledger;
 import com.aldercape.internal.economics.model.LedgerListener;
 import com.aldercape.internal.economics.persistence.InMemoryClientRepository;
-import com.aldercape.internal.economics.persistence.InMemoryColaboratorRepository;
+import com.aldercape.internal.economics.persistence.InMemoryCollaboratorRepository;
 
 public class ApplicationModel {
 
 	private List<LedgerListener> ledgerListeners = new ArrayList<LedgerListener>();
 	private Ledger ledger;
 	private InMemoryClientRepository clientRepository = new InMemoryClientRepository();
-	private InMemoryColaboratorRepository colaboratorRepository = new InMemoryColaboratorRepository();
+	private InMemoryCollaboratorRepository collaboratorRepository = new InMemoryCollaboratorRepository();
 
 	public ApplicationModel(Ledger ledger) {
 		this.ledger = ledger;
@@ -59,8 +59,8 @@ public class ApplicationModel {
 		return clientRepository;
 	}
 
-	public CollaboratorRepository getColaboratorRepository() {
-		return colaboratorRepository;
+	public CollaboratorRepository getCollaboratorRepository() {
+		return collaboratorRepository;
 	}
 
 }

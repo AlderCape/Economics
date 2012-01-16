@@ -48,7 +48,7 @@ public class InvoiceEntryPanelTest {
 		assertEquals("# of components", 10, components.length);
 		CustomUiAsserts.assertFormUnitField("Unit", components[0], components[1], panel);
 		CustomUiAsserts.assertFormEuroField("Rate", components[2], components[3], panel);
-		CustomUiAsserts.assertFormColaboratorField("Person", components[4], components[5], panel);
+		CustomUiAsserts.assertFormCollaboratorField("Person", components[4], components[5], panel);
 		CustomUiAsserts.assertFormClientField("Client", components[6], components[7], panel);
 		CustomUiAsserts.assertFormDayField("Bookkeeping month", components[8], components[9], panel);
 	}

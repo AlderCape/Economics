@@ -73,7 +73,7 @@ public class InvoiceEntryBuilderTest {
 	}
 
 	@Test
-	public void twoEntriesDifferentColaborators() {
+	public void twoEntriesDifferentCollaborators() {
 		Set<TimeEntry> entries = new HashSet<TimeEntry>();
 		entries.add(new TimeEntry(Unit.days(1), new Euro(50), me, myCompany, Day.january(3, 2012)));
 		entries.add(new TimeEntry(Unit.days(1), new Euro(50), other, myCompany, Day.january(3, 2012)));
@@ -126,7 +126,7 @@ public class InvoiceEntryBuilderTest {
 	}
 
 	@Test
-	public void manyEntriesSortedByColaborator() {
+	public void manyEntriesSortedByCollaborator() {
 		Set<TimeEntry> entries = new HashSet<TimeEntry>();
 		entries.add(new TimeEntry(Unit.days(1), new Euro(200), me, myCompany, Day.january(1, 2012)));
 		entries.add(new TimeEntry(Unit.days(1), new Euro(200), me, myCompany, Day.january(2, 2012)));

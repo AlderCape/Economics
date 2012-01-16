@@ -7,7 +7,7 @@ public class CustomModelAsserts {
 	public static void assertInvoiceEntryEquals(InvoiceEntry populateWith, InvoiceEntry entry) {
 		assertEquals(populateWith.units(), entry.units());
 		assertEquals(populateWith.rate(), entry.rate());
-		assertEquals(populateWith.colaborator().name(), entry.colaborator().name());
+		assertEquals(populateWith.collaborator().name(), entry.collaborator().name());
 		assertEquals(populateWith.client().name(), entry.client().name());
 		assertEquals(populateWith.getTimePoint(), entry.getTimePoint());
 	}
@@ -15,7 +15,7 @@ public class CustomModelAsserts {
 	public static void assertTimeEntryEquals(TimeEntry expected, TimeEntry actual) {
 		assertEquals(expected.units(), actual.units());
 		assertEquals(expected.rate(), actual.rate());
-		assertEquals(expected.colaborator().name(), actual.colaborator().name());
+		assertEquals(expected.collaborator().name(), actual.collaborator().name());
 		assertEquals(expected.client().name(), actual.client().name());
 		assertEquals(expected.getTimePoint(), actual.getTimePoint());
 	}
@@ -24,7 +24,7 @@ public class CustomModelAsserts {
 		assertEquals(expected.name(), actual.name());
 	}
 
-	public static void assertColaboratorEquals(Collaborator expected, Collaborator actual) {
+	public static void assertCollaboratorEquals(Collaborator expected, Collaborator actual) {
 		assertEquals(expected.name(), actual.name());
 	}
 

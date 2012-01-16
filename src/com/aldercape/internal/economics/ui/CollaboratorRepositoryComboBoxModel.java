@@ -15,7 +15,7 @@ public class CollaboratorRepositoryComboBoxModel extends AbstractRepositoryCombo
 	@Override
 	protected void assertClass(Object anItem) {
 		if (!(anItem instanceof Collaborator)) {
-			throw new IllegalArgumentException("Only colaborators can be stored got item of type " + anItem.getClass());
+			throw new IllegalArgumentException("Only collaborators can be stored got item of type " + anItem.getClass());
 		}
 	}
 

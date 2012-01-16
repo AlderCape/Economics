@@ -30,7 +30,7 @@ public class InvoiceEntryPanel extends AbstractEntryPanel {
 		add(rate);
 
 		add(new JLabel("Person"));
-		person = new CollaboratorField(model.getColaboratorRepository());
+		person = new CollaboratorField(model.getCollaboratorRepository());
 		add(person);
 
 		add(new JLabel("Client"));
@@ -50,7 +50,7 @@ public class InvoiceEntryPanel extends AbstractEntryPanel {
 	public void setEntry(SimpleInvoiceEntry populatWith) {
 		populatWith.units().render(units);
 		populatWith.rate().render(rate);
-		populatWith.colaborator().render(person);
+		populatWith.collaborator().render(person);
 		populatWith.client().render(client);
 		populatWith.issueDate().render(bookkeepingMonth);
 	}

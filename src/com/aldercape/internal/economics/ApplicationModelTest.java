@@ -16,7 +16,7 @@ import com.aldercape.internal.economics.model.LedgerListener;
 import com.aldercape.internal.economics.model.SimpleInvoiceEntry;
 import com.aldercape.internal.economics.model.Unit;
 import com.aldercape.internal.economics.persistence.InMemoryClientRepository;
-import com.aldercape.internal.economics.persistence.InMemoryColaboratorRepository;
+import com.aldercape.internal.economics.persistence.InMemoryCollaboratorRepository;
 import com.aldercape.internal.economics.ui.__TestObjectMother;
 
 public class ApplicationModelTest {
@@ -60,7 +60,7 @@ public class ApplicationModelTest {
 	public void shouldHaveInMemoryRepositories() {
 		assertEquals(InMemoryClientRepository.class, model.getClientRepository().getClass());
 		assertSame(model.getClientRepository(), model.getClientRepository());
-		assertEquals(InMemoryColaboratorRepository.class, model.getColaboratorRepository().getClass());
-		assertSame(model.getColaboratorRepository(), model.getColaboratorRepository());
+		assertEquals(InMemoryCollaboratorRepository.class, model.getCollaboratorRepository().getClass());
+		assertSame(model.getCollaboratorRepository(), model.getCollaboratorRepository());
 	}
 }

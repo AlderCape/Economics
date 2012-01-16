@@ -14,9 +14,9 @@ import org.junit.Test;
 
 import com.aldercape.internal.economics.model.Collaborator;
 import com.aldercape.internal.economics.model.CustomModelAsserts;
-import com.aldercape.internal.economics.persistence.InMemoryColaboratorRepository;
+import com.aldercape.internal.economics.persistence.InMemoryCollaboratorRepository;
 
-public class ColaboratorRepositoryComboBoxModelTest {
+public class CollaboratorRepositoryComboBoxModelTest {
 
 	public static final class ListDataListenerSpy implements ListDataListener {
 		public boolean intervalRemovedCalled;
@@ -39,7 +39,7 @@ public class ColaboratorRepositoryComboBoxModelTest {
 		}
 	}
 
-	public class InMemoryColaboratorRepositorySpy extends InMemoryColaboratorRepository {
+	public class InMemoryCollaboratorRepositorySpy extends InMemoryCollaboratorRepository {
 
 		public int getAllCalledCount;
 
@@ -52,12 +52,12 @@ public class ColaboratorRepositoryComboBoxModelTest {
 
 	private __TestObjectMother objectMother;
 	private CollaboratorRepositoryComboBoxModel model;
-	private InMemoryColaboratorRepositorySpy repository;
+	private InMemoryCollaboratorRepositorySpy repository;
 
 	@Before
 	public void setUp() {
 		objectMother = new __TestObjectMother();
-		repository = new InMemoryColaboratorRepositorySpy();
+		repository = new InMemoryCollaboratorRepositorySpy();
 		model = new CollaboratorRepositoryComboBoxModel(repository);
 	}
 
@@ -87,7 +87,7 @@ public class ColaboratorRepositoryComboBoxModelTest {
 	public void getItemAtShouldReturnTheClientsInRepository() {
 		repository.add(objectMother.me());
 		repository.add(objectMother.other());
-		CustomModelAsserts.assertColaboratorEquals(objectMother.me(), model.getElementAt(0));
+		CustomModelAsserts.assertCollaboratorEquals(objectMother.me(), model.getElementAt(0));
 	}
 
 	@Test(expected = IllegalArgumentException.class)

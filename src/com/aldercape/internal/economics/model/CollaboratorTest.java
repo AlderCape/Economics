@@ -4,12 +4,12 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class ColaboratorTest {
+public class CollaboratorTest {
 
 	@Test
 	public void test() {
-		Collaborator colaborator = new Collaborator("Name");
-		assertEquals("Name", colaborator.name());
+		Collaborator collaborator = new Collaborator("Firstname");
+		assertEquals("Firstname", collaborator.name());
 	}
 
 }

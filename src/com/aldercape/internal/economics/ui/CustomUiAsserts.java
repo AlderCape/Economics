@@ -13,7 +13,7 @@ import net.miginfocom.swing.MigLayout;
 
 public class CustomUiAsserts {
 
-	public static void assertFormColaboratorField(String message, Component label, Component field, JPanel panel) {
+	public static void assertFormCollaboratorField(String message, Component label, Component field, JPanel panel) {
 		CustomUiAsserts.assertFormField(message, label, CollaboratorField.class, field, panel);
 	}
 
@@ -33,8 +33,13 @@ public class CustomUiAsserts {
 		CustomUiAsserts.assertFormField(message, label, DayTextField.class, field, panel);
 	}
 
+	public static void assertFormStringField(String message, Component label, Component field, JPanel panel) {
+		CustomUiAsserts.assertFormField(message, label, StringTextField.class, field, panel);
+	}
+
 	public static void assertFormField(String message, Component label, Class<? extends JComponent> expectedFieldClass, Component field, JPanel panel) {
 		assertEquals(message + " label class", JLabel.class, label.getClass());
+		assertEquals(message + " label text", message, ((JLabel) label).getText());
 		assertEquals(message + " field class", expectedFieldClass, field.getClass());
 		assertNull(message + " constraints", ((MigLayout) panel.getLayout()).getComponentConstraints(field));
 	}

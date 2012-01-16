@@ -27,7 +27,7 @@ public class LedgerTableModel extends AbstractTableModel implements LedgerListen
 		Person("Person") {
 			@Override
 			public Object getValue(Entry<Day> entry) {
-				return entry.colaborator().name();
+				return entry.collaborator().name();
 			}
 		},
 

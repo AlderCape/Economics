@@ -2,8 +2,8 @@ package com.aldercape.internal.economics.model;
 
 public class TimeEntry extends AbstractEntry<Day> {
 
-	public TimeEntry(Unit unit, Euro rate, Collaborator colaborator, Client client, Day day) {
-		super(unit, rate, colaborator, client, day);
+	public TimeEntry(Unit unit, Euro rate, Collaborator collaborator, Client client, Day day) {
+		super(unit, rate, collaborator, client, day);
 	}
 
 	public Day day() {

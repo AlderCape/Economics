@@ -15,7 +15,7 @@ public class SimpleInvoiceEntry extends AbstractEntry<Day> implements InvoiceEnt
 	}
 
 	public SimpleInvoiceEntry addTime(Unit units) {
-		return new SimpleInvoiceEntry(units().plus(units), rate(), colaborator(), client(), issueDate());
+		return new SimpleInvoiceEntry(units().plus(units), rate(), collaborator(), client(), issueDate());
 	}
 
 }

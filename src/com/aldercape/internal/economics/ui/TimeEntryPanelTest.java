@@ -49,7 +49,7 @@ public class TimeEntryPanelTest {
 		assertEquals("# of components", 10, components.length);
 		CustomUiAsserts.assertFormUnitField("Unit", components[0], components[1], panel);
 		CustomUiAsserts.assertFormEuroField("Rate", components[2], components[3], panel);
-		CustomUiAsserts.assertFormColaboratorField("Person", components[4], components[5], panel);
+		CustomUiAsserts.assertFormCollaboratorField("Person", components[4], components[5], panel);
 		CustomUiAsserts.assertFormClientField("Client", components[6], components[7], panel);
 		CustomUiAsserts.assertFormDayField("Day", components[8], components[9], panel);
 	}
@@ -68,7 +68,7 @@ public class TimeEntryPanelTest {
 		assertNotNull(addedEntry);
 		assertEquals(populateWith.units(), addedEntry.units());
 		assertEquals(populateWith.rate(), addedEntry.rate());
-		assertEquals(populateWith.colaborator().name(), addedEntry.colaborator().name());
+		assertEquals(populateWith.collaborator().name(), addedEntry.collaborator().name());
 		assertEquals(populateWith.client().name(), addedEntry.client().name());
 		assertEquals(populateWith.day(), addedEntry.getTimePoint());
 	}

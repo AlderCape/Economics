@@ -14,7 +14,7 @@ public class InvoiceEntryBuilder {
 			@Override
 			public int compare(TimeEntry o1, TimeEntry o2) {
 				int result;
-				result = o1.colaborator().name().compareTo(o2.colaborator().name());
+				result = o1.collaborator().name().compareTo(o2.collaborator().name());
 				if (result != 0) {
 					return result;
 				}
@@ -58,7 +58,7 @@ public class InvoiceEntryBuilder {
 	}
 
 	private boolean belongsTo(ComposedInvoiceEntry currentInvoiceEntry, TimeEntry entry) {
-		return currentInvoiceEntry.getTimePoint().sameMonth(entry.getTimePoint()) && currentInvoiceEntry.colaborator().name().equals(entry.colaborator().name()) && currentInvoiceEntry.client().name().equals(entry.client().name()) && currentInvoiceEntry.rate().equals(entry.rate());
+		return currentInvoiceEntry.getTimePoint().sameMonth(entry.getTimePoint()) && currentInvoiceEntry.collaborator().name().equals(entry.collaborator().name()) && currentInvoiceEntry.client().name().equals(entry.client().name()) && currentInvoiceEntry.rate().equals(entry.rate());
 	}
 
 	private class ComposedInvoiceEntry implements InvoiceEntry {
@@ -88,8 +88,8 @@ public class InvoiceEntryBuilder {
 		}
 
 		@Override
-		public Collaborator colaborator() {
-			return entries.iterator().next().colaborator();
+		public Collaborator collaborator() {
+			return entries.iterator().next().collaborator();
 		}
 
 		@Override

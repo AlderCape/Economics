@@ -6,7 +6,7 @@ public interface Entry<T extends TimePoint> {
 
 	public T getTimePoint();
 
-	public Collaborator colaborator();
+	public Collaborator collaborator();
 
 	public Client client();
 

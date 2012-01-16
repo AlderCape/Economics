@@ -2,16 +2,16 @@ package com.aldercape.internal.economics.model;
 
 public class AbstractEntry<T extends TimePoint> implements Entry<T> {
 
-	private Collaborator colaborator;
+	private Collaborator collaborator;
 	private Client client;
 	private Euro rate;
 	private Unit units;
 	private T time;
 
-	public AbstractEntry(Unit units, Euro rate, Collaborator colaborator, Client client, T time) {
+	public AbstractEntry(Unit units, Euro rate, Collaborator collaborator, Client client, T time) {
 		this.units = units;
 		this.rate = rate;
-		this.colaborator = colaborator;
+		this.collaborator = collaborator;
 		this.client = client;
 		this.time = time;
 	}
@@ -20,8 +20,8 @@ public class AbstractEntry<T extends TimePoint> implements Entry<T> {
 		return client;
 	}
 
-	public Collaborator colaborator() {
-		return colaborator;
+	public Collaborator collaborator() {
+		return collaborator;
 	}
 
 	public Euro rate() {
