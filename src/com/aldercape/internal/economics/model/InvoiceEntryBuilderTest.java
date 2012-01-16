@@ -16,8 +16,8 @@ import com.aldercape.internal.economics.ui.__TestObjectMother;
 
 public class InvoiceEntryBuilderTest {
 
-	private Colaborator other;
-	private Colaborator me;
+	private Collaborator other;
+	private Collaborator me;
 	private Client myCompany;
 	private Client otherCompany;
 

@@ -8,7 +8,7 @@ public class ColaboratorTest {
 
 	@Test
 	public void test() {
-		Colaborator colaborator = new Colaborator("Name");
+		Collaborator colaborator = new Collaborator("Name");
 		assertEquals("Name", colaborator.name());
 	}
 

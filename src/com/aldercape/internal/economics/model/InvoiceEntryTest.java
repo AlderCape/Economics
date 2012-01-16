@@ -16,7 +16,7 @@ public class InvoiceEntryTest {
 	public void setUp() {
 		__TestObjectMother objectMother = new __TestObjectMother();
 		myCompany = objectMother.myCompany();
-		Colaborator me = objectMother.me();
+		Collaborator me = objectMother.me();
 		entry = new SimpleInvoiceEntry(Unit.days(2), new Euro(50), me, myCompany, Day.january(1, 2011));
 	}
 

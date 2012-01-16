@@ -12,7 +12,7 @@ import javax.swing.event.ListDataListener;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.aldercape.internal.economics.model.Colaborator;
+import com.aldercape.internal.economics.model.Collaborator;
 import com.aldercape.internal.economics.model.CustomModelAsserts;
 import com.aldercape.internal.economics.persistence.InMemoryColaboratorRepository;
 
@@ -44,21 +44,21 @@ public class ColaboratorRepositoryComboBoxModelTest {
 		public int getAllCalledCount;
 
 		@Override
-		public List<Colaborator> getAll() {
+		public List<Collaborator> getAll() {
 			getAllCalledCount++;
 			return super.getAll();
 		}
 	}
 
 	private __TestObjectMother objectMother;
-	private ColaboratorRepositoryComboBoxModel model;
+	private CollaboratorRepositoryComboBoxModel model;
 	private InMemoryColaboratorRepositorySpy repository;
 
 	@Before
 	public void setUp() {
 		objectMother = new __TestObjectMother();
 		repository = new InMemoryColaboratorRepositorySpy();
-		model = new ColaboratorRepositoryComboBoxModel(repository);
+		model = new CollaboratorRepositoryComboBoxModel(repository);
 	}
 
 	@Test

@@ -14,7 +14,7 @@ import net.miginfocom.swing.MigLayout;
 public class CustomUiAsserts {
 
 	public static void assertFormColaboratorField(String message, Component label, Component field, JPanel panel) {
-		CustomUiAsserts.assertFormField(message, label, ColaboratorField.class, field, panel);
+		CustomUiAsserts.assertFormField(message, label, CollaboratorField.class, field, panel);
 	}
 
 	public static void assertFormClientField(String message, Component label, Component field, JPanel panel) {

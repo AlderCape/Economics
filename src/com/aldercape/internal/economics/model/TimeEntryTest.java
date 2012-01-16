@@ -9,7 +9,7 @@ import com.aldercape.internal.economics.ui.__TestObjectMother;
 
 public class TimeEntryTest {
 
-	private Colaborator me;
+	private Collaborator me;
 	private Client myCompany;
 
 	@Before

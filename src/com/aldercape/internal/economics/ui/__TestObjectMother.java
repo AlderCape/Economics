@@ -1,14 +1,14 @@
 package com.aldercape.internal.economics.ui;
 
 import com.aldercape.internal.economics.model.Client;
-import com.aldercape.internal.economics.model.Colaborator;
+import com.aldercape.internal.economics.model.Collaborator;
 
 public class __TestObjectMother {
 
 	private Client myCompany = new Client("My Company");
 	private Client otherCompany = new Client("Other Company");
-	private Colaborator me = new Colaborator("Me");
-	private Colaborator other = new Colaborator("Other");
+	private Collaborator me = new Collaborator("Me");
+	private Collaborator other = new Collaborator("Other");
 
 	public Client otherCompany() {
 		return otherCompany;
@@ -18,11 +18,11 @@ public class __TestObjectMother {
 		return myCompany;
 	}
 
-	public Colaborator me() {
+	public Collaborator me() {
 		return me;
 	}
 
-	public Colaborator other() {
+	public Collaborator other() {
 		return other;
 	}
 }

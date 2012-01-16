@@ -6,7 +6,7 @@ import java.util.Set;
 
 import com.aldercape.internal.economics.model.AbstractEntry;
 import com.aldercape.internal.economics.model.ClientRepository;
-import com.aldercape.internal.economics.model.ColaboratorRepository;
+import com.aldercape.internal.economics.model.CollaboratorRepository;
 import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.Entry;
 import com.aldercape.internal.economics.model.Ledger;
@@ -59,7 +59,7 @@ public class ApplicationModel {
 		return clientRepository;
 	}
 
-	public ColaboratorRepository getColaboratorRepository() {
+	public CollaboratorRepository getColaboratorRepository() {
 		return colaboratorRepository;
 	}
 

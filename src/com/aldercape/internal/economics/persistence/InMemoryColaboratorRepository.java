@@ -1,8 +1,8 @@
 package com.aldercape.internal.economics.persistence;
 
-import com.aldercape.internal.economics.model.Colaborator;
-import com.aldercape.internal.economics.model.ColaboratorRepository;
+import com.aldercape.internal.economics.model.Collaborator;
+import com.aldercape.internal.economics.model.CollaboratorRepository;
 
-public class InMemoryColaboratorRepository extends InMemoryRepository<Colaborator> implements ColaboratorRepository {
+public class InMemoryColaboratorRepository extends InMemoryRepository<Collaborator> implements CollaboratorRepository {
 
 }

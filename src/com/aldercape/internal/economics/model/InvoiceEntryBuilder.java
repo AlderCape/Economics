@@ -88,7 +88,7 @@ public class InvoiceEntryBuilder {
 		}
 
 		@Override
-		public Colaborator colaborator() {
+		public Collaborator colaborator() {
 			return entries.iterator().next().colaborator();
 		}
 

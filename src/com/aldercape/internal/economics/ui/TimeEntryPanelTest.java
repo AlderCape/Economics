@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import com.aldercape.internal.economics.ApplicationModel;
 import com.aldercape.internal.economics.model.Client;
-import com.aldercape.internal.economics.model.Colaborator;
+import com.aldercape.internal.economics.model.Collaborator;
 import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.Entry;
 import com.aldercape.internal.economics.model.Euro;
@@ -24,7 +24,7 @@ public class TimeEntryPanelTest {
 	private TimeEntryPanel panel;
 	private Ledger ledger;
 	private ApplicationModel model;
-	private Colaborator me;
+	private Collaborator me;
 	private Client myCompany;
 
 	@Before

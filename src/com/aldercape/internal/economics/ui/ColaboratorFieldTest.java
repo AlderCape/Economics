@@ -7,18 +7,18 @@ import javax.swing.JComboBox;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.aldercape.internal.economics.model.ColaboratorRepository;
+import com.aldercape.internal.economics.model.CollaboratorRepository;
 import com.aldercape.internal.economics.persistence.InMemoryColaboratorRepository;
 
 public class ColaboratorFieldTest {
 
-	private ColaboratorField colaboratorField;
-	private ColaboratorRepository colaboratorRepository;
+	private CollaboratorField colaboratorField;
+	private CollaboratorRepository colaboratorRepository;
 
 	@Before
 	public void setUp() {
 		colaboratorRepository = new InMemoryColaboratorRepository();
-		colaboratorField = new ColaboratorField(colaboratorRepository);
+		colaboratorField = new CollaboratorField(colaboratorRepository);
 	}
 
 	@Test

@@ -2,7 +2,7 @@ package com.aldercape.internal.economics.model;
 
 public class SimpleInvoiceEntry extends AbstractEntry<Day> implements InvoiceEntry {
 
-	public SimpleInvoiceEntry(Unit units, Euro rate, Colaborator person, Client client, Day issueDate) {
+	public SimpleInvoiceEntry(Unit units, Euro rate, Collaborator person, Client client, Day issueDate) {
 		super(units, rate, person, client, issueDate);
 	}
 

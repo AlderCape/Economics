@@ -20,7 +20,7 @@ import org.junit.Test;
 
 import com.aldercape.internal.economics.ApplicationModel;
 import com.aldercape.internal.economics.model.Client;
-import com.aldercape.internal.economics.model.Colaborator;
+import com.aldercape.internal.economics.model.Collaborator;
 import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.Euro;
 import com.aldercape.internal.economics.model.Ledger;
@@ -31,8 +31,8 @@ public class LedgerFrameTest {
 
 	private LedgerFrame frame;
 	private ApplicationModel model;
-	private Colaborator other;
-	private Colaborator me;
+	private Collaborator other;
+	private Collaborator me;
 	private Client myCompany;
 
 	@Before

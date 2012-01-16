@@ -16,7 +16,7 @@ import com.aldercape.internal.economics.ui.__TestObjectMother;
 
 public class LedgerTest {
 
-	private Colaborator me;
+	private Collaborator me;
 	private Client myCompany;
 
 	@Before

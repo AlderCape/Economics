@@ -13,7 +13,7 @@ public class InvoiceEntryPanel extends AbstractEntryPanel {
 	private ApplicationModel applicationModel;
 	private UnitTextField units;
 	private EuroTextField rate;
-	private ColaboratorField person;
+	private CollaboratorField person;
 	private ClientField client;
 	private DayTextField bookkeepingMonth;
 
@@ -30,7 +30,7 @@ public class InvoiceEntryPanel extends AbstractEntryPanel {
 		add(rate);
 
 		add(new JLabel("Person"));
-		person = new ColaboratorField(model.getColaboratorRepository());
+		person = new CollaboratorField(model.getColaboratorRepository());
 		add(person);
 
 		add(new JLabel("Client"));

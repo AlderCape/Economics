@@ -1,21 +1,21 @@
 package com.aldercape.internal.economics.persistence;
 
-import com.aldercape.internal.economics.model.Colaborator;
+import com.aldercape.internal.economics.model.Collaborator;
 
-public class InMemoryColaboratorRepositoryTest extends __InMemoryRepositoryTest<Colaborator> {
+public class InMemoryColaboratorRepositoryTest extends __InMemoryRepositoryTest<Collaborator> {
 
 	@Override
-	protected InMemoryRepository<Colaborator> getRepository() {
+	protected InMemoryRepository<Collaborator> getRepository() {
 		return new InMemoryColaboratorRepository();
 	}
 
 	@Override
-	protected Colaborator getSecondEntry() {
+	protected Collaborator getSecondEntry() {
 		return objectMother.other();
 	}
 
 	@Override
-	protected Colaborator getFirstEntry() {
+	protected Collaborator getFirstEntry() {
 		return objectMother.me();
 	}
 }

@@ -14,7 +14,7 @@ import org.junit.Test;
 
 import com.aldercape.internal.economics.ApplicationModel;
 import com.aldercape.internal.economics.model.Client;
-import com.aldercape.internal.economics.model.Colaborator;
+import com.aldercape.internal.economics.model.Collaborator;
 import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.Euro;
 import com.aldercape.internal.economics.model.InvoiceEntry;
@@ -25,7 +25,7 @@ import com.aldercape.internal.economics.model.Unit;
 
 public class LedgetTableTest {
 
-	private Colaborator me;
+	private Collaborator me;
 	private Client myCompany;
 
 	@Before

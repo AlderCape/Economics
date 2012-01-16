@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.aldercape.internal.economics.model.Client;
-import com.aldercape.internal.economics.model.Colaborator;
+import com.aldercape.internal.economics.model.Collaborator;
 import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.AbstractEntry;
 import com.aldercape.internal.economics.model.Euro;
@@ -26,7 +26,7 @@ public class LedgerTableModelTest {
 	private LedgerTableModel model;
 	private Ledger ledger;
 	private boolean tableChangedCalled;
-	private Colaborator me;
+	private Collaborator me;
 	private Client myCompany;
 
 	@Before
