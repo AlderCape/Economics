@@ -43,6 +43,17 @@ public class LedgerFrame extends JFrame {
 		JMenuBar result = new JMenuBar();
 		JMenu editMenu = new JMenu("Edit");
 		result.add(editMenu);
+		JMenuItem createCollaborator = new JMenuItem("Create Collaborator");
+		createCollaborator.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				AddCollaboratorDialog dialog = new AddCollaboratorDialog(LedgerFrame.this, model);
+				dialog.pack();
+				dialog.setVisible(true);
+			}
+		});
+		editMenu.add(createCollaborator);
 		JMenuItem jMenuItem = new JMenuItem("Create Invoice entries");
 		jMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.META_MASK));
 		jMenuItem.addActionListener(new ActionListener() {

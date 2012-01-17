@@ -2,12 +2,14 @@ package com.aldercape.internal.economics.ui;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -65,10 +67,6 @@ public class LedgerFrameTest {
 		assertEquals(2, addPanel.getTabCount());
 	}
 
-	private LedgerTable getLedgerTable() {
-		return (LedgerTable) ((JScrollPane) frame.getContentPane().getComponents()[0]).getViewport().getView();
-	}
-
 	@Test
 	public void menu() {
 		assertNotNull(frame.getJMenuBar());
@@ -76,10 +74,20 @@ public class LedgerFrameTest {
 		assertEquals(1, menuBar.getMenuCount());
 		JMenu editMenu = menuBar.getMenu(0);
 		assertEquals("Edit", editMenu.getText());
-		assertEquals(1, editMenu.getItemCount());
+		assertEquals(2, editMenu.getItemCount());
 
-		assertEquals("Menu item name", "Create Invoice entries", editMenu.getItem(0).getText());
-		assertEquals("accelerator key", KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.META_MASK), editMenu.getItem(0).getAccelerator());
+		assertEquals("Create Collaborator name", "Create Collaborator", editMenu.getItem(0).getText());
+
+		assertEquals("Create invoice entries name", "Create Invoice entries", editMenu.getItem(1).getText());
+		assertEquals("accelerator key", KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.META_MASK), editMenu.getItem(1).getAccelerator());
+	}
+
+	@Test
+	public void createCollaboratorShouldOpenDialog() {
+		getCreateCollaborator().doClick();
+		assertEquals(AddCollaboratorDialog.class, frame.getOwnedWindows()[0].getClass());
+		JDialog addCollaboratorDialog = (JDialog) frame.getOwnedWindows()[0];
+		assertTrue(addCollaboratorDialog.isVisible());
 	}
 
 	@Test
@@ -96,9 +104,22 @@ public class LedgerFrameTest {
 		assertEquals(2, getLedgerTable().getRowCount());
 	}
 
+	private JMenuItem getCreateCollaborator() {
+		return getEditMenu().getItem(0);
+	}
+
 	private JMenuItem getGenerateInvoiceEntries() {
+		return getEditMenu().getItem(1);
+	}
+
+	protected JMenu getEditMenu() {
 		JMenuBar menuBar = frame.getJMenuBar();
 		JMenu editMenu = menuBar.getMenu(0);
-		return editMenu.getItem(0);
+		return editMenu;
 	}
+
+	private LedgerTable getLedgerTable() {
+		return (LedgerTable) ((JScrollPane) frame.getContentPane().getComponents()[0]).getViewport().getView();
+	}
+
 }
