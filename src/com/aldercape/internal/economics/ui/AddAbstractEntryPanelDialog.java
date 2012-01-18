@@ -7,6 +7,7 @@ import javax.swing.JDialog;
 
 public abstract class AddAbstractEntryPanelDialog extends JDialog implements StandardButtonTarget {
 
+	private static final long serialVersionUID = 8194709201570506663L;
 	private AbstractEntryPanel mainPanel;
 
 	public AddAbstractEntryPanelDialog(Window owner) {
