@@ -1,4 +1,4 @@
-package com.aldercape.internal.economics.ui.collaborator;
+package com.aldercape.internal.economics.ui;
 
 import static com.aldercape.internal.economics.model.CustomModelAsserts.assertCollaboratorEquals;
 import static org.junit.Assert.assertEquals;
@@ -13,7 +13,6 @@ import org.junit.Test;
 import com.aldercape.internal.economics.ApplicationModel;
 import com.aldercape.internal.economics.model.Collaborator;
 import com.aldercape.internal.economics.model.Ledger;
-import com.aldercape.internal.economics.ui.CustomUiAsserts;
 
 public class CollaboratorPanelTest {
 

@@ -1,12 +1,10 @@
-package com.aldercape.internal.economics.ui.collaborator;
+package com.aldercape.internal.economics.ui;
 
 import javax.swing.JLabel;
 
 import com.aldercape.internal.economics.ApplicationModel;
 import com.aldercape.internal.economics.model.Collaborator;
 import com.aldercape.internal.economics.model.Collaborator.CollaboratorRenderTarget;
-import com.aldercape.internal.economics.ui.base.AbstractEntryPanel;
-import com.aldercape.internal.economics.ui.base.StringTextField;
 
 public class CollaboratorPanel extends AbstractEntryPanel implements CollaboratorRenderTarget {
 

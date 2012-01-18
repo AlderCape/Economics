@@ -1,9 +1,8 @@
-package com.aldercape.internal.economics.ui.client;
+package com.aldercape.internal.economics.ui;
 
 import com.aldercape.internal.economics.model.BaseRepository.Listener;
 import com.aldercape.internal.economics.model.Client;
 import com.aldercape.internal.economics.model.ClientRepository;
-import com.aldercape.internal.economics.ui.base.AbstractRepositoryComboBoxModel;
 
 public class ClientRepositoryComboBoxModel extends AbstractRepositoryComboBoxModel<Client> implements Listener {
 

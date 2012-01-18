@@ -7,7 +7,6 @@ import javax.swing.JPanel;
 import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.Day.DayRenderTarget;
 import com.aldercape.internal.economics.model.MonthLiteral;
-import com.aldercape.internal.economics.ui.base.IntTextField;
 
 public class DayTextField extends JPanel implements DayRenderTarget {
 

@@ -1,4 +1,4 @@
-package com.aldercape.internal.economics.ui.client;
+package com.aldercape.internal.economics.ui;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -12,12 +12,11 @@ import javax.swing.event.ListDataListener;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.aldercape.internal.economics.model.Client;
+import com.aldercape.internal.economics.model.Collaborator;
 import com.aldercape.internal.economics.model.CustomModelAsserts;
-import com.aldercape.internal.economics.persistence.InMemoryClientRepository;
-import com.aldercape.internal.economics.ui.__TestObjectMother;
+import com.aldercape.internal.economics.persistence.InMemoryCollaboratorRepository;
 
-public class ClientRepositoryComboBoxModelTest {
+public class CollaboratorRepositoryComboBoxModelTest {
 
 	public static final class ListDataListenerSpy implements ListDataListener {
 		public boolean intervalRemovedCalled;
@@ -40,32 +39,32 @@ public class ClientRepositoryComboBoxModelTest {
 		}
 	}
 
-	public class InMemoryClientRepositorySpy extends InMemoryClientRepository {
+	public class InMemoryCollaboratorRepositorySpy extends InMemoryCollaboratorRepository {
 
 		public int getAllCalledCount;
 
 		@Override
-		public List<Client> getAll() {
+		public List<Collaborator> getAll() {
 			getAllCalledCount++;
 			return super.getAll();
 		}
 	}
 
 	private __TestObjectMother objectMother;
-	private ClientRepositoryComboBoxModel model;
-	private InMemoryClientRepositorySpy repository;
+	private CollaboratorRepositoryComboBoxModel model;
+	private InMemoryCollaboratorRepositorySpy repository;
 
 	@Before
 	public void setUp() {
 		objectMother = new __TestObjectMother();
-		repository = new InMemoryClientRepositorySpy();
-		model = new ClientRepositoryComboBoxModel(repository);
+		repository = new InMemoryCollaboratorRepositorySpy();
+		model = new CollaboratorRepositoryComboBoxModel(repository);
 	}
 
 	@Test
 	public void getSelectedItemShouldReturnSelectedItem() {
-		model.setSelectedItem(objectMother.myCompany());
-		assertEquals(objectMother.myCompany(), model.getSelectedItem());
+		model.setSelectedItem(objectMother.me());
+		assertEquals(objectMother.me(), model.getSelectedItem());
 	}
 
 	@Test
@@ -73,26 +72,26 @@ public class ClientRepositoryComboBoxModelTest {
 		ListDataListenerSpy listener = new ListDataListenerSpy();
 		model.addListDataListener(listener);
 		assertFalse(listener.contentsChangedCalled);
-		model.setSelectedItem(objectMother.myCompany());
+		model.setSelectedItem(objectMother.me());
 		assertTrue(listener.contentsChangedCalled);
 	}
 
 	@Test
 	public void sizeShouldChangeWhenClientIsAddedToRepository() {
 		assertEquals(0, model.getSize());
-		repository.add(objectMother.myCompany());
+		repository.add(objectMother.me());
 		assertEquals(1, model.getSize());
 	}
 
 	@Test
 	public void getItemAtShouldReturnTheClientsInRepository() {
-		repository.add(objectMother.myCompany());
-		repository.add(objectMother.otherCompany());
-		CustomModelAsserts.assertClientEquals(objectMother.myCompany(), model.getElementAt(0));
+		repository.add(objectMother.me());
+		repository.add(objectMother.other());
+		CustomModelAsserts.assertCollaboratorEquals(objectMother.me(), model.getElementAt(0));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void setSelectedItemShouldThrowExceptionIfNotPresent() {
+	public void setSelectedItemShouldThrowExceptionIfNotRightType() {
 		model.setSelectedItem("");
 	}
 
@@ -103,7 +102,7 @@ public class ClientRepositoryComboBoxModelTest {
 		assertEquals(1, repository.getAllCalledCount);
 		model.getSize();
 		assertEquals(1, repository.getAllCalledCount);
-		repository.add(objectMother.myCompany());
+		repository.add(objectMother.me());
 		model.getSize();
 		assertEquals(2, repository.getAllCalledCount);
 	}

@@ -1,4 +1,4 @@
-package com.aldercape.internal.economics.ui.client;
+package com.aldercape.internal.economics.ui;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -13,8 +13,6 @@ import org.junit.Test;
 
 import com.aldercape.internal.economics.ApplicationModel;
 import com.aldercape.internal.economics.model.ClientRepository;
-import com.aldercape.internal.economics.ui.base.AddAbstractEntryPanelDialog;
-import com.aldercape.internal.economics.ui.base.StandardButtonPanel;
 
 public class AddClientDialogTest {
 

@@ -1,4 +1,4 @@
-package com.aldercape.internal.economics.ui.base;
+package com.aldercape.internal.economics.ui;
 
 public interface StandardButtonTarget {
 

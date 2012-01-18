@@ -17,9 +17,6 @@ import javax.swing.KeyStroke;
 import com.aldercape.internal.economics.ApplicationModel;
 import com.aldercape.internal.economics.model.InvoiceEntry;
 import com.aldercape.internal.economics.model.TimeEntry;
-import com.aldercape.internal.economics.ui.base.AddAbstractEntryPanelDialog;
-import com.aldercape.internal.economics.ui.client.AddClientDialog;
-import com.aldercape.internal.economics.ui.collaborator.AddCollaboratorDialog;
 
 public class LedgerFrame extends JFrame {
 

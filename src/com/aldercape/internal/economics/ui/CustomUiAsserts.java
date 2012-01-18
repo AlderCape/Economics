@@ -9,10 +9,6 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.aldercape.internal.economics.ui.base.StringTextField;
-import com.aldercape.internal.economics.ui.client.ClientField;
-import com.aldercape.internal.economics.ui.collaborator.CollaboratorField;
-
 import net.miginfocom.swing.MigLayout;
 
 public class CustomUiAsserts {

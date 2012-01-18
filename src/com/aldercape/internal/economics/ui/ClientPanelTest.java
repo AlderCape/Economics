@@ -1,4 +1,4 @@
-package com.aldercape.internal.economics.ui.client;
+package com.aldercape.internal.economics.ui;
 
 import static com.aldercape.internal.economics.model.CustomModelAsserts.assertClientEquals;
 import static org.junit.Assert.assertEquals;
@@ -13,8 +13,6 @@ import org.junit.Test;
 import com.aldercape.internal.economics.ApplicationModel;
 import com.aldercape.internal.economics.model.Client;
 import com.aldercape.internal.economics.model.Ledger;
-import com.aldercape.internal.economics.ui.CustomUiAsserts;
-import com.aldercape.internal.economics.ui.__TestObjectMother;
 
 public class ClientPanelTest {
 

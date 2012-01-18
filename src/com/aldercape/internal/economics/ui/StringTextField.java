@@ -1,6 +1,4 @@
-package com.aldercape.internal.economics.ui.base;
-
-import com.aldercape.internal.economics.ui.CustomTextField;
+package com.aldercape.internal.economics.ui;
 
 public class StringTextField extends CustomTextField<String> {
 

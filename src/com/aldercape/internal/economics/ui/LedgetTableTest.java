@@ -23,7 +23,7 @@ import com.aldercape.internal.economics.model.SimpleInvoiceEntry;
 import com.aldercape.internal.economics.model.TimeEntry;
 import com.aldercape.internal.economics.model.Unit;
 
-public class LedgerTableTest {
+public class LedgetTableTest {
 
 	private Collaborator me;
 	private Client myCompany;

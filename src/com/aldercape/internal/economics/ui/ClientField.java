@@ -1,4 +1,4 @@
-package com.aldercape.internal.economics.ui.client;
+package com.aldercape.internal.economics.ui;
 
 import java.awt.Component;
 
@@ -32,7 +32,7 @@ public class ClientField extends JComboBox<Client> implements ClientRenderTarget
 		});
 	}
 
-	public Client createDomainObject() {
+	protected Client createDomainObject() {
 		return model.getSelectedClient();
 	}
 

@@ -1,4 +1,4 @@
-package com.aldercape.internal.economics.ui.collaborator;
+package com.aldercape.internal.economics.ui;
 
 import java.awt.Component;
 
@@ -32,7 +32,7 @@ public class CollaboratorField extends JComboBox<Collaborator> implements Collab
 		});
 	}
 
-	public Collaborator createDomainObject() {
+	protected Collaborator createDomainObject() {
 		return model.getSelectedCollaborator();
 	}
 

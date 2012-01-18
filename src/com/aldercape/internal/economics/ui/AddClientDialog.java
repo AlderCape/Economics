@@ -1,9 +1,8 @@
-package com.aldercape.internal.economics.ui.client;
+package com.aldercape.internal.economics.ui;
 
 import java.awt.Window;
 
 import com.aldercape.internal.economics.ApplicationModel;
-import com.aldercape.internal.economics.ui.base.AddAbstractEntryPanelDialog;
 
 public class AddClientDialog extends AddAbstractEntryPanelDialog {
 

@@ -1,12 +1,10 @@
-package com.aldercape.internal.economics.ui.client;
+package com.aldercape.internal.economics.ui;
 
 import javax.swing.JLabel;
 
 import com.aldercape.internal.economics.ApplicationModel;
 import com.aldercape.internal.economics.model.Client;
 import com.aldercape.internal.economics.model.Client.ClientRenderTarget;
-import com.aldercape.internal.economics.ui.base.AbstractEntryPanel;
-import com.aldercape.internal.economics.ui.base.StringTextField;
 
 public class ClientPanel extends AbstractEntryPanel implements ClientRenderTarget {
 
