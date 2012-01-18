@@ -13,7 +13,6 @@ import org.junit.Test;
 
 import com.aldercape.internal.economics.ApplicationModel;
 import com.aldercape.internal.economics.model.CollaboratorRepository;
-import com.sun.xml.internal.bind.api.impl.NameConverter.Standard;
 
 public class AddCollaboratorDialogTest {
 
