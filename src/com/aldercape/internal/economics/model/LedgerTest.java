@@ -12,6 +12,8 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.aldercape.internal.economics.criteria.ClientCriteria;
+import com.aldercape.internal.economics.criteria.CollaboratorCriteria;
 import com.aldercape.internal.economics.ui.__TestObjectMother;
 
 public class LedgerTest {
@@ -91,4 +93,27 @@ public class LedgerTest {
 		ledger.addEntry(entry);
 		assertSame(entry, ledger.entry(0));
 	}
+
+	@Test
+	public void filterByClient() {
+		Ledger ledger = createLedgerWithThreeEntries();
+		__TestObjectMother objectMother = new __TestObjectMother();
+		SimpleInvoiceEntry entryToKeep = new SimpleInvoiceEntry(Unit.days(1), new Euro(300), objectMother.me(), objectMother.otherCompany(), Day.january(1, 2012));
+		ledger.addEntry(entryToKeep);
+		ledger = ledger.filter(new ClientCriteria<Day>(objectMother.otherCompany()));
+		assertEquals(1, ledger.numberOfEntries());
+		CustomModelAsserts.assertInvoiceEntryEquals(entryToKeep, (InvoiceEntry) ledger.entry(0));
+	}
+
+	@Test
+	public void filterByCollaborator() {
+		Ledger ledger = createLedgerWithThreeEntries();
+		__TestObjectMother objectMother = new __TestObjectMother();
+		SimpleInvoiceEntry entryToKeep = new SimpleInvoiceEntry(Unit.days(1), new Euro(300), objectMother.other(), objectMother.otherCompany(), Day.january(1, 2012));
+		ledger.addEntry(entryToKeep);
+		ledger = ledger.filter(new CollaboratorCriteria<Day>(objectMother.other()));
+		assertEquals(1, ledger.numberOfEntries());
+		CustomModelAsserts.assertInvoiceEntryEquals(entryToKeep, (InvoiceEntry) ledger.entry(0));
+	}
+
 }

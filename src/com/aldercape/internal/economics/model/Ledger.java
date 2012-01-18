@@ -68,4 +68,14 @@ public class Ledger {
 		entries.addAll(toAdd);
 	}
 
+	public Ledger filter(EntryCriteria<Day> criteria) {
+		Ledger result = new Ledger();
+		for (Entry<Day> entry : entries) {
+			if (criteria.matches(entry)) {
+				result.addEntry(entry);
+			}
+		}
+		return result;
+	}
+
 }
