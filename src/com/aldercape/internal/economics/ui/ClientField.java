@@ -1,6 +1,11 @@
 package com.aldercape.internal.economics.ui;
 
+import java.awt.Component;
+
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.ListCellRenderer;
 
 import com.aldercape.internal.economics.model.Client;
 import com.aldercape.internal.economics.model.Client.ClientRenderTarget;
@@ -14,6 +19,17 @@ public class ClientField extends JComboBox<Client> implements ClientRenderTarget
 	public ClientField(ClientRepository clientRepository) {
 		model = new ClientRepositoryComboBoxModel(clientRepository);
 		setModel(model);
+		setRenderer();
+	}
+
+	private void setRenderer() {
+		setRenderer(new ListCellRenderer<Client>() {
+
+			@Override
+			public Component getListCellRendererComponent(JList<? extends Client> list, Client value, int index, boolean isSelected, boolean cellHasFocus) {
+				return new JLabel(value == null ? "" : value.name());
+			}
+		});
 	}
 
 	protected Client createDomainObject() {
@@ -25,8 +41,14 @@ public class ClientField extends JComboBox<Client> implements ClientRenderTarget
 	}
 
 	@Override
-	public void renderName(Client client) {
+	public void renderClient(Client client) {
 		model.setSelectedItem(client);
+	}
+
+	@Override
+	public void renderName(String name) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

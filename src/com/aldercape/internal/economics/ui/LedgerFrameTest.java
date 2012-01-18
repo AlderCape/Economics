@@ -74,12 +74,13 @@ public class LedgerFrameTest {
 		assertEquals(1, menuBar.getMenuCount());
 		JMenu editMenu = menuBar.getMenu(0);
 		assertEquals("Edit", editMenu.getText());
-		assertEquals(2, editMenu.getItemCount());
+		assertEquals(3, editMenu.getItemCount());
 
 		assertEquals("Create Collaborator name", "Create Collaborator", editMenu.getItem(0).getText());
+		assertEquals("Create Client name", "Create Client", editMenu.getItem(1).getText());
 
-		assertEquals("Create invoice entries name", "Create Invoice entries", editMenu.getItem(1).getText());
-		assertEquals("accelerator key", KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.META_MASK), editMenu.getItem(1).getAccelerator());
+		assertEquals("Create invoice entries name", "Create Invoice entries", editMenu.getItem(2).getText());
+		assertEquals("accelerator key", KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.META_MASK), editMenu.getItem(2).getAccelerator());
 	}
 
 	@Test
@@ -88,6 +89,14 @@ public class LedgerFrameTest {
 		assertEquals(AddCollaboratorDialog.class, frame.getOwnedWindows()[0].getClass());
 		JDialog addCollaboratorDialog = (JDialog) frame.getOwnedWindows()[0];
 		assertTrue(addCollaboratorDialog.isVisible());
+	}
+
+	@Test
+	public void createClientShouldOpenDialog() {
+		getCreateClient().doClick();
+		assertEquals(AddClientDialog.class, frame.getOwnedWindows()[0].getClass());
+		JDialog addClientDialog = (JDialog) frame.getOwnedWindows()[0];
+		assertTrue(addClientDialog.isVisible());
 	}
 
 	@Test
@@ -108,8 +117,12 @@ public class LedgerFrameTest {
 		return getEditMenu().getItem(0);
 	}
 
-	private JMenuItem getGenerateInvoiceEntries() {
+	private JMenuItem getCreateClient() {
 		return getEditMenu().getItem(1);
+	}
+
+	private JMenuItem getGenerateInvoiceEntries() {
+		return getEditMenu().getItem(2);
 	}
 
 	protected JMenu getEditMenu() {

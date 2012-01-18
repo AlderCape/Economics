@@ -2,11 +2,16 @@ package com.aldercape.internal.economics.ui;
 
 import static org.junit.Assert.assertEquals;
 
+import java.awt.Component;
+
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JList;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import com.aldercape.internal.economics.model.Collaborator;
 import com.aldercape.internal.economics.model.CollaboratorRepository;
 import com.aldercape.internal.economics.persistence.InMemoryCollaboratorRepository;
 
@@ -33,4 +38,13 @@ public class CollaboratorFieldTest {
 		assertEquals(1, collaboratorField.getModel().getSize());
 	}
 
+	@Test
+	public void shouldRenderTheFullName() {
+		Collaborator myCompany = new __TestObjectMother().me();
+		Component rendered = collaboratorField.getRenderer().getListCellRendererComponent(new JList(), myCompany, 0, false, false);
+		assertEquals(JLabel.class, rendered.getClass());
+		assertEquals(myCompany.fullname(), ((JLabel) rendered).getText());
+		rendered = collaboratorField.getRenderer().getListCellRendererComponent(new JList(), null, 0, false, false);
+		assertEquals("", ((JLabel) rendered).getText());
+	}
 }

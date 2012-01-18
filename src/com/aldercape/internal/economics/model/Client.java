@@ -15,12 +15,15 @@ public class Client {
 
 	public static interface ClientRenderTarget {
 
-		public void renderName(Client client);
+		public void renderClient(Client client);
+
+		public void renderName(String name);
 
 	}
 
 	public void render(ClientRenderTarget target) {
-		target.renderName(this);
+		target.renderClient(this);
+		target.renderName(name());
 	}
 
 }

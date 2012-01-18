@@ -43,17 +43,27 @@ public class LedgerFrame extends JFrame {
 		JMenuBar result = new JMenuBar();
 		JMenu editMenu = new JMenu("Edit");
 		result.add(editMenu);
-		JMenuItem createCollaborator = new JMenuItem("Create Collaborator");
-		createCollaborator.addActionListener(new ActionListener() {
+		editMenu.add(createCollaboratorMenuItem());
+		editMenu.add(createClientMenuItem());
+		editMenu.add(createInvoiceEntriesMenuItem());
+		return result;
+	}
+
+	private JMenuItem createClientMenuItem() {
+		JMenuItem result = new JMenuItem("Create Client");
+		result.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				AddCollaboratorDialog dialog = new AddCollaboratorDialog(LedgerFrame.this, model);
+				AddClientDialog dialog = new AddClientDialog(LedgerFrame.this, model);
 				dialog.pack();
 				dialog.setVisible(true);
 			}
 		});
-		editMenu.add(createCollaborator);
+		return result;
+	}
+
+	protected JMenuItem createInvoiceEntriesMenuItem() {
 		JMenuItem jMenuItem = new JMenuItem("Create Invoice entries");
 		jMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.META_MASK));
 		jMenuItem.addActionListener(new ActionListener() {
@@ -65,7 +75,20 @@ public class LedgerFrame extends JFrame {
 				model.addEntries(invoiceEntries);
 			}
 		});
-		editMenu.add(jMenuItem);
-		return result;
+		return jMenuItem;
+	}
+
+	protected JMenuItem createCollaboratorMenuItem() {
+		JMenuItem createCollaborator = new JMenuItem("Create Collaborator");
+		createCollaborator.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				AddCollaboratorDialog dialog = new AddCollaboratorDialog(LedgerFrame.this, model);
+				dialog.pack();
+				dialog.setVisible(true);
+			}
+		});
+		return createCollaborator;
 	}
 }

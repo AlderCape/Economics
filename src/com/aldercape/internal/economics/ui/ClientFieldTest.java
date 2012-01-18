@@ -2,11 +2,16 @@ package com.aldercape.internal.economics.ui;
 
 import static org.junit.Assert.assertEquals;
 
+import java.awt.Component;
+
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JList;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import com.aldercape.internal.economics.model.Client;
 import com.aldercape.internal.economics.model.ClientRepository;
 import com.aldercape.internal.economics.persistence.InMemoryClientRepository;
 
@@ -33,4 +38,13 @@ public class ClientFieldTest {
 		assertEquals(1, clientTextField.getModel().getSize());
 	}
 
+	@Test
+	public void shouldRenderTheName() {
+		Client myCompany = new __TestObjectMother().myCompany();
+		Component rendered = clientTextField.getRenderer().getListCellRendererComponent(new JList(), myCompany, 0, false, false);
+		assertEquals(JLabel.class, rendered.getClass());
+		assertEquals(myCompany.name(), ((JLabel) rendered).getText());
+		rendered = clientTextField.getRenderer().getListCellRendererComponent(new JList(), null, 0, false, false);
+		assertEquals("", ((JLabel) rendered).getText());
+	}
 }
