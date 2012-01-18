@@ -28,6 +28,8 @@ import com.aldercape.internal.economics.model.Euro;
 import com.aldercape.internal.economics.model.Ledger;
 import com.aldercape.internal.economics.model.TimeEntry;
 import com.aldercape.internal.economics.model.Unit;
+import com.aldercape.internal.economics.ui.client.AddClientDialog;
+import com.aldercape.internal.economics.ui.collaborator.AddCollaboratorDialog;
 
 public class LedgerFrameTest {
 

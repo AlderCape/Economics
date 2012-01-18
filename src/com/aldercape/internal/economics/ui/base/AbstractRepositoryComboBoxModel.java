@@ -1,4 +1,4 @@
-package com.aldercape.internal.economics.ui;
+package com.aldercape.internal.economics.ui.base;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import javax.swing.ComboBoxModel;
 import com.aldercape.internal.economics.model.BaseRepository;
 import com.aldercape.internal.economics.model.BaseRepository.Listener;
 
-abstract class AbstractRepositoryComboBoxModel<T> extends AbstractListModel<T> implements ComboBoxModel<T>, Listener {
+public abstract class AbstractRepositoryComboBoxModel<T> extends AbstractListModel<T> implements ComboBoxModel<T>, Listener {
 
 	private static final long serialVersionUID = -5740601701470413593L;
 

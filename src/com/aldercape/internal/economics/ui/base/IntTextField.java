@@ -1,4 +1,6 @@
-package com.aldercape.internal.economics.ui;
+package com.aldercape.internal.economics.ui.base;
+
+import com.aldercape.internal.economics.ui.CustomTextField;
 
 public class IntTextField extends CustomTextField<Integer> {
 

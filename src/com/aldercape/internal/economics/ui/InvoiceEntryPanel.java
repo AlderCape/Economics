@@ -6,6 +6,9 @@ import com.aldercape.internal.economics.ApplicationModel;
 import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.Euro;
 import com.aldercape.internal.economics.model.SimpleInvoiceEntry;
+import com.aldercape.internal.economics.ui.base.AbstractEntryPanel;
+import com.aldercape.internal.economics.ui.client.ClientField;
+import com.aldercape.internal.economics.ui.collaborator.CollaboratorField;
 
 public class InvoiceEntryPanel extends AbstractEntryPanel {
 

@@ -1,4 +1,4 @@
-package com.aldercape.internal.economics.ui;
+package com.aldercape.internal.economics.ui.client;
 
 import static org.junit.Assert.assertEquals;
 
@@ -14,6 +14,7 @@ import org.junit.Test;
 import com.aldercape.internal.economics.model.Client;
 import com.aldercape.internal.economics.model.ClientRepository;
 import com.aldercape.internal.economics.persistence.InMemoryClientRepository;
+import com.aldercape.internal.economics.ui.__TestObjectMother;
 
 public class ClientFieldTest {
 
@@ -41,10 +42,10 @@ public class ClientFieldTest {
 	@Test
 	public void shouldRenderTheName() {
 		Client myCompany = new __TestObjectMother().myCompany();
-		Component rendered = clientTextField.getRenderer().getListCellRendererComponent(new JList(), myCompany, 0, false, false);
+		Component rendered = clientTextField.getRenderer().getListCellRendererComponent(new JList<Client>(), myCompany, 0, false, false);
 		assertEquals(JLabel.class, rendered.getClass());
 		assertEquals(myCompany.name(), ((JLabel) rendered).getText());
-		rendered = clientTextField.getRenderer().getListCellRendererComponent(new JList(), null, 0, false, false);
+		rendered = clientTextField.getRenderer().getListCellRendererComponent(new JList<Client>(), null, 0, false, false);
 		assertEquals("", ((JLabel) rendered).getText());
 	}
 }

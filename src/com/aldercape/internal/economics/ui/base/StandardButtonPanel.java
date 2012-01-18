@@ -1,4 +1,4 @@
-package com.aldercape.internal.economics.ui;
+package com.aldercape.internal.economics.ui.base;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 public class StandardButtonPanel extends JPanel {
 
+	private static final long serialVersionUID = 7073706963807809583L;
 	private JButton addButton;
 	private JButton cancelButton;
 

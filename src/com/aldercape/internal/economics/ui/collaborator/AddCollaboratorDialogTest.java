@@ -1,4 +1,4 @@
-package com.aldercape.internal.economics.ui;
+package com.aldercape.internal.economics.ui.collaborator;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import com.aldercape.internal.economics.ApplicationModel;
 import com.aldercape.internal.economics.model.CollaboratorRepository;
-import com.sun.xml.internal.bind.api.impl.NameConverter.Standard;
+import com.aldercape.internal.economics.ui.base.StandardButtonPanel;
 
 public class AddCollaboratorDialogTest {
 

@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.MonthLiteral;
+import com.aldercape.internal.economics.ui.base.IntTextField;
 
 public class DayFieldTest {
 

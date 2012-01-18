@@ -3,6 +3,7 @@ package com.aldercape.internal.economics.ui;
 import com.aldercape.internal.economics.model.TimeUnit;
 import com.aldercape.internal.economics.model.Unit;
 import com.aldercape.internal.economics.model.Unit.UnitRenderTarget;
+import com.aldercape.internal.economics.ui.base.IntTextField;
 
 public class UnitTextField extends IntTextField implements UnitRenderTarget {
 

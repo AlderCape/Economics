@@ -14,6 +14,9 @@ import javax.swing.JTabbedPane;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.aldercape.internal.economics.ui.base.AbstractEntryPanel;
+import com.aldercape.internal.economics.ui.base.StandardButtonPanel;
+
 public class AddEntryPanelTest {
 
 	private AbstractEntryPanel mainPanel;

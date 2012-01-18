@@ -2,6 +2,7 @@ package com.aldercape.internal.economics.ui;
 
 import com.aldercape.internal.economics.model.Euro;
 import com.aldercape.internal.economics.model.Euro.EuroRenderTarget;
+import com.aldercape.internal.economics.ui.base.IntTextField;
 
 public class EuroTextField extends IntTextField implements EuroRenderTarget {
 

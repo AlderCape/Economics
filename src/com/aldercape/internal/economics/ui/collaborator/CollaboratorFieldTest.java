@@ -1,4 +1,4 @@
-package com.aldercape.internal.economics.ui;
+package com.aldercape.internal.economics.ui.collaborator;
 
 import static org.junit.Assert.assertEquals;
 
@@ -14,6 +14,7 @@ import org.junit.Test;
 import com.aldercape.internal.economics.model.Collaborator;
 import com.aldercape.internal.economics.model.CollaboratorRepository;
 import com.aldercape.internal.economics.persistence.InMemoryCollaboratorRepository;
+import com.aldercape.internal.economics.ui.__TestObjectMother;
 
 public class CollaboratorFieldTest {
 
@@ -41,10 +42,10 @@ public class CollaboratorFieldTest {
 	@Test
 	public void shouldRenderTheFullName() {
 		Collaborator myCompany = new __TestObjectMother().me();
-		Component rendered = collaboratorField.getRenderer().getListCellRendererComponent(new JList(), myCompany, 0, false, false);
+		Component rendered = collaboratorField.getRenderer().getListCellRendererComponent(new JList<Collaborator>(), myCompany, 0, false, false);
 		assertEquals(JLabel.class, rendered.getClass());
 		assertEquals(myCompany.fullname(), ((JLabel) rendered).getText());
-		rendered = collaboratorField.getRenderer().getListCellRendererComponent(new JList(), null, 0, false, false);
+		rendered = collaboratorField.getRenderer().getListCellRendererComponent(new JList<Collaborator>(), null, 0, false, false);
 		assertEquals("", ((JLabel) rendered).getText());
 	}
 }

@@ -1,8 +1,9 @@
-package com.aldercape.internal.economics.ui;
+package com.aldercape.internal.economics.ui.collaborator;
 
 import com.aldercape.internal.economics.model.BaseRepository.Listener;
 import com.aldercape.internal.economics.model.Collaborator;
 import com.aldercape.internal.economics.model.CollaboratorRepository;
+import com.aldercape.internal.economics.ui.base.AbstractRepositoryComboBoxModel;
 
 public class CollaboratorRepositoryComboBoxModel extends AbstractRepositoryComboBoxModel<Collaborator> implements Listener {
 

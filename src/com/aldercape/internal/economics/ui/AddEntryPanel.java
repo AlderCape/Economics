@@ -6,6 +6,10 @@ import java.awt.CardLayout;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import com.aldercape.internal.economics.ui.base.AbstractEntryPanel;
+import com.aldercape.internal.economics.ui.base.StandardButtonPanel;
+import com.aldercape.internal.economics.ui.base.StandardButtonTarget;
+
 public class AddEntryPanel extends JPanel implements StandardButtonTarget {
 
 	private static final long serialVersionUID = -5112900796580327651L;
