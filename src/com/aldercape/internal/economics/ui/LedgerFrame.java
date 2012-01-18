@@ -55,7 +55,7 @@ public class LedgerFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				AddClientDialog dialog = new AddClientDialog(LedgerFrame.this, model);
+				AddAbstractEntryPanelDialog dialog = new AddClientDialog(LedgerFrame.this, model);
 				dialog.pack();
 				dialog.setVisible(true);
 			}

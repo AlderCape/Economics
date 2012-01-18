@@ -2,14 +2,11 @@ package com.aldercape.internal.economics.ui;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-public class AddEntryPanel extends JPanel {
+public class AddEntryPanel extends JPanel implements StandardButtonTarget {
 
 	private static final long serialVersionUID = -5112900796580327651L;
 	private JPanel center;
@@ -20,22 +17,16 @@ public class AddEntryPanel extends JPanel {
 
 		center = new JPanel(new CardLayout());
 		add(center, BorderLayout.CENTER);
-		JPanel btnPanel = new JPanel();
-		btnPanel.add(new JButton("Cancel"));
-		JButton addButton = new JButton("Add");
-		addButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				addEntry();
-			}
-		});
-		btnPanel.add(addButton);
-		add(btnPanel, BorderLayout.SOUTH);
+		add(new StandardButtonPanel(this), BorderLayout.SOUTH);
 
 		JPanel typePanel = new JPanel();
 		jTabbedPane = new JTabbedPane();
 		typePanel.add(jTabbedPane);
 		add(jTabbedPane, BorderLayout.CENTER);
+	}
+
+	@Override
+	public void doCancel() {
 	}
 
 	protected void addEntry() {
@@ -49,6 +40,11 @@ public class AddEntryPanel extends JPanel {
 
 	public int getTabCount() {
 		return jTabbedPane.getTabCount();
+	}
+
+	@Override
+	public void doAdd() {
+		addEntry();
 	}
 
 }

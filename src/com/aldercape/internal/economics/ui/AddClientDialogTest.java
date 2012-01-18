@@ -16,7 +16,7 @@ import com.aldercape.internal.economics.model.ClientRepository;
 
 public class AddClientDialogTest {
 
-	private AddClientDialog addClientDialog;
+	private AddAbstractEntryPanelDialog addClientDialog;
 	private ClientRepository repository;
 
 	@Before
@@ -32,7 +32,7 @@ public class AddClientDialogTest {
 		assertEquals(2, addClientDialog.getContentPane().getComponents().length);
 
 		assertEquals(ClientPanel.class, addClientDialog.getContentPane().getComponent(0).getClass());
-		assertEquals(JPanel.class, addClientDialog.getContentPane().getComponent(1).getClass());
+		assertEquals(StandardButtonPanel.class, addClientDialog.getContentPane().getComponent(1).getClass());
 
 		JPanel southComponent = getSouthComponent();
 		assertEquals("# of South components", 2, southComponent.getComponents().length);

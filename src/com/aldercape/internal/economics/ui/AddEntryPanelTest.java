@@ -38,7 +38,7 @@ public class AddEntryPanelTest {
 		BorderLayout layout = getLayout();
 		assertEquals("Tabbed panel in center on construction", JTabbedPane.class, layout.getLayoutComponent(BorderLayout.CENTER).getClass());
 
-		assertEquals("Sout component class", JPanel.class, layout.getLayoutComponent(BorderLayout.SOUTH).getClass());
+		assertEquals("South component class", StandardButtonPanel.class, layout.getLayoutComponent(BorderLayout.SOUTH).getClass());
 		JPanel southComponent = (JPanel) layout.getLayoutComponent(BorderLayout.SOUTH);
 		assertEquals("# of South components", 2, southComponent.getComponents().length);
 		assertEquals(JButton.class, southComponent.getComponent(0).getClass());

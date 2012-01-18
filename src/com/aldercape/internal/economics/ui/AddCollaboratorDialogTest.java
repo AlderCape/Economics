@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import com.aldercape.internal.economics.ApplicationModel;
 import com.aldercape.internal.economics.model.CollaboratorRepository;
+import com.sun.xml.internal.bind.api.impl.NameConverter.Standard;
 
 public class AddCollaboratorDialogTest {
 
@@ -33,7 +34,7 @@ public class AddCollaboratorDialogTest {
 
 		assertEquals(CollaboratorPanel.class, addCollaboratorDialog.getContentPane().getComponent(0).getClass());
 
-		assertEquals(JPanel.class, addCollaboratorDialog.getContentPane().getComponent(1).getClass());
+		assertEquals(StandardButtonPanel.class, addCollaboratorDialog.getContentPane().getComponent(1).getClass());
 
 		JPanel southComponent = getSouthComponent();
 		assertEquals("# of South components", 2, southComponent.getComponents().length);
