@@ -124,7 +124,7 @@ public class Day extends TimePoint implements Comparable<Day> {
 
 	public void render(DayRenderTarget target) {
 		target.renderDay(day);
-		target.renderMonth(month.month());
+		target.renderMonth(month.monthLitteral());
 		target.renderYear(month.year());
 	}
 

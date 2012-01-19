@@ -5,6 +5,12 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.aldercape.internal.economics.criteria.AbstractEntryCriteria;
+import com.aldercape.internal.economics.criteria.ClientCriteria;
+import com.aldercape.internal.economics.criteria.CollaboratorCriteria;
+import com.aldercape.internal.economics.criteria.MonthCriteria;
+import com.aldercape.internal.economics.criteria.RateCriteria;
+
 public class InvoiceEntryBuilder {
 
 	private Set<TimeEntry> entries;
@@ -14,11 +20,7 @@ public class InvoiceEntryBuilder {
 			@Override
 			public int compare(TimeEntry o1, TimeEntry o2) {
 				int result;
-				result = o1.collaborator().fullname().compareTo(o2.collaborator().fullname());
-				if (result != 0) {
-					return result;
-				}
-				result = o1.client().name().compareTo(o2.client().name());
+				result = o1.collaborator().compareTo(o2.collaborator());
 				if (result != 0) {
 					return result;
 				}
@@ -27,6 +29,10 @@ public class InvoiceEntryBuilder {
 					return result;
 				}
 				result = o1.getTimePoint().compareTo(o2.getTimePoint());
+				if (result != 0) {
+					return result;
+				}
+				result = o1.client().name().compareTo(o2.client().name());
 				if (result != 0) {
 					return result;
 				}
@@ -47,7 +53,7 @@ public class InvoiceEntryBuilder {
 		ComposedInvoiceEntry currentInvoiceEntry = null;
 		LinkedHashSet<ComposedInvoiceEntry> result = new LinkedHashSet<ComposedInvoiceEntry>();
 		for (TimeEntry entry : entries) {
-			if (currentInvoiceEntry == null || !belongsTo(currentInvoiceEntry, entry)) {
+			if (currentInvoiceEntry == null || !currentInvoiceEntry.belongsTo(entry)) {
 				currentInvoiceEntry = new ComposedInvoiceEntry(entry);
 				result.add(currentInvoiceEntry);
 			} else {
@@ -57,11 +63,7 @@ public class InvoiceEntryBuilder {
 		return result;
 	}
 
-	private boolean belongsTo(ComposedInvoiceEntry currentInvoiceEntry, TimeEntry entry) {
-		return currentInvoiceEntry.getTimePoint().sameMonth(entry.getTimePoint()) && currentInvoiceEntry.collaborator().fullname().equals(entry.collaborator().fullname()) && currentInvoiceEntry.client().name().equals(entry.client().name()) && currentInvoiceEntry.rate().equals(entry.rate());
-	}
-
-	private class ComposedInvoiceEntry implements InvoiceEntry {
+	class ComposedInvoiceEntry implements InvoiceEntry {
 
 		private Set<TimeEntry> entries = new LinkedHashSet<TimeEntry>();
 
@@ -124,5 +126,13 @@ public class InvoiceEntryBuilder {
 			return amount().percentage(21);
 		}
 
+		boolean belongsTo(TimeEntry entry) {
+			AbstractEntryCriteria<Day> criteria = new MonthCriteria<Day>(getTimePoint());
+			criteria = criteria.and(new CollaboratorCriteria<Day>(collaborator()));
+			criteria = criteria.and(new ClientCriteria<Day>(client()));
+			criteria = criteria.and(new RateCriteria<Day>(rate()));
+			return criteria.matches(entry);
+
+		}
 	}
 }

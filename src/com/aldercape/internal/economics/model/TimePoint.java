@@ -1,5 +1,6 @@
 package com.aldercape.internal.economics.model;
 
-public class TimePoint {
+public abstract class TimePoint {
 
+	public abstract Month month();
 }

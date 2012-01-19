@@ -11,6 +11,8 @@ public final class EntryFake implements Entry<Day> {
 
 	public Client client;
 	public Collaborator collaborator;
+	public Day timePoint;
+	public Euro rate;
 
 	@Override
 	public Euro amount() {
@@ -19,7 +21,7 @@ public final class EntryFake implements Entry<Day> {
 
 	@Override
 	public Day getTimePoint() {
-		return null;
+		return timePoint;
 	}
 
 	@Override
@@ -39,7 +41,7 @@ public final class EntryFake implements Entry<Day> {
 
 	@Override
 	public Euro rate() {
-		return null;
+		return rate;
 	}
 
 	@Override

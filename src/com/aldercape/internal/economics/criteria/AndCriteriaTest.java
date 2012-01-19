@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.aldercape.internal.economics.model.Day;
-import com.aldercape.internal.economics.model.Entry;
 import com.aldercape.internal.economics.model.EntryCriteria;
 
 public class AndCriteriaTest {
@@ -17,26 +16,13 @@ public class AndCriteriaTest {
 
 	@Before
 	public void setUp() {
-		trueCriteria = new EntryCriteria<Day>() {
-
-			@Override
-			public boolean matches(Entry<Day> matchingEntry) {
-				return true;
-			}
-		};
-		falseCriteria = new EntryCriteria<Day>() {
-
-			@Override
-			public boolean matches(Entry<Day> matchingEntry) {
-				return false;
-			}
-		};
+		trueCriteria = new __TrueCriteria();
+		falseCriteria = new __FalseCriteria();
 	}
 
 	@Test
 	public void matches() {
-		AndCriteria<Day> criteria = new AndCriteria<Day>(trueCriteria, trueCriteria);
-		assertTrue(criteria.matches(new EntryFake()));
+		assertTrue(new AndCriteria<Day>(trueCriteria, trueCriteria).matches(new EntryFake()));
 	}
 
 	@Test

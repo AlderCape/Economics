@@ -1,6 +1,6 @@
 package com.aldercape.internal.economics.model;
 
-public class Collaborator {
+public class Collaborator implements Comparable<Collaborator> {
 
 	public static final Collaborator UNKNOWN = new Collaborator("", "");
 	private String name;
@@ -39,6 +39,11 @@ public class Collaborator {
 		target.renderFullName(this);
 		target.renderFirstName(firstname());
 		target.renderLastName(lastname());
+	}
+
+	@Override
+	public int compareTo(Collaborator o) {
+		return fullname().compareTo(o.fullname());
 	}
 
 }

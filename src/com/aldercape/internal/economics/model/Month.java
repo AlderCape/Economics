@@ -94,7 +94,12 @@ public class Month extends TimePoint implements Comparable<Month> {
 		return new Month(month, year);
 	}
 
-	public MonthLiteral month() {
+	@Override
+	public Month month() {
+		return this;
+	}
+
+	public MonthLiteral monthLitteral() {
 		return month;
 	}
 
@@ -111,7 +116,7 @@ public class Month extends TimePoint implements Comparable<Month> {
 	}
 
 	public void render(MonthTargetRenderer target) {
-		target.renderMonth(month());
+		target.renderMonth(monthLitteral());
 		target.renderYear(year());
 	}
 
