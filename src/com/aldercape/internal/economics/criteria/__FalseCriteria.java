@@ -9,4 +9,9 @@ public final class __FalseCriteria implements EntryCriteria<Day> {
 	public boolean matches(Entry<Day> matchingEntry) {
 		return false;
 	}
+
+	@Override
+	public EntryCriteria<Day> and(EntryCriteria<Day> other) {
+		return this;
+	}
 }

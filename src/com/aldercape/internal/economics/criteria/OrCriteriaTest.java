@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.aldercape.internal.economics.model.Day;
-import com.aldercape.internal.economics.model.Entry;
 import com.aldercape.internal.economics.model.EntryCriteria;
 
 public class OrCriteriaTest {
@@ -17,20 +16,8 @@ public class OrCriteriaTest {
 
 	@Before
 	public void setUp() {
-		trueCriteria = new EntryCriteria<Day>() {
-
-			@Override
-			public boolean matches(Entry<Day> matchingEntry) {
-				return true;
-			}
-		};
-		falseCriteria = new EntryCriteria<Day>() {
-
-			@Override
-			public boolean matches(Entry<Day> matchingEntry) {
-				return false;
-			}
-		};
+		trueCriteria = new __TrueCriteria();
+		falseCriteria = new __FalseCriteria();
 	}
 
 	@Test

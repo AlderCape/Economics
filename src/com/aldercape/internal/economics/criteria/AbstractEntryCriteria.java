@@ -5,8 +5,8 @@ import com.aldercape.internal.economics.model.TimePoint;
 
 public abstract class AbstractEntryCriteria<T extends TimePoint> implements EntryCriteria<T> {
 
+	@Override
 	public AbstractEntryCriteria<T> and(EntryCriteria<T> other) {
 		return new AndCriteria<T>(this, other);
 	}
-
 }
