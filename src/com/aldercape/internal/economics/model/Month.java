@@ -120,4 +120,17 @@ public class Month extends TimePoint implements Comparable<Month> {
 		target.renderYear(year());
 	}
 
+	public int daysInMonth() {
+		return month.daysInMonth(year);
+	}
+
+	public Month nextMonth() {
+		MonthLiteral nextMonth = month.next();
+		int newYear = year;
+		if (nextMonth.ordinal() < month.ordinal()) {
+			newYear = newYear + 1;
+		}
+		return new Month(month.next(), newYear);
+	}
+
 }

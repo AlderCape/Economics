@@ -104,6 +104,7 @@ public class Day extends TimePoint implements Comparable<Day> {
 		return day - arg0.day;
 	}
 
+	@Override
 	public Month month() {
 		return month;
 	}
@@ -130,5 +131,15 @@ public class Day extends TimePoint implements Comparable<Day> {
 
 	public boolean sameMonth(Day other) {
 		return month().equals(other.month);
+	}
+
+	public Day daysAfter(int days) {
+		Month newMonth = month;
+		int nextDayInMonth = day + days;
+		while (nextDayInMonth > newMonth.daysInMonth()) {
+			nextDayInMonth = nextDayInMonth - newMonth.daysInMonth();
+			newMonth = newMonth.nextMonth();
+		}
+		return new Day(nextDayInMonth, newMonth);
 	}
 }

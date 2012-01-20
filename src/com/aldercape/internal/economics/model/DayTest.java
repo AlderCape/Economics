@@ -56,4 +56,17 @@ public class DayTest {
 		assertFalse("shouldn't blow up when comparing to null", day1a.equals(null));
 	}
 
+	@Test
+	public void after() {
+		Day base = Day.january(1, 2011);
+		assertEquals(Day.january(2, 2011), base.daysAfter(1));
+		assertEquals(Day.january(31, 2011), base.daysAfter(30));
+		assertEquals(Day.february(1, 2011), base.daysAfter(31));
+		assertEquals(Day.february(2, 2011), base.daysAfter(32));
+		assertEquals(Day.mars(1, 2011), base.daysAfter(59));
+		assertEquals(Day.january(1, 2012), Day.december(31, 2011).daysAfter(1));
+		assertEquals(Day.mars(1, 2011), Day.february(28, 2011).daysAfter(1));
+		assertEquals(Day.february(29, 2012), Day.february(28, 2012).daysAfter(1));
+	}
+
 }
