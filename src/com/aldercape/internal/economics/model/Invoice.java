@@ -1,6 +1,5 @@
 package com.aldercape.internal.economics.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Invoice {
@@ -9,15 +8,23 @@ public class Invoice {
 	private Client client;
 	private Day issueDate;
 	private List<Entry<Day>> entries;
+	private int daysToPay;
+	private Client company;
 
-	public Invoice(Client client, Day issueDate) {
-		this(client, issueDate, new ArrayList<Entry<Day>>());
-	}
-
-	public Invoice(Client client, Day issueDate, List<Entry<Day>> entries) {
+	public Invoice(Client company, Client client, Day issueDate, List<Entry<Day>> entries, int daysToPay) throws EntryNotForClientException {
+		this.company = company;
 		this.client = client;
 		this.issueDate = issueDate;
 		this.entries = entries;
+		this.daysToPay = daysToPay;
+		assertEntriesForClient();
+	}
+
+	private void assertEntriesForClient() {
+		for (Entry<Day> entry : entries) {
+			Client client2 = client;
+			assertIsForClient(entry, client2);
+		}
 	}
 
 	public Client client() {
@@ -42,6 +49,28 @@ public class Invoice {
 
 	public Euro toPay() {
 		return totalAmount().plus(vat());
+	}
+
+	public Day dueDate() {
+		return issueDate().daysAfter(daysToPay);
+	}
+
+	public Client company() {
+		return company;
+	}
+
+	public boolean isOverdue(Day day) {
+		return day.after(dueDate());
+	}
+
+	public static void assertIsForClient(Entry<Day> entry, Client client) {
+		if (!entry.client().equals(client)) {
+			throw new EntryNotForClientException("Invoice is for " + client.name() + " but got " + entry.client().name());
+		}
+	}
+
+	public static boolean isValid(Entry<Day> entry, Client client) {
+		return entry.client().equals(client);
 	}
 
 }
