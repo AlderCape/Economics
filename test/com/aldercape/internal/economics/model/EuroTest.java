@@ -19,7 +19,7 @@ public class EuroTest {
 		Euro euro1b = new Euro(10);
 		Euro euro2a = new Euro(11);
 
-		assertEquals("Û 10", euro1a.toString());
+		assertEquals("(EUR) 10", euro1a.toString());
 		assertTrue("should equal it self", euro1a.equals(euro1a));
 		assertTrue("euros with same amount should be equal", euro1a.equals(euro1b));
 		assertFalse("euros with different amounts should not be equal", euro1a.equals(euro2a));

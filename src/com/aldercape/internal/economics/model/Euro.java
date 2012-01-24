@@ -10,7 +10,7 @@ public class Euro implements Comparable<Euro> {
 
 	@Override
 	public String toString() {
-		return "Û " + amount;
+		return "(EUR) " + amount;
 	}
 
 	@Override
