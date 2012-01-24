@@ -22,7 +22,7 @@ public class TimeEntryTest {
 
 	@Test
 	public void test() {
-		TimeEntry entry = new TimeEntry(Unit.days(1), new Euro(200), me, myCompany, Day.january(2, 2012));
+		TimeEntry entry = new TimeEntry(Unit.days(1), Rate.daily(new Euro(200)), me, myCompany, Day.january(2, 2012));
 		assertEquals(Day.january(2, 2012), entry.day());
 		assertEquals(new Euro(200), entry.rate());
 		assertEquals(Unit.days(1), entry.units());

@@ -18,6 +18,7 @@ import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.Euro;
 import com.aldercape.internal.economics.model.Ledger;
 import com.aldercape.internal.economics.model.Month;
+import com.aldercape.internal.economics.model.Rate;
 import com.aldercape.internal.economics.model.SimpleInvoiceEntry;
 import com.aldercape.internal.economics.model.Unit;
 
@@ -41,7 +42,7 @@ public class LedgerTableModelTest {
 	@Test
 	public void oneRowPerEntry() {
 		assertEquals(0, model.getRowCount());
-		AbstractEntry<Day> entry = new AbstractEntry<Day>(Unit.days(2), new Euro(10), me, myCompany, Day.february(1, 2010)) {
+		AbstractEntry<Day> entry = new AbstractEntry<Day>(Unit.days(2), Rate.daily(new Euro(10)), me, myCompany, Day.february(1, 2010)) {
 		};
 		ledger.addEntry(entry);
 		assertEquals(1, model.getRowCount());

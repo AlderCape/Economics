@@ -58,4 +58,8 @@ public class Euro implements Comparable<Euro> {
 		target.renderAmount(amount);
 	}
 
+	public Euro divide(int divident) {
+		return new Euro(amount / divident);
+	}
+
 }

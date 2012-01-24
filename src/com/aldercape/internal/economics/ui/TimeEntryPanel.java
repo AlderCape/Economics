@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 import com.aldercape.internal.economics.ApplicationModel;
 import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.Euro;
+import com.aldercape.internal.economics.model.Rate;
 import com.aldercape.internal.economics.model.TimeEntry;
 
 public class TimeEntryPanel extends AbstractEntryPanel {
@@ -49,7 +50,7 @@ public class TimeEntryPanel extends AbstractEntryPanel {
 
 	@Override
 	public void addEntry() {
-		model.addEntry(new TimeEntry(units.createDomainObject(), rate.createDomainObject(), person.createDomainObject(), client.createDomainObject(), day.createDomainObject()));
+		model.addEntry(new TimeEntry(units.createDomainObject(), Rate.daily(rate.createDomainObject()), person.createDomainObject(), client.createDomainObject(), day.createDomainObject()));
 	}
 
 }

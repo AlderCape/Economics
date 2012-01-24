@@ -17,6 +17,7 @@ import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.Entry;
 import com.aldercape.internal.economics.model.Euro;
 import com.aldercape.internal.economics.model.Ledger;
+import com.aldercape.internal.economics.model.Rate;
 import com.aldercape.internal.economics.model.TimeEntry;
 import com.aldercape.internal.economics.model.Unit;
 
@@ -61,7 +62,7 @@ public class TimeEntryPanelTest {
 	@Test
 	public void addEntryShouldCreateANewIncomeEntryAndAddItToApplicationModel() {
 		assertEquals(0, ledger.numberOfEntries());
-		TimeEntry populateWith = new TimeEntry(Unit.days(19), new Euro(250), me, myCompany, Day.january(1, 2011));
+		TimeEntry populateWith = new TimeEntry(Unit.days(19), Rate.daily(new Euro(250)), me, myCompany, Day.january(1, 2011));
 		panel.setEntry(populateWith);
 		panel.addEntry();
 		Entry<Day> addedEntry = ledger.entry(0);

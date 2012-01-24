@@ -19,6 +19,7 @@ import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.Euro;
 import com.aldercape.internal.economics.model.InvoiceEntry;
 import com.aldercape.internal.economics.model.Ledger;
+import com.aldercape.internal.economics.model.Rate;
 import com.aldercape.internal.economics.model.SimpleInvoiceEntry;
 import com.aldercape.internal.economics.model.TimeEntry;
 import com.aldercape.internal.economics.model.Unit;
@@ -45,36 +46,36 @@ public class LedgetTableTest {
 	@Test
 	public void createTimeEntriesFromSelectionSingleSelection() {
 		Ledger ledger = new Ledger();
-		ledger.addEntry(new TimeEntry(Unit.days(1), new Euro(10), me, myCompany, Day.january(4, 2012)));
+		ledger.addEntry(new TimeEntry(Unit.days(1), Rate.daily(new Euro(10)), me, myCompany, Day.january(4, 2012)));
 		LedgerTable table = new LedgerTable(new ApplicationModel(ledger));
 		table.getSelectionModel().setSelectionInterval(0, 0);
 		Set<TimeEntry> entries = table.createTimeEntriesFromSelection();
-		TimeEntry expected = new TimeEntry(Unit.days(1), new Euro(10), me, myCompany, Day.january(4, 2012));
+		TimeEntry expected = new TimeEntry(Unit.days(1), Rate.daily(new Euro(10)), me, myCompany, Day.january(4, 2012));
 		assertTimeEntryEquals(expected, entries.iterator().next());
 	}
 
 	@Test
 	public void createTimeEntriesFromSelectionMultipleSelectionsSameDay() {
 		Ledger ledger = new Ledger();
-		ledger.addEntry(new TimeEntry(Unit.days(1), new Euro(10), me, myCompany, Day.january(4, 2012)));
-		ledger.addEntry(new TimeEntry(Unit.days(1), new Euro(10), me, myCompany, Day.january(4, 2012)));
-		ledger.addEntry(new TimeEntry(Unit.days(1), new Euro(10), me, myCompany, Day.january(4, 2012)));
-		ledger.addEntry(new TimeEntry(Unit.days(1), new Euro(10), me, myCompany, Day.january(4, 2012)));
+		ledger.addEntry(new TimeEntry(Unit.days(1), Rate.daily(new Euro(10)), me, myCompany, Day.january(4, 2012)));
+		ledger.addEntry(new TimeEntry(Unit.days(1), Rate.daily(new Euro(10)), me, myCompany, Day.january(4, 2012)));
+		ledger.addEntry(new TimeEntry(Unit.days(1), Rate.daily(new Euro(10)), me, myCompany, Day.january(4, 2012)));
+		ledger.addEntry(new TimeEntry(Unit.days(1), Rate.daily(new Euro(10)), me, myCompany, Day.january(4, 2012)));
 		LedgerTable table = new LedgerTable(new ApplicationModel(ledger));
 		table.getSelectionModel().setSelectionInterval(1, 2);
 		Set<TimeEntry> entries = table.createTimeEntriesFromSelection();
 		assertEquals(2, entries.size());
-		TimeEntry expected = new TimeEntry(Unit.days(1), new Euro(10), me, myCompany, Day.january(4, 2012));
+		TimeEntry expected = new TimeEntry(Unit.days(1), Rate.daily(new Euro(10)), me, myCompany, Day.january(4, 2012));
 		assertTimeEntryEquals(expected, entries.iterator().next());
 	}
 
 	@Test
 	public void createInvoiceEntriesFromSelectionCallsBuilder() {
 		Ledger ledger = new Ledger();
-		ledger.addEntry(new TimeEntry(Unit.days(1), new Euro(10), me, myCompany, Day.january(4, 2012)));
-		ledger.addEntry(new TimeEntry(Unit.days(1), new Euro(10), me, myCompany, Day.january(4, 2012)));
-		ledger.addEntry(new TimeEntry(Unit.days(1), new Euro(10), me, myCompany, Day.january(4, 2012)));
-		ledger.addEntry(new TimeEntry(Unit.days(1), new Euro(10), me, myCompany, Day.january(4, 2012)));
+		ledger.addEntry(new TimeEntry(Unit.days(1), Rate.daily(new Euro(10)), me, myCompany, Day.january(4, 2012)));
+		ledger.addEntry(new TimeEntry(Unit.days(1), Rate.daily(new Euro(10)), me, myCompany, Day.january(4, 2012)));
+		ledger.addEntry(new TimeEntry(Unit.days(1), Rate.daily(new Euro(10)), me, myCompany, Day.january(4, 2012)));
+		ledger.addEntry(new TimeEntry(Unit.days(1), Rate.daily(new Euro(10)), me, myCompany, Day.january(4, 2012)));
 		LedgerTable table = new LedgerTable(new ApplicationModel(ledger));
 		table.getSelectionModel().setSelectionInterval(1, 2);
 		Set<? extends InvoiceEntry> entries = table.createInvoiceEntriesFromSelection();
@@ -86,7 +87,7 @@ public class LedgetTableTest {
 	public void createInvoiceEntriesFromSelectionIgnoresSelectedInvoiceItems() {
 		Ledger ledger = new Ledger();
 		ledger.addEntry(new SimpleInvoiceEntry(Unit.days(1), new Euro(10), me, myCompany, Day.january(4, 2012)));
-		ledger.addEntry(new TimeEntry(Unit.days(1), new Euro(10), me, myCompany, Day.january(4, 2012)));
+		ledger.addEntry(new TimeEntry(Unit.days(1), Rate.daily(new Euro(10)), me, myCompany, Day.january(4, 2012)));
 		LedgerTable table = new LedgerTable(new ApplicationModel(ledger));
 		table.getSelectionModel().setSelectionInterval(0, 1);
 		Set<? extends InvoiceEntry> entries = table.createInvoiceEntriesFromSelection();

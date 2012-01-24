@@ -3,7 +3,7 @@ package com.aldercape.internal.economics.model;
 public class SimpleInvoiceEntry extends AbstractEntry<Day> implements InvoiceEntry {
 
 	public SimpleInvoiceEntry(Unit units, Euro rate, Collaborator person, Client client, Day issueDate) {
-		super(units, rate, person, client, issueDate);
+		super(units, Rate.daily(rate), person, client, issueDate);
 	}
 
 	public Month bookkeepingMonth() {

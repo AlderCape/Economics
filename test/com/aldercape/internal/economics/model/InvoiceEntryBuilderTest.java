@@ -40,7 +40,7 @@ public class InvoiceEntryBuilderTest {
 
 	@Test
 	public void oneEntry() {
-		InvoiceEntryBuilder builder = new InvoiceEntryBuilder(Collections.singleton(new TimeEntry(Unit.days(1), new Euro(50), me, myCompany, Day.january(3, 2012))));
+		InvoiceEntryBuilder builder = new InvoiceEntryBuilder(Collections.singleton(createTimeEntry(me, myCompany, Day.january(3, 2012))));
 		InvoiceEntry invoiceEntry = builder.createInvoiceEntry().iterator().next();
 		InvoiceEntry expected = new SimpleInvoiceEntry(Unit.days(1), new Euro(50), me, myCompany, Day.january(3, 2012));
 		assertInvoiceEntryEquals(expected, invoiceEntry);
@@ -49,8 +49,8 @@ public class InvoiceEntryBuilderTest {
 	@Test
 	public void twoEntriesLowestDayAsTimePoint() {
 		Set<TimeEntry> entries = new HashSet<TimeEntry>();
-		entries.add(new TimeEntry(Unit.days(1), new Euro(50), me, myCompany, Day.january(3, 2012)));
-		entries.add(new TimeEntry(Unit.days(1), new Euro(50), me, myCompany, Day.january(4, 2012)));
+		entries.add(createTimeEntry(me, myCompany, Day.january(3, 2012)));
+		entries.add(createTimeEntry(me, myCompany, Day.january(4, 2012)));
 		InvoiceEntryBuilder builder = new InvoiceEntryBuilder(entries);
 		InvoiceEntry invoiceEntry = builder.createInvoiceEntry().iterator().next();
 		InvoiceEntry expected = new SimpleInvoiceEntry(Unit.days(2), new Euro(50), me, myCompany, Day.january(3, 2012));
@@ -60,8 +60,8 @@ public class InvoiceEntryBuilderTest {
 	@Test
 	public void twoEntriesDifferentMonths() {
 		Set<TimeEntry> entries = new HashSet<TimeEntry>();
-		entries.add(new TimeEntry(Unit.days(1), new Euro(50), me, myCompany, Day.january(3, 2012)));
-		entries.add(new TimeEntry(Unit.days(1), new Euro(50), me, myCompany, Day.february(3, 2012)));
+		entries.add(createTimeEntry(me, myCompany, Day.january(3, 2012)));
+		entries.add(createTimeEntry(me, myCompany, Day.february(3, 2012)));
 		InvoiceEntryBuilder builder = new InvoiceEntryBuilder(entries);
 		Set<? extends InvoiceEntry> invoiceEntry = builder.createInvoiceEntry();
 		assertEquals(2, invoiceEntry.size());
@@ -75,8 +75,8 @@ public class InvoiceEntryBuilderTest {
 	@Test
 	public void twoEntriesDifferentCollaborators() {
 		Set<TimeEntry> entries = new HashSet<TimeEntry>();
-		entries.add(new TimeEntry(Unit.days(1), new Euro(50), me, myCompany, Day.january(3, 2012)));
-		entries.add(new TimeEntry(Unit.days(1), new Euro(50), other, myCompany, Day.january(3, 2012)));
+		entries.add(createTimeEntry(me, myCompany, Day.january(3, 2012)));
+		entries.add(createTimeEntry(other, myCompany, Day.january(3, 2012)));
 		InvoiceEntryBuilder builder = new InvoiceEntryBuilder(entries);
 		Set<? extends InvoiceEntry> invoiceEntry = builder.createInvoiceEntry();
 		Iterator<? extends InvoiceEntry> iterator = invoiceEntry.iterator();
@@ -89,8 +89,8 @@ public class InvoiceEntryBuilderTest {
 	@Test
 	public void twoEntriesDifferentClients() {
 		Set<TimeEntry> entries = new HashSet<TimeEntry>();
-		entries.add(new TimeEntry(Unit.days(1), new Euro(50), me, myCompany, Day.january(3, 2012)));
-		entries.add(new TimeEntry(Unit.days(1), new Euro(50), me, otherCompany, Day.january(3, 2012)));
+		entries.add(createTimeEntry(me, myCompany, Day.january(3, 2012)));
+		entries.add(createTimeEntry(me, otherCompany, Day.january(3, 2012)));
 		InvoiceEntryBuilder builder = new InvoiceEntryBuilder(entries);
 		Set<? extends InvoiceEntry> invoiceEntry = builder.createInvoiceEntry();
 		Iterator<? extends InvoiceEntry> iterator = invoiceEntry.iterator();
@@ -103,8 +103,8 @@ public class InvoiceEntryBuilderTest {
 	@Test
 	public void twoEntriesDifferentRates() {
 		Set<TimeEntry> entries = new HashSet<TimeEntry>();
-		entries.add(new TimeEntry(Unit.days(1), new Euro(50), me, myCompany, Day.january(3, 2012)));
-		entries.add(new TimeEntry(Unit.days(1), new Euro(150), me, myCompany, Day.january(3, 2012)));
+		entries.add(createTimeEntry(me, myCompany, Day.january(3, 2012)));
+		entries.add(createTimeEntry(new Euro(150), me, myCompany, Day.january(3, 2012)));
 		InvoiceEntryBuilder builder = new InvoiceEntryBuilder(entries);
 		Set<? extends InvoiceEntry> invoiceEntry = builder.createInvoiceEntry();
 		Iterator<? extends InvoiceEntry> iterator = invoiceEntry.iterator();
@@ -117,8 +117,8 @@ public class InvoiceEntryBuilderTest {
 	@Test
 	public void twoEqualEntries() {
 		Set<TimeEntry> entries = new HashSet<TimeEntry>();
-		entries.add(new TimeEntry(Unit.days(1), new Euro(50), me, myCompany, Day.january(3, 2012)));
-		entries.add(new TimeEntry(Unit.days(1), new Euro(50), me, myCompany, Day.january(3, 2012)));
+		entries.add(createTimeEntry(me, myCompany, Day.january(3, 2012)));
+		entries.add(createTimeEntry(me, myCompany, Day.january(3, 2012)));
 		InvoiceEntryBuilder builder = new InvoiceEntryBuilder(entries);
 		InvoiceEntry invoiceEntry = builder.createInvoiceEntry().iterator().next();
 		InvoiceEntry expected = new SimpleInvoiceEntry(Unit.days(2), new Euro(50), me, myCompany, Day.january(3, 2012));
@@ -128,12 +128,12 @@ public class InvoiceEntryBuilderTest {
 	@Test
 	public void manyEntriesSortedByCollaborator() {
 		Set<TimeEntry> entries = new HashSet<TimeEntry>();
-		entries.add(new TimeEntry(Unit.days(1), new Euro(200), me, myCompany, Day.january(1, 2012)));
-		entries.add(new TimeEntry(Unit.days(1), new Euro(200), me, myCompany, Day.january(2, 2012)));
-		entries.add(new TimeEntry(Unit.days(1), new Euro(200), me, myCompany, Day.january(3, 2012)));
-		entries.add(new TimeEntry(Unit.days(1), new Euro(200), other, myCompany, Day.january(1, 2012)));
-		entries.add(new TimeEntry(Unit.days(1), new Euro(200), other, myCompany, Day.january(2, 2012)));
-		entries.add(new TimeEntry(Unit.days(1), new Euro(200), other, myCompany, Day.january(3, 2012)));
+		entries.add(createTimeEntry(new Euro(200), me, myCompany, Day.january(1, 2012)));
+		entries.add(createTimeEntry(new Euro(200), me, myCompany, Day.january(2, 2012)));
+		entries.add(createTimeEntry(new Euro(200), me, myCompany, Day.january(3, 2012)));
+		entries.add(createTimeEntry(new Euro(200), other, myCompany, Day.january(1, 2012)));
+		entries.add(createTimeEntry(new Euro(200), other, myCompany, Day.january(2, 2012)));
+		entries.add(createTimeEntry(new Euro(200), other, myCompany, Day.january(3, 2012)));
 
 		InvoiceEntryBuilder builder = new InvoiceEntryBuilder(entries);
 		Iterator<? extends InvoiceEntry> result = builder.createInvoiceEntry().iterator();
@@ -145,6 +145,14 @@ public class InvoiceEntryBuilderTest {
 		expected = new SimpleInvoiceEntry(Unit.days(3), new Euro(200), other, myCompany, Day.january(1, 2012));
 		assertInvoiceEntryEquals(expected, invoiceEntry);
 
+	}
+
+	private TimeEntry createTimeEntry(Euro amount, Collaborator collaborator, Client client, Day day) {
+		return new TimeEntry(Unit.days(1), Rate.daily(amount), collaborator, client, day);
+	}
+
+	public TimeEntry createTimeEntry(Collaborator collaborator, Client client, Day day) {
+		return createTimeEntry(new Euro(50), collaborator, client, day);
 	}
 
 }

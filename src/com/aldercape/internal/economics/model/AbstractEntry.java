@@ -4,11 +4,11 @@ public class AbstractEntry<T extends TimePoint> implements Entry<T> {
 
 	private Collaborator collaborator;
 	private Client client;
-	private Euro rate;
+	private Rate rate;
 	private Unit units;
 	private T time;
 
-	public AbstractEntry(Unit units, Euro rate, Collaborator collaborator, Client client, T time) {
+	public AbstractEntry(Unit units, Rate rate, Collaborator collaborator, Client client, T time) {
 		this.units = units;
 		this.rate = rate;
 		this.collaborator = collaborator;
@@ -16,30 +16,37 @@ public class AbstractEntry<T extends TimePoint> implements Entry<T> {
 		this.time = time;
 	}
 
+	@Override
 	public Client client() {
 		return client;
 	}
 
+	@Override
 	public Collaborator collaborator() {
 		return collaborator;
 	}
 
+	@Override
 	public Euro rate() {
-		return rate;
+		return rate.costPerDay();
 	}
 
+	@Override
 	public Unit units() {
 		return units;
 	}
 
+	@Override
 	public Euro amount() {
 		return rate().times(units().days());
 	}
 
+	@Override
 	public Euro vat() {
 		return amount().percentage(21);
 	}
 
+	@Override
 	public T getTimePoint() {
 		return time;
 	}
