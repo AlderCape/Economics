@@ -1,12 +1,13 @@
 package com.aldercape.internal.economics.ui;
 
+import com.aldercape.internal.economics.model.Address;
 import com.aldercape.internal.economics.model.Client;
 import com.aldercape.internal.economics.model.Collaborator;
 
 public class __TestObjectMother {
 
-	private Client myCompany = new Client("My Company");
-	private Client otherCompany = new Client("Other Company");
+	private Client myCompany = new Client("My Company", new Address("", "", "", ""), "", "");
+	private Client otherCompany = new Client("Other Company", new Address("", "", "", ""), "", "");
 	private Collaborator me = new Collaborator("Me", "Surname");
 	private Collaborator other = new Collaborator("Other", "Something");
 

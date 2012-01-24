@@ -3,6 +3,7 @@ package com.aldercape.internal.economics.ui;
 import javax.swing.JLabel;
 
 import com.aldercape.internal.economics.ApplicationModel;
+import com.aldercape.internal.economics.model.Address;
 import com.aldercape.internal.economics.model.Client;
 import com.aldercape.internal.economics.model.Client.ClientRenderTarget;
 
@@ -25,7 +26,7 @@ public class ClientPanel extends AbstractEntryPanel implements ClientRenderTarge
 	}
 
 	private Client createClient() {
-		return new Client(name.getValue());
+		return new Client(name.getValue(), new Address("", "", "", ""), "", "");
 	}
 
 	public void setEntry(Client client) {
