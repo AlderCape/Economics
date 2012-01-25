@@ -12,8 +12,6 @@ public interface Entry<T extends TimePoint> {
 
 	public Unit units();
 
-	public Euro costPerDay();
-
 	public Euro vat();
 
 	public Rate rate();

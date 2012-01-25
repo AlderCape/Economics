@@ -12,7 +12,7 @@ public class TimeEntryPanel extends AbstractEntryPanel {
 
 	private static final long serialVersionUID = 1L;
 	private UnitTextField units;
-	private EuroTextField rate;
+	private RateTextField rate;
 	private CollaboratorField person;
 	private ClientField client;
 	private DayTextField day;
@@ -24,7 +24,7 @@ public class TimeEntryPanel extends AbstractEntryPanel {
 		add(units);
 
 		add(new JLabel("Rate"));
-		rate = new EuroTextField(new Euro(0));
+		rate = new RateTextField(new Euro(0));
 		add(rate);
 
 		add(new JLabel("Person"));
@@ -42,7 +42,7 @@ public class TimeEntryPanel extends AbstractEntryPanel {
 
 	public void setEntry(TimeEntry populatWith) {
 		populatWith.units().render(units);
-		populatWith.costPerDay().render(rate);
+		populatWith.rate().render(rate);
 		populatWith.collaborator().render(person);
 		populatWith.client().render(client);
 		populatWith.day().render(day);

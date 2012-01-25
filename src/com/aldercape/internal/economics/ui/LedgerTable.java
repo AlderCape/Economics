@@ -5,7 +5,8 @@ import java.util.Set;
 import javax.swing.JTable;
 
 import com.aldercape.internal.economics.ApplicationModel;
-import com.aldercape.internal.economics.model.InvoiceEntry;
+import com.aldercape.internal.economics.model.Day;
+import com.aldercape.internal.economics.model.Entry;
 import com.aldercape.internal.economics.model.InvoiceEntryBuilder;
 import com.aldercape.internal.economics.model.TimeEntry;
 
@@ -25,7 +26,7 @@ public class LedgerTable extends JTable {
 		return model.getRows(selectedRows);
 	}
 
-	public Set<? extends InvoiceEntry> createInvoiceEntriesFromSelection() {
+	public Set<? extends Entry<Day>> createInvoiceEntriesFromSelection() {
 		return getInvoiceBuilder(createTimeEntriesFromSelection()).createInvoiceEntry();
 
 	}

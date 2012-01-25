@@ -20,7 +20,7 @@ public class InvoiceEntryGroupingRule {
 
 	}
 
-	public EntryCriteria<Day> getCriteria(InvoiceEntry example) {
+	public EntryCriteria<Day> getCriteria(Entry<Day> example) {
 		EntryCriteria<Day> criteria = null;
 		for (Rule<Entry<Day>> rule : rules) {
 			if (criteria == null) {

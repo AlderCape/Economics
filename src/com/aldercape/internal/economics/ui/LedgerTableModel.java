@@ -49,7 +49,7 @@ public class LedgerTableModel extends AbstractTableModel implements LedgerListen
 		Rate("Daily rate") {
 			@Override
 			public Object getValue(Entry<Day> entry) {
-				return entry.costPerDay();
+				return entry.rate();
 			}
 		},
 

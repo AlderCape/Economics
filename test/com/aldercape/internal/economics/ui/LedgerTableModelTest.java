@@ -55,7 +55,7 @@ public class LedgerTableModelTest {
 		assertEquals("Me Surname", model.getValueAt(0, 1));
 		assertEquals("My Company", model.getValueAt(0, 2));
 		assertEquals(Unit.days(2), model.getValueAt(0, 3));
-		assertEquals(new Euro(50), model.getValueAt(0, 4));
+		assertEquals(Rate.daily(new Euro(50)), model.getValueAt(0, 4));
 		assertEquals(new Euro(100), model.getValueAt(0, 5));
 		assertEquals(new Euro(21), model.getValueAt(0, 6));
 	}

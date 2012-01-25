@@ -23,7 +23,6 @@ public class InvoiceEntryTest {
 	@Test
 	public void shouldHaveBasicInformation() {
 		assertEquals(Rate.daily(new Euro(50)), entry.rate());
-		assertEquals(new Euro(50), entry.costPerDay());
 		assertEquals(new Euro(100), entry.amount());
 		assertEquals("Me Surname", entry.collaborator().fullname());
 		assertEquals("My Company", entry.client().name());

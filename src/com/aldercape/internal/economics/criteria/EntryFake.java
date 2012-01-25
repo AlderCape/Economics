@@ -41,11 +41,6 @@ public final class EntryFake implements Entry<Day> {
 	}
 
 	@Override
-	public Euro costPerDay() {
-		return rate;
-	}
-
-	@Override
 	public Euro vat() {
 		return null;
 	}

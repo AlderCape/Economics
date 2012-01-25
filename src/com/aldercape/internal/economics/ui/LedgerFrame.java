@@ -15,7 +15,8 @@ import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
 
 import com.aldercape.internal.economics.ApplicationModel;
-import com.aldercape.internal.economics.model.InvoiceEntry;
+import com.aldercape.internal.economics.model.Day;
+import com.aldercape.internal.economics.model.Entry;
 import com.aldercape.internal.economics.model.TimeEntry;
 
 public class LedgerFrame extends JFrame {
@@ -70,7 +71,7 @@ public class LedgerFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Set<TimeEntry> timeEntries = ledgerTable.createTimeEntriesFromSelection();
-				Set<? extends InvoiceEntry> invoiceEntries = ledgerTable.createInvoiceEntriesFromSelection();
+				Set<? extends Entry<Day>> invoiceEntries = ledgerTable.createInvoiceEntriesFromSelection();
 				model.removeEntries(timeEntries);
 				model.addEntries(invoiceEntries);
 			}

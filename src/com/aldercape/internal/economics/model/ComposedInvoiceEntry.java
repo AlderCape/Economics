@@ -3,7 +3,7 @@ package com.aldercape.internal.economics.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-class ComposedInvoiceEntry implements InvoiceEntry {
+class ComposedInvoiceEntry implements Entry<Day> {
 
 	private Set<TimeEntry> entries = new LinkedHashSet<TimeEntry>();
 	private InvoiceEntryGroupingRule rule;
@@ -24,11 +24,6 @@ class ComposedInvoiceEntry implements InvoiceEntry {
 			result = result.plus(entry.units());
 		}
 		return result;
-	}
-
-	@Override
-	public Euro costPerDay() {
-		return firstEntry().costPerDay();
 	}
 
 	@Override
@@ -65,7 +60,7 @@ class ComposedInvoiceEntry implements InvoiceEntry {
 
 	@Override
 	public Euro amount() {
-		return costPerDay().times(units().days());
+		return rate().costPerDay().times(units().days());
 	}
 
 	@Override

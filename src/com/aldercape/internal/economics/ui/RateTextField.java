@@ -2,12 +2,13 @@ package com.aldercape.internal.economics.ui;
 
 import com.aldercape.internal.economics.model.Euro;
 import com.aldercape.internal.economics.model.Euro.EuroRenderTarget;
+import com.aldercape.internal.economics.model.Rate.RateRenderTarget;
 
-public class EuroTextField extends IntTextField implements EuroRenderTarget {
+public class RateTextField extends IntTextField implements RateRenderTarget, EuroRenderTarget {
 
 	private static final long serialVersionUID = -125618017022952442L;
 
-	public EuroTextField(Euro euro) {
+	public RateTextField(Euro euro) {
 		euro.render(this);
 	}
 
@@ -22,5 +23,10 @@ public class EuroTextField extends IntTextField implements EuroRenderTarget {
 	@Override
 	public void renderAmount(int amount) {
 		setValue(amount);
+	}
+
+	@Override
+	public void renderAmount(Euro amount) {
+		amount.render(this);
 	}
 }

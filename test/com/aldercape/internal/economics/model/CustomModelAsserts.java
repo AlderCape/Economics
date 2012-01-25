@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 public class CustomModelAsserts {
 
-	public static void assertInvoiceEntryEquals(InvoiceEntry populateWith, InvoiceEntry entry) {
+	public static void assertInvoiceEntryEquals(Entry<Day> populateWith, Entry<Day> entry) {
 		assertEquals(populateWith.units(), entry.units());
 		assertEquals(populateWith.rate(), entry.rate());
 		assertEquals(populateWith.collaborator().fullname(), entry.collaborator().fullname());

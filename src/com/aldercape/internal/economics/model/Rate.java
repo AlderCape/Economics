@@ -53,4 +53,13 @@ public class Rate implements Comparable<Rate> {
 	public int compareTo(Rate rate) {
 		return costPerDay().compareTo(rate.costPerDay());
 	}
+
+	public static interface RateRenderTarget {
+		public void renderAmount(Euro amount);
+	}
+
+	public void render(RateRenderTarget target) {
+		target.renderAmount(amount);
+	}
+
 }

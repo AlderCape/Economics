@@ -26,7 +26,7 @@ public class CustomUiAsserts {
 	}
 
 	public static void assertFormEuroField(String message, Component label, Component field, JPanel panel) {
-		CustomUiAsserts.assertFormField(message, label, EuroTextField.class, field, panel);
+		CustomUiAsserts.assertFormField(message, label, RateTextField.class, field, panel);
 	}
 
 	public static void assertFormDayField(String message, Component label, Component field, JPanel panel) {

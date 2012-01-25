@@ -13,7 +13,7 @@ public class InvoiceEntryPanel extends AbstractEntryPanel {
 	private static final long serialVersionUID = 4465473290587827631L;
 	private ApplicationModel applicationModel;
 	private UnitTextField units;
-	private EuroTextField rate;
+	private RateTextField rate;
 	private CollaboratorField person;
 	private ClientField client;
 	private DayTextField bookkeepingMonth;
@@ -27,7 +27,7 @@ public class InvoiceEntryPanel extends AbstractEntryPanel {
 		add(units);
 
 		add(new JLabel("Rate"));
-		rate = new EuroTextField(new Euro(0));
+		rate = new RateTextField(new Euro(0));
 		add(rate);
 
 		add(new JLabel("Person"));
@@ -50,7 +50,7 @@ public class InvoiceEntryPanel extends AbstractEntryPanel {
 
 	public void setEntry(SimpleInvoiceEntry populatWith) {
 		populatWith.units().render(units);
-		populatWith.costPerDay().render(rate);
+		populatWith.rate().render(rate);
 		populatWith.collaborator().render(person);
 		populatWith.client().render(client);
 		populatWith.issueDate().render(bookkeepingMonth);

@@ -102,7 +102,7 @@ public class LedgerTest {
 		ledger.addEntry(entryToKeep);
 		ledger = ledger.filter(new ClientCriteria<Day>(objectMother.otherCompany()));
 		assertEquals(1, ledger.numberOfEntries());
-		CustomModelAsserts.assertInvoiceEntryEquals(entryToKeep, (InvoiceEntry) ledger.entry(0));
+		CustomModelAsserts.assertInvoiceEntryEquals(entryToKeep, ledger.entry(0));
 	}
 
 	@Test
@@ -113,7 +113,7 @@ public class LedgerTest {
 		ledger.addEntry(entryToKeep);
 		ledger = ledger.filter(new CollaboratorCriteria<Day>(objectMother.other()));
 		assertEquals(1, ledger.numberOfEntries());
-		CustomModelAsserts.assertInvoiceEntryEquals(entryToKeep, (InvoiceEntry) ledger.entry(0));
+		CustomModelAsserts.assertInvoiceEntryEquals(entryToKeep, ledger.entry(0));
 	}
 
 }

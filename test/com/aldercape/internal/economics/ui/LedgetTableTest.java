@@ -16,8 +16,8 @@ import com.aldercape.internal.economics.ApplicationModel;
 import com.aldercape.internal.economics.model.Client;
 import com.aldercape.internal.economics.model.Collaborator;
 import com.aldercape.internal.economics.model.Day;
+import com.aldercape.internal.economics.model.Entry;
 import com.aldercape.internal.economics.model.Euro;
-import com.aldercape.internal.economics.model.InvoiceEntry;
 import com.aldercape.internal.economics.model.Ledger;
 import com.aldercape.internal.economics.model.Rate;
 import com.aldercape.internal.economics.model.SimpleInvoiceEntry;
@@ -78,7 +78,7 @@ public class LedgetTableTest {
 		ledger.addEntry(new TimeEntry(Unit.days(1), Rate.daily(new Euro(10)), me, myCompany, Day.january(4, 2012)));
 		LedgerTable table = new LedgerTable(new ApplicationModel(ledger));
 		table.getSelectionModel().setSelectionInterval(1, 2);
-		Set<? extends InvoiceEntry> entries = table.createInvoiceEntriesFromSelection();
+		Set<? extends Entry<Day>> entries = table.createInvoiceEntriesFromSelection();
 		assertEquals(1, entries.size());
 		assertInvoiceEntryEquals(new SimpleInvoiceEntry(Unit.days(2), Rate.daily(new Euro(10)), me, myCompany, Day.january(4, 2012)), entries.iterator().next());
 	}
@@ -90,7 +90,7 @@ public class LedgetTableTest {
 		ledger.addEntry(new TimeEntry(Unit.days(1), Rate.daily(new Euro(10)), me, myCompany, Day.january(4, 2012)));
 		LedgerTable table = new LedgerTable(new ApplicationModel(ledger));
 		table.getSelectionModel().setSelectionInterval(0, 1);
-		Set<? extends InvoiceEntry> entries = table.createInvoiceEntriesFromSelection();
+		Set<? extends Entry<Day>> entries = table.createInvoiceEntriesFromSelection();
 		assertEquals(1, entries.size());
 		assertInvoiceEntryEquals(new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(10)), me, myCompany, Day.january(4, 2012)), entries.iterator().next());
 	}
