@@ -4,11 +4,11 @@ import com.aldercape.internal.economics.model.Euro;
 import com.aldercape.internal.economics.model.Euro.EuroRenderTarget;
 import com.aldercape.internal.economics.model.Rate.RateRenderTarget;
 
-public class RateTextField extends IntTextField implements RateRenderTarget, EuroRenderTarget {
+public class RateField extends IntTextField implements RateRenderTarget, EuroRenderTarget {
 
 	private static final long serialVersionUID = -125618017022952442L;
 
-	public RateTextField(Euro euro) {
+	public RateField(Euro euro) {
 		euro.render(this);
 	}
 

@@ -15,12 +15,12 @@ import com.aldercape.internal.economics.model.MonthLiteral;
 
 public class DayFieldTest {
 
-	private DayTextField field;
+	private DayField field;
 	private Component[] components;
 
 	@Before
 	public void setUp() {
-		field = new DayTextField(Day.february(1, 2011));
+		field = new DayField(Day.february(1, 2011));
 		components = field.getComponents();
 	}
 

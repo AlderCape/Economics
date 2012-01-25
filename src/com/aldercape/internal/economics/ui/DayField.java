@@ -8,14 +8,14 @@ import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.Day.DayRenderTarget;
 import com.aldercape.internal.economics.model.MonthLiteral;
 
-public class DayTextField extends JPanel implements DayRenderTarget {
+public class DayField extends JPanel implements DayRenderTarget {
 
 	private static final long serialVersionUID = -4011989890153583631L;
 	private JComboBox<MonthLiteral> month;
 	private IntTextField dayField;
 	private IntTextField year;
 
-	public DayTextField(Day day) {
+	public DayField(Day day) {
 		setLayout();
 		createComponents();
 		render(day);

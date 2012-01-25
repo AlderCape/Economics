@@ -12,10 +12,10 @@ public class TimeEntryPanel extends AbstractEntryPanel {
 
 	private static final long serialVersionUID = 1L;
 	private UnitTextField units;
-	private RateTextField rate;
+	private RateField rate;
 	private CollaboratorField person;
 	private ClientField client;
-	private DayTextField day;
+	private DayField day;
 
 	public TimeEntryPanel(ApplicationModel model) {
 		super(model);
@@ -24,7 +24,7 @@ public class TimeEntryPanel extends AbstractEntryPanel {
 		add(units);
 
 		add(new JLabel("Rate"));
-		rate = new RateTextField(new Euro(0));
+		rate = new RateField(new Euro(0));
 		add(rate);
 
 		add(new JLabel("Person"));
@@ -36,7 +36,7 @@ public class TimeEntryPanel extends AbstractEntryPanel {
 		add(client);
 
 		add(new JLabel("Day"));
-		day = new DayTextField(Day.january(1, 2011));
+		day = new DayField(Day.january(1, 2011));
 		add(day);
 	}
 

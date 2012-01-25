@@ -13,10 +13,10 @@ public class InvoiceEntryPanel extends AbstractEntryPanel {
 	private static final long serialVersionUID = 4465473290587827631L;
 	private ApplicationModel applicationModel;
 	private UnitTextField units;
-	private RateTextField rate;
+	private RateField rate;
 	private CollaboratorField person;
 	private ClientField client;
-	private DayTextField bookkeepingMonth;
+	private DayField bookkeepingMonth;
 
 	public InvoiceEntryPanel(ApplicationModel model) {
 		super(model);
@@ -27,7 +27,7 @@ public class InvoiceEntryPanel extends AbstractEntryPanel {
 		add(units);
 
 		add(new JLabel("Rate"));
-		rate = new RateTextField(new Euro(0));
+		rate = new RateField(new Euro(0));
 		add(rate);
 
 		add(new JLabel("Person"));
@@ -39,7 +39,7 @@ public class InvoiceEntryPanel extends AbstractEntryPanel {
 		add(client);
 
 		add(new JLabel("Bookkeeping month"));
-		bookkeepingMonth = new DayTextField(Day.january(1, 2012));
+		bookkeepingMonth = new DayField(Day.january(1, 2012));
 		add(bookkeepingMonth);
 	}
 
