@@ -27,7 +27,7 @@ public class AbstractEntry<T extends TimePoint> implements Entry<T> {
 	}
 
 	@Override
-	public Euro rate() {
+	public Euro costPerDay() {
 		return rate.costPerDay();
 	}
 
@@ -38,7 +38,7 @@ public class AbstractEntry<T extends TimePoint> implements Entry<T> {
 
 	@Override
 	public Euro amount() {
-		return rate().times(units().days());
+		return costPerDay().times(units().days());
 	}
 
 	@Override
@@ -49,6 +49,11 @@ public class AbstractEntry<T extends TimePoint> implements Entry<T> {
 	@Override
 	public T getTimePoint() {
 		return time;
+	}
+
+	@Override
+	public Rate rate() {
+		return rate;
 	}
 
 }

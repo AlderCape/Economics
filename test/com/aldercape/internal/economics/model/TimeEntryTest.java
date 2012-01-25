@@ -24,7 +24,8 @@ public class TimeEntryTest {
 	public void test() {
 		TimeEntry entry = new TimeEntry(Unit.days(1), Rate.daily(new Euro(200)), me, myCompany, Day.january(2, 2012));
 		assertEquals(Day.january(2, 2012), entry.day());
-		assertEquals(new Euro(200), entry.rate());
+		assertEquals(Rate.daily(new Euro(200)), entry.rate());
+		assertEquals(new Euro(200), entry.costPerDay());
 		assertEquals(Unit.days(1), entry.units());
 		assertCollaboratorEquals(me, entry.collaborator());
 		assertEquals("My Company", entry.client().name());

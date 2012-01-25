@@ -6,14 +6,16 @@ import com.aldercape.internal.economics.criteria.RateCriteria;
 
 public class RateRule implements Rule<Entry<Day>> {
 
-	public EntryCriteria<Day> getCriteria(Euro rate) {
+	public EntryCriteria<Day> getCriteria(Rate rate) {
 		return new RateCriteria<Day>(rate);
 	}
 
+	@Override
 	public EntryCriteria<Day> getCriteria(Entry<Day> example) {
 		return getCriteria(example.rate());
 	}
 
+	@Override
 	public Comparator<Entry<Day>> getComparator() {
 		return new Comparator<Entry<Day>>() {
 			@Override

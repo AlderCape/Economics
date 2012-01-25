@@ -50,7 +50,7 @@ public class InvoiceEntryPanel extends AbstractEntryPanel {
 
 	public void setEntry(SimpleInvoiceEntry populatWith) {
 		populatWith.units().render(units);
-		populatWith.rate().render(rate);
+		populatWith.costPerDay().render(rate);
 		populatWith.collaborator().render(person);
 		populatWith.client().render(client);
 		populatWith.issueDate().render(bookkeepingMonth);

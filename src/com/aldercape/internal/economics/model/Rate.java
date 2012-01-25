@@ -1,6 +1,6 @@
 package com.aldercape.internal.economics.model;
 
-public class Rate {
+public class Rate implements Comparable<Rate> {
 
 	private static final int HOURS_PER_DAY = 8;
 
@@ -30,4 +30,27 @@ public class Rate {
 		return amount.divide(HOURS_PER_DAY);
 	}
 
+	@Override
+	public String toString() {
+		return costPerDay() + "/day";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null || !(obj instanceof Rate)) {
+			return false;
+		}
+		Rate other = (Rate) obj;
+		return other.costPerDay().equals(costPerDay());
+	}
+
+	@Override
+	public int hashCode() {
+		return costPerDay().hashCode();
+	}
+
+	@Override
+	public int compareTo(Rate rate) {
+		return costPerDay().compareTo(rate.costPerDay());
+	}
 }

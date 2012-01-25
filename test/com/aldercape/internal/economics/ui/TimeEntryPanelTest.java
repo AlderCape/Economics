@@ -1,5 +1,6 @@
 package com.aldercape.internal.economics.ui;
 
+import static com.aldercape.internal.economics.model.CustomModelAsserts.assertTimeEntryEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -67,11 +68,7 @@ public class TimeEntryPanelTest {
 		panel.addEntry();
 		Entry<Day> addedEntry = ledger.entry(0);
 		assertNotNull(addedEntry);
-		assertEquals(populateWith.units(), addedEntry.units());
-		assertEquals(populateWith.rate(), addedEntry.rate());
-		assertEquals(populateWith.collaborator().fullname(), addedEntry.collaborator().fullname());
-		assertEquals(populateWith.client().name(), addedEntry.client().name());
-		assertEquals(populateWith.day(), addedEntry.getTimePoint());
+		assertTimeEntryEquals(populateWith, (TimeEntry) addedEntry);
 	}
 
 }

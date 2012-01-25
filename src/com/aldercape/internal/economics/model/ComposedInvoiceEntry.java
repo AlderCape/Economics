@@ -5,9 +5,6 @@ import java.util.Set;
 
 class ComposedInvoiceEntry implements InvoiceEntry {
 
-	/**
-	 * 
-	 */
 	private Set<TimeEntry> entries = new LinkedHashSet<TimeEntry>();
 	private InvoiceEntryGroupingRule rule;
 
@@ -30,18 +27,23 @@ class ComposedInvoiceEntry implements InvoiceEntry {
 	}
 
 	@Override
-	public Euro rate() {
-		return entries.iterator().next().rate();
+	public Euro costPerDay() {
+		return firstEntry().costPerDay();
 	}
 
 	@Override
 	public Collaborator collaborator() {
-		return entries.iterator().next().collaborator();
+		return firstEntry().collaborator();
 	}
 
 	@Override
 	public Client client() {
-		return entries.iterator().next().client();
+		return firstEntry().client();
+	}
+
+	@Override
+	public Rate rate() {
+		return firstEntry().rate();
 	}
 
 	@Override
@@ -63,7 +65,7 @@ class ComposedInvoiceEntry implements InvoiceEntry {
 
 	@Override
 	public Euro amount() {
-		return rate().times(units().days());
+		return costPerDay().times(units().days());
 	}
 
 	@Override
@@ -73,5 +75,9 @@ class ComposedInvoiceEntry implements InvoiceEntry {
 
 	boolean belongsTo(TimeEntry entry) {
 		return rule.getCriteria(this).matches(entry);
+	}
+
+	private TimeEntry firstEntry() {
+		return entries.iterator().next();
 	}
 }

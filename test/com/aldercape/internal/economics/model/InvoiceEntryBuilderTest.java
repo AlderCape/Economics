@@ -108,6 +108,7 @@ public class InvoiceEntryBuilderTest {
 		InvoiceEntryBuilder builder = new InvoiceEntryBuilder(entries);
 		Set<? extends InvoiceEntry> invoiceEntry = builder.createInvoiceEntry();
 		Iterator<? extends InvoiceEntry> iterator = invoiceEntry.iterator();
+		assertEquals(2, invoiceEntry.size());
 		InvoiceEntry expected = new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(50)), me, myCompany, Day.january(3, 2012));
 		assertInvoiceEntryEquals(expected, iterator.next());
 		InvoiceEntry expected2 = new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(150)), me, myCompany, Day.january(3, 2012));

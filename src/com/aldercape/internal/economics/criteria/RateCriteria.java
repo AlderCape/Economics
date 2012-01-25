@@ -2,13 +2,13 @@ package com.aldercape.internal.economics.criteria;
 
 import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.Entry;
-import com.aldercape.internal.economics.model.Euro;
+import com.aldercape.internal.economics.model.Rate;
 
 public class RateCriteria<T> extends AbstractEntryCriteria<Day> {
 
-	private Euro rate;
+	private Rate rate;
 
-	public RateCriteria(Euro rate) {
+	public RateCriteria(Rate rate) {
 		this.rate = rate;
 	}
 

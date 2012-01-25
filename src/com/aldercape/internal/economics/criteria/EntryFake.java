@@ -5,6 +5,7 @@ import com.aldercape.internal.economics.model.Collaborator;
 import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.Entry;
 import com.aldercape.internal.economics.model.Euro;
+import com.aldercape.internal.economics.model.Rate;
 import com.aldercape.internal.economics.model.Unit;
 
 public final class EntryFake implements Entry<Day> {
@@ -40,12 +41,17 @@ public final class EntryFake implements Entry<Day> {
 	}
 
 	@Override
-	public Euro rate() {
+	public Euro costPerDay() {
 		return rate;
 	}
 
 	@Override
 	public Euro vat() {
 		return null;
+	}
+
+	@Override
+	public Rate rate() {
+		return Rate.daily(rate);
 	}
 }

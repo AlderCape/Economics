@@ -42,7 +42,7 @@ public class TimeEntryPanel extends AbstractEntryPanel {
 
 	public void setEntry(TimeEntry populatWith) {
 		populatWith.units().render(units);
-		populatWith.rate().render(rate);
+		populatWith.costPerDay().render(rate);
 		populatWith.collaborator().render(person);
 		populatWith.client().render(client);
 		populatWith.day().render(day);
