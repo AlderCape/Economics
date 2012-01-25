@@ -8,6 +8,7 @@ import com.aldercape.internal.economics.model.Client;
 import com.aldercape.internal.economics.model.Collaborator;
 import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.Euro;
+import com.aldercape.internal.economics.model.Rate;
 import com.aldercape.internal.economics.model.SimpleInvoiceEntry;
 import com.aldercape.internal.economics.model.Unit;
 import com.aldercape.internal.economics.ui.__TestObjectMother;
@@ -21,7 +22,7 @@ public class FilterCriteriaTest {
 		Client client = objectMother.myCompany();
 		CollaboratorCriteria<Day> collaboratorCriteria = new CollaboratorCriteria<Day>(me);
 		ClientCriteria<Day> clientCriteria = new ClientCriteria<Day>(client);
-		SimpleInvoiceEntry matchingEntry = new SimpleInvoiceEntry(Unit.days(1), new Euro(300), objectMother.me(), objectMother.myCompany(), Day.january(1, 2012));
+		SimpleInvoiceEntry matchingEntry = new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(300)), objectMother.me(), objectMother.myCompany(), Day.january(1, 2012));
 		assertTrue(collaboratorCriteria.and(clientCriteria).matches(matchingEntry));
 		assertTrue(clientCriteria.and(collaboratorCriteria).matches(matchingEntry));
 	}

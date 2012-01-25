@@ -23,8 +23,8 @@ public class InvoiceBuilderTest {
 		__TestObjectMother objectMother = new __TestObjectMother();
 		company = objectMother.myCompany();
 		client = objectMother.otherCompany();
-		validEntry = new SimpleInvoiceEntry(Unit.days(1), new Euro(100), objectMother.me(), client, Day.january(31, 2012));
-		invalidEntry = new SimpleInvoiceEntry(Unit.days(1), new Euro(100), objectMother.me(), objectMother.myCompany(), Day.january(31, 2012));
+		validEntry = new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(100)), objectMother.me(), client, Day.january(31, 2012));
+		invalidEntry = new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(100)), objectMother.me(), objectMother.myCompany(), Day.january(31, 2012));
 		invoice = new InvoiceBuilder(company);
 	}
 

@@ -14,6 +14,10 @@ public class Rate {
 		return new Rate(amount);
 	}
 
+	public static Rate daily(int amount) {
+		return daily(new Euro(amount));
+	}
+
 	public static Rate hourly(Euro amount) {
 		return daily(amount.times(8));
 	}

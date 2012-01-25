@@ -13,6 +13,7 @@ import com.aldercape.internal.economics.model.Entry;
 import com.aldercape.internal.economics.model.Euro;
 import com.aldercape.internal.economics.model.Ledger;
 import com.aldercape.internal.economics.model.LedgerListener;
+import com.aldercape.internal.economics.model.Rate;
 import com.aldercape.internal.economics.model.SimpleInvoiceEntry;
 import com.aldercape.internal.economics.model.Unit;
 import com.aldercape.internal.economics.persistence.InMemoryClientRepository;
@@ -44,7 +45,7 @@ public class ApplicationModelTest {
 			}
 		});
 		__TestObjectMother objectMother = new __TestObjectMother();
-		entry = new SimpleInvoiceEntry(Unit.days(1), new Euro(10), objectMother.me(), objectMother.myCompany(), Day.january(1, 2011));
+		entry = new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(10)), objectMother.me(), objectMother.myCompany(), Day.january(1, 2011));
 	}
 
 	@Test

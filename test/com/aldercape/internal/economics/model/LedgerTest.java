@@ -39,7 +39,7 @@ public class LedgerTest {
 	@Test
 	public void oneEntry() {
 		Ledger ledger = new Ledger();
-		ledger.addEntry(new SimpleInvoiceEntry(Unit.days(2), new Euro(200), me, myCompany, Day.january(1, 2011)));
+		ledger.addEntry(new SimpleInvoiceEntry(Unit.days(2), Rate.daily(new Euro(200)), me, myCompany, Day.january(1, 2011)));
 		assertEquals("One entry after addition", 1, ledger.numberOfEntries());
 		assertEquals("Amount with one entry", new Euro(400), ledger.totalAmount());
 		assertEquals("BookkeepingMonths", Collections.singleton(Month.january(2011)), ledger.bookkeepingMonths());
@@ -62,8 +62,8 @@ public class LedgerTest {
 
 	private Ledger createLEdgerWithTwoEntries() {
 		Ledger ledger = new Ledger();
-		ledger.addEntry(new SimpleInvoiceEntry(Unit.days(2), new Euro(200), me, myCompany, Day.january(1, 2011)));
-		ledger.addEntry(new SimpleInvoiceEntry(Unit.days(3), new Euro(150), me, myCompany, Day.february(1, 2011)));
+		ledger.addEntry(new SimpleInvoiceEntry(Unit.days(2), Rate.daily(new Euro(200)), me, myCompany, Day.january(1, 2011)));
+		ledger.addEntry(new SimpleInvoiceEntry(Unit.days(3), Rate.daily(new Euro(150)), me, myCompany, Day.february(1, 2011)));
 		return ledger;
 	}
 
@@ -82,14 +82,14 @@ public class LedgerTest {
 
 	private Ledger createLedgerWithThreeEntries() {
 		Ledger ledger = createLEdgerWithTwoEntries();
-		ledger.addEntry(new SimpleInvoiceEntry(Unit.days(2), new Euro(200), me, myCompany, Day.january(1, 2011)));
+		ledger.addEntry(new SimpleInvoiceEntry(Unit.days(2), Rate.daily(new Euro(200)), me, myCompany, Day.january(1, 2011)));
 		return ledger;
 	}
 
 	@Test
 	public void entriesShouldBeRetreivable() {
 		Ledger ledger = new Ledger();
-		SimpleInvoiceEntry entry = new SimpleInvoiceEntry(Unit.days(2), new Euro(200), me, myCompany, Day.january(1, 2011));
+		SimpleInvoiceEntry entry = new SimpleInvoiceEntry(Unit.days(2), Rate.daily(new Euro(200)), me, myCompany, Day.january(1, 2011));
 		ledger.addEntry(entry);
 		assertSame(entry, ledger.entry(0));
 	}
@@ -98,7 +98,7 @@ public class LedgerTest {
 	public void filterByClient() {
 		Ledger ledger = createLedgerWithThreeEntries();
 		__TestObjectMother objectMother = new __TestObjectMother();
-		SimpleInvoiceEntry entryToKeep = new SimpleInvoiceEntry(Unit.days(1), new Euro(300), objectMother.me(), objectMother.otherCompany(), Day.january(1, 2012));
+		SimpleInvoiceEntry entryToKeep = new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(300)), objectMother.me(), objectMother.otherCompany(), Day.january(1, 2012));
 		ledger.addEntry(entryToKeep);
 		ledger = ledger.filter(new ClientCriteria<Day>(objectMother.otherCompany()));
 		assertEquals(1, ledger.numberOfEntries());
@@ -109,7 +109,7 @@ public class LedgerTest {
 	public void filterByCollaborator() {
 		Ledger ledger = createLedgerWithThreeEntries();
 		__TestObjectMother objectMother = new __TestObjectMother();
-		SimpleInvoiceEntry entryToKeep = new SimpleInvoiceEntry(Unit.days(1), new Euro(300), objectMother.other(), objectMother.otherCompany(), Day.january(1, 2012));
+		SimpleInvoiceEntry entryToKeep = new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(300)), objectMother.other(), objectMother.otherCompany(), Day.january(1, 2012));
 		ledger.addEntry(entryToKeep);
 		ledger = ledger.filter(new CollaboratorCriteria<Day>(objectMother.other()));
 		assertEquals(1, ledger.numberOfEntries());

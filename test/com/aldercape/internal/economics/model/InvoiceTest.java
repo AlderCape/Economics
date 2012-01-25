@@ -44,7 +44,7 @@ public class InvoiceTest {
 
 	@Test
 	public void oneEntryInvoice() {
-		entries.add(new SimpleInvoiceEntry(Unit.days(1), new Euro(100), worker, client, Day.january(31, 2012)));
+		entries.add(new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(100)), worker, client, Day.january(31, 2012)));
 		Invoice invoice = createInvoice();
 
 		assertEquals(new Euro(100), invoice.totalAmount());
@@ -54,8 +54,8 @@ public class InvoiceTest {
 
 	@Test
 	public void twoEntryInvoice() {
-		entries.add(new SimpleInvoiceEntry(Unit.days(1), new Euro(60), worker, client, Day.january(31, 2012)));
-		entries.add(new SimpleInvoiceEntry(Unit.days(1), new Euro(40), worker, client, Day.january(31, 2012)));
+		entries.add(new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(60)), worker, client, Day.january(31, 2012)));
+		entries.add(new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(40)), worker, client, Day.january(31, 2012)));
 		Invoice invoice = createInvoice();
 
 		assertEquals(new Euro(100), invoice.totalAmount());
@@ -65,7 +65,7 @@ public class InvoiceTest {
 
 	@Test(expected = EntryNotForClientException.class)
 	public void shouldThrowExceptionIfEntryIsNotForClient() {
-		entries.add(new SimpleInvoiceEntry(Unit.days(1), new Euro(60), worker, company, Day.january(31, 2012)));
+		entries.add(new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(60)), worker, company, Day.january(31, 2012)));
 		createInvoice();
 	}
 

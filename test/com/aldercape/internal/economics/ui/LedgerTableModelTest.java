@@ -50,7 +50,7 @@ public class LedgerTableModelTest {
 
 	@Test
 	public void columnValues() {
-		ledger.addEntry(new SimpleInvoiceEntry(Unit.days(2), new Euro(50), me, myCompany, Day.february(1, 2010)));
+		ledger.addEntry(new SimpleInvoiceEntry(Unit.days(2), Rate.daily(new Euro(50)), me, myCompany, Day.february(1, 2010)));
 		assertEquals(Month.february(2010), model.getValueAt(0, 0));
 		assertEquals("Me Surname", model.getValueAt(0, 1));
 		assertEquals("My Company", model.getValueAt(0, 2));

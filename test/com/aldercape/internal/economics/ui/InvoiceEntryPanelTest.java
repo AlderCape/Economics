@@ -16,8 +16,9 @@ import com.aldercape.internal.economics.model.Collaborator;
 import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.Entry;
 import com.aldercape.internal.economics.model.Euro;
-import com.aldercape.internal.economics.model.SimpleInvoiceEntry;
 import com.aldercape.internal.economics.model.Ledger;
+import com.aldercape.internal.economics.model.Rate;
+import com.aldercape.internal.economics.model.SimpleInvoiceEntry;
 import com.aldercape.internal.economics.model.Unit;
 
 public class InvoiceEntryPanelTest {
@@ -56,7 +57,7 @@ public class InvoiceEntryPanelTest {
 	@Test
 	public void addEntryShouldCreateANewIncomeEntryAndAddItToApplicationModel() {
 		assertEquals(0, ledger.numberOfEntries());
-		SimpleInvoiceEntry populateWith = new SimpleInvoiceEntry(Unit.days(19), new Euro(250), me, myCompany, Day.january(1, 2011));
+		SimpleInvoiceEntry populateWith = new SimpleInvoiceEntry(Unit.days(19), Rate.daily(new Euro(250)), me, myCompany, Day.january(1, 2011));
 		panel.setEntry(populateWith);
 		panel.addEntry();
 		assertEquals(1, ledger.numberOfEntries());

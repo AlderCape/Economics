@@ -80,18 +80,18 @@ public class LedgetTableTest {
 		table.getSelectionModel().setSelectionInterval(1, 2);
 		Set<? extends InvoiceEntry> entries = table.createInvoiceEntriesFromSelection();
 		assertEquals(1, entries.size());
-		assertInvoiceEntryEquals(new SimpleInvoiceEntry(Unit.days(2), new Euro(10), me, myCompany, Day.january(4, 2012)), entries.iterator().next());
+		assertInvoiceEntryEquals(new SimpleInvoiceEntry(Unit.days(2), Rate.daily(new Euro(10)), me, myCompany, Day.january(4, 2012)), entries.iterator().next());
 	}
 
 	@Test
 	public void createInvoiceEntriesFromSelectionIgnoresSelectedInvoiceItems() {
 		Ledger ledger = new Ledger();
-		ledger.addEntry(new SimpleInvoiceEntry(Unit.days(1), new Euro(10), me, myCompany, Day.january(4, 2012)));
+		ledger.addEntry(new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(10)), me, myCompany, Day.january(4, 2012)));
 		ledger.addEntry(new TimeEntry(Unit.days(1), Rate.daily(new Euro(10)), me, myCompany, Day.january(4, 2012)));
 		LedgerTable table = new LedgerTable(new ApplicationModel(ledger));
 		table.getSelectionModel().setSelectionInterval(0, 1);
 		Set<? extends InvoiceEntry> entries = table.createInvoiceEntriesFromSelection();
 		assertEquals(1, entries.size());
-		assertInvoiceEntryEquals(new SimpleInvoiceEntry(Unit.days(1), new Euro(10), me, myCompany, Day.january(4, 2012)), entries.iterator().next());
+		assertInvoiceEntryEquals(new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(10)), me, myCompany, Day.january(4, 2012)), entries.iterator().next());
 	}
 }
