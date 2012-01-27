@@ -1,5 +1,7 @@
 package com.aldercape.internal.economics.model;
 
+import java.util.Calendar;
+
 public class Day extends TimePoint implements Comparable<Day> {
 
 	public static final Day LAST_DAY = new Day(-1, Month.january(1000));
@@ -145,5 +147,12 @@ public class Day extends TimePoint implements Comparable<Day> {
 
 	public boolean after(Day other) {
 		return compareTo(other) > 0;
+	}
+
+	public static Day fromLong(long value) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(value);
+		int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+		return new Day(dayOfMonth, Month.fromLong(value));
 	}
 }

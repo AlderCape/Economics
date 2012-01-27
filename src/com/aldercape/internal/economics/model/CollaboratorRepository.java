@@ -4,4 +4,6 @@ public interface CollaboratorRepository extends BaseRepository<Collaborator> {
 
 	public void add(Collaborator client);
 
+	public Collaborator findByEmail(String email);
+
 }

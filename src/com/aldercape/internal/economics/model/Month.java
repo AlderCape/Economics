@@ -1,5 +1,7 @@
 package com.aldercape.internal.economics.model;
 
+import java.util.Calendar;
+
 public class Month extends TimePoint implements Comparable<Month> {
 
 	private MonthLiteral month;
@@ -131,6 +133,14 @@ public class Month extends TimePoint implements Comparable<Month> {
 			newYear = newYear + 1;
 		}
 		return new Month(month.next(), newYear);
+	}
+
+	public static Month fromLong(long value) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(value);
+		int year = calendar.get(Calendar.YEAR);
+		int month = calendar.get(Calendar.MONTH);
+		return new Month(MonthLiteral.values()[month], year);
 	}
 
 }
