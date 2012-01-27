@@ -1,7 +1,5 @@
 *.class
 bin/
-google*
-Google*
 build
 build
 lib

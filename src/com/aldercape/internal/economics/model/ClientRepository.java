@@ -4,6 +4,6 @@ public interface ClientRepository extends BaseRepository<Client> {
 
 	public void add(Client myCompany);
 
-	public Client findByName(String name);
+	public Client getByName(String name);
 
 }
