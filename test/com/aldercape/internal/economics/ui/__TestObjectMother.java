@@ -8,8 +8,8 @@ public class __TestObjectMother {
 
 	private Client myCompany = new Client("My Company", new Address("", "", "", ""), "", "");
 	private Client otherCompany = new Client("Other Company", new Address("", "", "", ""), "", "");
-	private Collaborator me = new Collaborator("Me", "Surname");
-	private Collaborator other = new Collaborator("Other", "Something");
+	private Collaborator me = new Collaborator("Me", "Surname", "me@mycompany.com");
+	private Collaborator other = new Collaborator("Other", "Something", "other@othercompany.com");
 
 	public Client otherCompany() {
 		return otherCompany;

@@ -28,6 +28,7 @@ public class CustomModelAsserts {
 		assertEquals(expected.fullname(), actual.fullname());
 		assertEquals(expected.firstname(), actual.firstname());
 		assertEquals(expected.lastname(), actual.lastname());
+		assertEquals(expected.email(), actual.email());
 	}
 
 }

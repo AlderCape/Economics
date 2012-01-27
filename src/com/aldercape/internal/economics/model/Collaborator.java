@@ -2,14 +2,16 @@ package com.aldercape.internal.economics.model;
 
 public class Collaborator implements Comparable<Collaborator> {
 
-	public static final Collaborator UNKNOWN = new Collaborator("", "");
+	public static final Collaborator UNKNOWN = new Collaborator("", "", "");
 	private String name;
 	private String firstname;
 	private String lastname;
+	private String email;
 
-	public Collaborator(String firstname, String lastname) {
+	public Collaborator(String firstname, String lastname, String email) {
 		this.firstname = firstname;
 		this.lastname = lastname;
+		this.email = email;
 		name = firstname + " " + lastname;
 		name = name.trim();
 	}
@@ -33,12 +35,15 @@ public class Collaborator implements Comparable<Collaborator> {
 
 		public void renderLastName(String name);
 
+		public void renderEmail(String email);
+
 	}
 
 	public void render(CollaboratorRenderTarget target) {
 		target.renderFullName(this);
 		target.renderFirstName(firstname());
 		target.renderLastName(lastname());
+		target.renderEmail(email());
 	}
 
 	@Override
@@ -47,7 +52,7 @@ public class Collaborator implements Comparable<Collaborator> {
 	}
 
 	public String email() {
-		return "me@mycompany.com";
+		return email;
 	}
 
 }

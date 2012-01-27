@@ -30,14 +30,15 @@ public class CollaboratorPanelTest {
 		assertEquals(MigLayout.class, panel.getLayout().getClass());
 
 		Component[] components = panel.getComponents();
-		assertEquals("# of components", 4, components.length);
+		assertEquals("# of components", 6, components.length);
 		CustomUiAsserts.assertFormStringField("First name", components[0], components[1], panel);
 		CustomUiAsserts.assertFormStringField("Last name", components[2], components[3], panel);
+		CustomUiAsserts.assertFormStringField("Email", components[4], components[5], panel);
 	}
 
 	@Test
 	public void addEntryShouldCreateANewIncomeEntryAndAddItToApplicationModel() {
-		Collaborator populateWith = new Collaborator("Johan", "Aludden");
+		Collaborator populateWith = new Collaborator("Johan", "Aludden", "me@email.com");
 		panel.setEntry(populateWith);
 		assertEquals(0, model.getCollaboratorRepository().getAll().size());
 		panel.addEntry();

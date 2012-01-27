@@ -11,10 +11,11 @@ public class CollaboratorTest {
 
 	@Test
 	public void test() {
-		Collaborator collaborator = new Collaborator("Firstname", "Lastname");
+		Collaborator collaborator = new Collaborator("Firstname", "Lastname", "my@email.com");
 		assertEquals("Firstname Lastname", collaborator.fullname());
 		assertEquals("Firstname", collaborator.firstname());
 		assertEquals("Lastname", collaborator.lastname());
+		assertEquals("my@email.com", collaborator.email());
 	}
 
 	@Test

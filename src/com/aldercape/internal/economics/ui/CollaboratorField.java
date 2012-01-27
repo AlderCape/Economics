@@ -48,4 +48,8 @@ public class CollaboratorField extends JComboBox<Collaborator> implements Collab
 	@Override
 	public void renderLastName(String name) {
 	}
+
+	@Override
+	public void renderEmail(String email) {
+	}
 }

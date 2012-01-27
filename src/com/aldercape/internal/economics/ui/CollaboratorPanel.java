@@ -8,6 +8,8 @@ import com.aldercape.internal.economics.model.Collaborator.CollaboratorRenderTar
 
 public class CollaboratorPanel extends AbstractEntryPanel implements CollaboratorRenderTarget {
 
+	private StringTextField email;
+
 	public CollaboratorPanel(ApplicationModel model) {
 		super(model);
 		add(new JLabel("First name"));
@@ -16,6 +18,9 @@ public class CollaboratorPanel extends AbstractEntryPanel implements Collaborato
 		add(new JLabel("Last name"));
 		lastname = new StringTextField();
 		add(lastname);
+		add(new JLabel("Email"));
+		email = new StringTextField();
+		add(email);
 	}
 
 	private static final long serialVersionUID = -2723575180585263347L;
@@ -28,7 +33,7 @@ public class CollaboratorPanel extends AbstractEntryPanel implements Collaborato
 	}
 
 	private Collaborator createCollaborator() {
-		return new Collaborator(firstName.getValue(), lastname.getValue());
+		return new Collaborator(firstName.getValue(), lastname.getValue(), email.getValue());
 	}
 
 	public void setEntry(Collaborator collaborator) {
@@ -47,6 +52,11 @@ public class CollaboratorPanel extends AbstractEntryPanel implements Collaborato
 	@Override
 	public void renderLastName(String name) {
 		lastname.setValue(name);
+	}
+
+	@Override
+	public void renderEmail(String email) {
+		this.email.setValue(email);
 	}
 
 }
