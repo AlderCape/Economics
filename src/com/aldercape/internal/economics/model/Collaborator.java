@@ -46,4 +46,8 @@ public class Collaborator implements Comparable<Collaborator> {
 		return fullname().compareTo(o.fullname());
 	}
 
+	public String email() {
+		return "me@mycompany.com";
+	}
+
 }

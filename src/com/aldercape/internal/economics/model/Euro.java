@@ -62,4 +62,8 @@ public class Euro implements Comparable<Euro> {
 		return new Euro(amount / divident);
 	}
 
+	public String simpleValue() {
+		return "" + amount;
+	}
+
 }

@@ -155,4 +155,5 @@ public class Day extends TimePoint implements Comparable<Day> {
 		int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 		return new Day(dayOfMonth, Month.fromLong(value));
 	}
+
 }
