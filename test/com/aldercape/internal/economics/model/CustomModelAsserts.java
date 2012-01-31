@@ -1,6 +1,6 @@
 package com.aldercape.internal.economics.model;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class CustomModelAsserts {
 
@@ -22,6 +22,12 @@ public class CustomModelAsserts {
 
 	public static void assertClientEquals(Client expected, Client actual) {
 		assertEquals(expected.name(), actual.name());
+		assertEquals(expected.city(), actual.city());
+		assertEquals(expected.contactPerson(), actual.contactPerson());
+		assertEquals(expected.streetName(), actual.streetName());
+		assertEquals(expected.streetNumber(), actual.streetNumber());
+		assertEquals(expected.vatNumber(), actual.vatNumber());
+		assertEquals(expected.zipcode(), actual.zipcode());
 	}
 
 	public static void assertCollaboratorEquals(Collaborator expected, Collaborator actual) {

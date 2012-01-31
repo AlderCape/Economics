@@ -48,11 +48,28 @@ public class Client {
 
 		public void renderName(String name);
 
+		public void renderContactPerson(String contactPerson);
+
+		public void renderStreetName(String streetName);
+
+		public void renderStreetNumber(String streetNumber);
+
+		public void renderZipcode(String zipcode);
+
+		public void renderCity(String city);
+
+		public void renderVatNumber(String vatNumber);
+
 	}
 
 	public void render(ClientRenderTarget target) {
 		target.renderClient(this);
 		target.renderName(name());
+		target.renderContactPerson(contactPerson());
+		target.renderStreetName(streetName());
+		target.renderStreetNumber(streetNumber());
+		target.renderZipcode(zipcode());
+		target.renderCity(city());
+		target.renderVatNumber(vatNumber());
 	}
-
 }
