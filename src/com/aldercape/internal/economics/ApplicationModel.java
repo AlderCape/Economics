@@ -11,6 +11,7 @@ import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.Entry;
 import com.aldercape.internal.economics.model.Ledger;
 import com.aldercape.internal.economics.model.LedgerListener;
+import com.aldercape.internal.economics.persistence.ClientFileSystemRepository;
 import com.aldercape.internal.economics.persistence.InMemoryClientRepository;
 import com.aldercape.internal.economics.persistence.InMemoryCollaboratorRepository;
 
@@ -18,7 +19,7 @@ public class ApplicationModel {
 
 	private List<LedgerListener> ledgerListeners = new ArrayList<LedgerListener>();
 	private Ledger ledger;
-	private InMemoryClientRepository clientRepository = new InMemoryClientRepository();
+	private InMemoryClientRepository clientRepository = new ClientFileSystemRepository("clients.json");
 	private InMemoryCollaboratorRepository collaboratorRepository = new InMemoryCollaboratorRepository();
 
 	public ApplicationModel(Ledger ledger) {

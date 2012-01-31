@@ -48,6 +48,11 @@ public class ClientFileSystemRepository extends InMemoryClientRepository impleme
 		}
 	}
 
+	public ClientFileSystemRepository(String fileName) {
+		this(new File(fileName));
+		prettyPrinting = true;
+	}
+
 	private Client deserializeClient(Entry<String, JsonElement> entry) {
 		JsonObject client = entry.getValue().getAsJsonObject();
 		String name = client.get("name").getAsString();
