@@ -6,18 +6,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import com.aldercape.internal.economics.model.BaseRepository;
 import com.aldercape.internal.economics.model.Collaborator;
 import com.aldercape.internal.economics.model.CollaboratorRepository;
-import com.aldercape.internal.economics.model.NoMatchingRecordException;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
@@ -25,7 +21,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
-public class CollaboratorFileSystemRepository implements CollaboratorRepository {
+public class CollaboratorFileSystemRepository extends InMemoryCollaboratorRepository implements CollaboratorRepository {
 
 	private Map<Long, Collaborator> collaborators = new HashMap<Long, Collaborator>();
 	private File storageFile;
@@ -40,14 +36,20 @@ public class CollaboratorFileSystemRepository implements CollaboratorRepository 
 				Set<Entry<String, JsonElement>> entrySet = parseResult.getAsJsonObject().entrySet();
 				for (Entry<String, JsonElement> entry : entrySet) {
 					long id = Long.parseLong(entry.getKey());
-					Collaborator client = deserializeCollaborator(entry);
-					collaborators.put(id, client);
+					Collaborator collaborator = deserializeCollaborator(entry);
+					collaborators.put(id, collaborator);
+					super.add(collaborator);
 				}
 			} catch (JsonIOException | JsonSyntaxException | FileNotFoundException e) {
 				new RuntimeException(e);
 			}
 		}
 
+	}
+
+	public CollaboratorFileSystemRepository(String fileName) {
+		this(new File(fileName));
+		prettyPrinting = true;
 	}
 
 	private Collaborator deserializeCollaborator(Entry<String, JsonElement> entry) {
@@ -59,19 +61,8 @@ public class CollaboratorFileSystemRepository implements CollaboratorRepository 
 	}
 
 	@Override
-	public List<Collaborator> getAll() {
-		return new ArrayList<Collaborator>(collaborators.values());
-	}
-
-	@Override
-	public void addListener(BaseRepository.Listener listener) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void add(Collaborator client) {
-		collaborators.put(getNextId(), client);
+	public void add(Collaborator collaborator) {
+		collaborators.put(getNextId(), collaborator);
 		BufferedWriter bufferedWriter = null;
 		try {
 			bufferedWriter = new BufferedWriter(new FileWriter(storageFile));
@@ -92,16 +83,7 @@ public class CollaboratorFileSystemRepository implements CollaboratorRepository 
 				}
 			}
 		}
-	}
-
-	@Override
-	public Collaborator findByEmail(String email) {
-		for (Collaborator collaborator : collaborators.values()) {
-			if (collaborator.email().equals(email)) {
-				return collaborator;
-			}
-		}
-		throw new NoMatchingRecordException("No collaborator with the email " + email);
+		super.add(collaborator);
 	}
 
 	private long getNextId() {

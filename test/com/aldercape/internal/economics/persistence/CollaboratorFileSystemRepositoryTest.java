@@ -86,9 +86,11 @@ public class CollaboratorFileSystemRepositoryTest {
 
 	@Test
 	public void testFindByEmail() {
-		repository.add(new __TestObjectMother().me());
-		Collaborator byEmail = repository.findByEmail(new __TestObjectMother().me().email());
-		assertCollaboratorEquals(new __TestObjectMother().me(), byEmail);
+		__TestObjectMother objectMother = new __TestObjectMother();
+		repository.add(objectMother.me());
+		repository.add(objectMother.other());
+		assertCollaboratorEquals(objectMother.me(), repository.findByEmail(objectMother.me().email()));
+		assertCollaboratorEquals(objectMother.other(), repository.findByEmail(objectMother.other().email()));
 	}
 
 	private void createFileWithContent(String content) throws IOException {

@@ -14,7 +14,7 @@ import com.aldercape.internal.economics.model.Rate;
 import com.aldercape.internal.economics.model.SimpleInvoiceEntry;
 import com.aldercape.internal.economics.model.Unit;
 import com.aldercape.internal.economics.persistence.ClientFileSystemRepository;
-import com.aldercape.internal.economics.persistence.InMemoryCollaboratorRepository;
+import com.aldercape.internal.economics.persistence.CollaboratorFileSystemRepository;
 import com.aldercape.internal.economics.ui.__TestObjectMother;
 
 public class ApplicationModelTest {
@@ -58,7 +58,7 @@ public class ApplicationModelTest {
 	public void shouldHaveRepositories() {
 		assertEquals(ClientFileSystemRepository.class, model.getClientRepository().getClass());
 		assertSame(model.getClientRepository(), model.getClientRepository());
-		assertEquals(InMemoryCollaboratorRepository.class, model.getCollaboratorRepository().getClass());
+		assertEquals(CollaboratorFileSystemRepository.class, model.getCollaboratorRepository().getClass());
 		assertSame(model.getCollaboratorRepository(), model.getCollaboratorRepository());
 	}
 }
