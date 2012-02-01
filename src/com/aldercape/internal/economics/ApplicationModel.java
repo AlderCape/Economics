@@ -64,4 +64,8 @@ public class ApplicationModel {
 		return collaboratorRepository;
 	}
 
+	public void setClientRepository(InMemoryClientRepository clientRepository) {
+		this.clientRepository = clientRepository;
+	}
+
 }

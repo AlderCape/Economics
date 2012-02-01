@@ -3,7 +3,6 @@ package com.aldercape.internal.economics.model;
 public class Collaborator implements Comparable<Collaborator> {
 
 	public static final Collaborator UNKNOWN = new Collaborator("", "", "");
-	private String name;
 	private String firstname;
 	private String lastname;
 	private String email;
@@ -12,12 +11,10 @@ public class Collaborator implements Comparable<Collaborator> {
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.email = email;
-		name = firstname + " " + lastname;
-		name = name.trim();
 	}
 
 	public String fullname() {
-		return name;
+		return firstname + " " + lastname;
 	}
 
 	public String firstname() {

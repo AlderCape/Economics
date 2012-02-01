@@ -13,6 +13,7 @@ import org.junit.Test;
 import com.aldercape.internal.economics.ApplicationModel;
 import com.aldercape.internal.economics.model.Client;
 import com.aldercape.internal.economics.model.Ledger;
+import com.aldercape.internal.economics.persistence.InMemoryClientRepository;
 
 public class ClientPanelTest {
 
@@ -22,6 +23,7 @@ public class ClientPanelTest {
 	@Before
 	public void setUp() {
 		model = new ApplicationModel(new Ledger());
+		model.setClientRepository(new InMemoryClientRepository());
 		panel = new ClientPanel(model);
 	}
 
