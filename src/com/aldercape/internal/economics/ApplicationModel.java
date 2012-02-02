@@ -19,8 +19,8 @@ public class ApplicationModel {
 
 	private List<LedgerListener> ledgerListeners = new ArrayList<LedgerListener>();
 	private Ledger ledger;
-	private ClientRepository clientRepository = new ClientFileSystemRepository("clients.json");
-	private CollaboratorRepository collaboratorRepository = new CollaboratorFileSystemRepository("collaborators.json");
+	protected ClientRepository clientRepository = new ClientFileSystemRepository("clients.json");
+	protected CollaboratorRepository collaboratorRepository = new CollaboratorFileSystemRepository("collaborators.json");
 
 	public ApplicationModel(Ledger ledger) {
 		this.ledger = ledger;

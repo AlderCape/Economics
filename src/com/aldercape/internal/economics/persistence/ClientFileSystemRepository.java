@@ -1,7 +1,6 @@
 package com.aldercape.internal.economics.persistence;
 
 import java.io.File;
-import java.util.Map.Entry;
 
 import com.aldercape.internal.economics.model.Address;
 import com.aldercape.internal.economics.model.Client;
@@ -40,12 +39,8 @@ public class ClientFileSystemRepository extends InMemoryClientRepository impleme
 	}
 
 	@Override
-	public Client deserialize(Entry<String, JsonElement> entry) {
-		return deserializeClient(entry);
-	}
-
-	private Client deserializeClient(Entry<String, JsonElement> entry) {
-		JsonObject client = entry.getValue().getAsJsonObject();
+	public Client deserialize(JsonElement entry) {
+		JsonObject client = entry.getAsJsonObject();
 		String name = client.get("name").getAsString();
 		String vatNumber = client.get("vatNumber").getAsString();
 		String contactPerson = client.get("contactPerson").getAsString();

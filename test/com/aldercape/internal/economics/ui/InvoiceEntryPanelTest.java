@@ -1,7 +1,7 @@
 package com.aldercape.internal.economics.ui;
 
-import static com.aldercape.internal.economics.model.CustomModelAsserts.assertInvoiceEntryEquals;
-import static org.junit.Assert.assertEquals;
+import static com.aldercape.internal.economics.model.CustomModelAsserts.*;
+import static org.junit.Assert.*;
 
 import java.awt.Component;
 
@@ -10,7 +10,6 @@ import net.miginfocom.swing.MigLayout;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.aldercape.internal.economics.ApplicationModel;
 import com.aldercape.internal.economics.model.Client;
 import com.aldercape.internal.economics.model.Collaborator;
 import com.aldercape.internal.economics.model.Day;
@@ -24,7 +23,7 @@ import com.aldercape.internal.economics.model.Unit;
 public class InvoiceEntryPanelTest {
 	private InvoiceEntryPanel panel;
 	private Ledger ledger;
-	private ApplicationModel model;
+	private InMemoryApplicationModel model;
 	private Collaborator me;
 	private Client myCompany;
 
@@ -32,7 +31,7 @@ public class InvoiceEntryPanelTest {
 	public void setUp() {
 		__TestObjectMother objectMother = new __TestObjectMother();
 		ledger = new Ledger();
-		model = new ApplicationModel(ledger);
+		model = new InMemoryApplicationModel(ledger);
 		panel = new InvoiceEntryPanel(model);
 		me = objectMother.me();
 		myCompany = objectMother.myCompany();
@@ -62,7 +61,7 @@ public class InvoiceEntryPanelTest {
 		panel.addEntry();
 		assertEquals(1, ledger.numberOfEntries());
 		Entry<Day> entry = ledger.entry(0);
-		assertInvoiceEntryEquals(populateWith, (SimpleInvoiceEntry) entry);
+		assertInvoiceEntryEquals(populateWith, entry);
 
 	}
 

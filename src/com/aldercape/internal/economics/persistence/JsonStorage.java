@@ -21,7 +21,7 @@ import com.google.gson.JsonSyntaxException;
 public class JsonStorage<T> {
 
 	public interface ElementParser<T> {
-		public T deserialize(Entry<String, JsonElement> entry);
+		public T deserialize(JsonElement entry);
 
 		public void addWithoutCache(T t);
 
@@ -98,7 +98,7 @@ public class JsonStorage<T> {
 
 	private T addToCache(ElementParser<T> parser, Entry<String, JsonElement> entry) {
 		long id = getId(entry);
-		T client = parser.deserialize(entry);
+		T client = parser.deserialize(entry.getValue());
 		values.put(id, client);
 		return client;
 	}

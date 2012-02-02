@@ -1,7 +1,6 @@
 package com.aldercape.internal.economics.persistence;
 
 import java.io.File;
-import java.util.Map.Entry;
 
 import com.aldercape.internal.economics.model.Collaborator;
 import com.aldercape.internal.economics.model.CollaboratorRepository;
@@ -27,8 +26,8 @@ public class CollaboratorFileSystemRepository extends InMemoryCollaboratorReposi
 	}
 
 	@Override
-	public Collaborator deserialize(Entry<String, JsonElement> entry) {
-		JsonObject collaborator = entry.getValue().getAsJsonObject();
+	public Collaborator deserialize(JsonElement entry) {
+		JsonObject collaborator = entry.getAsJsonObject();
 		String firstname = collaborator.get("firstname").getAsString();
 		String lastname = collaborator.get("lastname").getAsString();
 		String email = collaborator.get("email").getAsString();

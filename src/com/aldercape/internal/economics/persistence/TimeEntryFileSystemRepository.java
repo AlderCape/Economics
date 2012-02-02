@@ -3,7 +3,6 @@ package com.aldercape.internal.economics.persistence;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map.Entry;
 
 import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.MonthLiteral;
@@ -68,14 +67,13 @@ public class TimeEntryFileSystemRepository implements ElementParser<TimeEntryJso
 	}
 
 	@Override
-	public TimeEntryJson deserialize(Entry<String, JsonElement> entry) {
-		JsonObject timeEntryJson = entry.getValue().getAsJsonObject();
+	public TimeEntryJson deserialize(JsonElement entry) {
+		JsonObject timeEntryJson = entry.getAsJsonObject();
 		long collaboratorId = timeEntryJson.get("collaborator").getAsLong();
 		long clientId = timeEntryJson.get("client").getAsLong();
 		JsonObject rateJson = timeEntryJson.get("rate").getAsJsonObject();
 		JsonObject unitJson = timeEntryJson.get("unit").getAsJsonObject();
 		JsonObject dayJson = timeEntryJson.get("day").getAsJsonObject();
-
 		return new TimeEntryJson(collaboratorId, clientId, deserializeRate(rateJson), deserializeUnit(unitJson), deserializeDay(dayJson));
 	}
 
@@ -101,7 +99,6 @@ public class TimeEntryFileSystemRepository implements ElementParser<TimeEntryJso
 
 	@Override
 	public boolean isSame(TimeEntryJson value, TimeEntryJson ref) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
