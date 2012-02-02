@@ -47,4 +47,17 @@ public class CollaboratorFileSystemRepository extends InMemoryCollaboratorReposi
 		super.add(collaborator);
 	}
 
+	public long getIdFor(Collaborator collaborator) {
+		return jsonStorage.getIdFor(collaborator);
+	}
+
+	@Override
+	public boolean isSame(Collaborator value, Collaborator ref) {
+		return value.compareTo(ref) == 0;
+	}
+
+	public Collaborator getById(long collaborator) {
+		return jsonStorage.getById(collaborator);
+	}
+
 }

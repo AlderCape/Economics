@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -23,6 +24,8 @@ public class JsonStorage<T> {
 		public T deserialize(Entry<String, JsonElement> entry);
 
 		public void addWithoutCache(T t);
+
+		public boolean isSame(T value, T ref);
 	}
 
 	private File storageFile;
@@ -107,4 +110,17 @@ public class JsonStorage<T> {
 		return Collections.max(values.keySet()) + 1;
 	}
 
+	public long getIdFor(T t) {
+		Set<Entry<Long, T>> entrySet = values.entrySet();
+		for (Entry<Long, T> entry : entrySet) {
+			if (parser.isSame(entry.getValue(), t)) {
+				return entry.getKey();
+			}
+		}
+		return -1;
+	}
+
+	public T getById(long key) {
+		return values.get(key);
+	}
 }

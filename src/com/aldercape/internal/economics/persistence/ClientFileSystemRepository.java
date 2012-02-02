@@ -62,4 +62,17 @@ public class ClientFileSystemRepository extends InMemoryClientRepository impleme
 		return address;
 	}
 
+	public long getIdFor(Client client) {
+		return storage.getIdFor(client);
+	}
+
+	@Override
+	public boolean isSame(Client value, Client ref) {
+		return value.name().equals(ref.name());
+	}
+
+	public Client getById(long client) {
+		return storage.getById(client);
+	}
+
 }
