@@ -15,12 +15,12 @@ public class InvoiceEntryBuilder {
 		this.entries.addAll(entries);
 	}
 
-	public Set<? extends Entry<Day>> createInvoiceEntry() {
-		ComposedInvoiceEntry currentInvoiceEntry = null;
-		LinkedHashSet<ComposedInvoiceEntry> result = new LinkedHashSet<ComposedInvoiceEntry>();
+	public Set<InvoiceEntry> createInvoiceEntry() {
+		InvoiceEntry currentInvoiceEntry = null;
+		LinkedHashSet<InvoiceEntry> result = new LinkedHashSet<InvoiceEntry>();
 		for (TimeEntry entry : entries) {
 			if (currentInvoiceEntry == null || !currentInvoiceEntry.belongsTo(entry)) {
-				currentInvoiceEntry = new ComposedInvoiceEntry(rule, entry);
+				currentInvoiceEntry = new InvoiceEntry(rule, entry);
 				result.add(currentInvoiceEntry);
 			} else {
 				currentInvoiceEntry.addTimeEntry(entry);

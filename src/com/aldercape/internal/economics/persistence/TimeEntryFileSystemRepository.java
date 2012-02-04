@@ -2,7 +2,9 @@ package com.aldercape.internal.economics.persistence;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.MonthLiteral;
@@ -99,7 +101,18 @@ public class TimeEntryFileSystemRepository implements ElementParser<TimeEntryJso
 
 	@Override
 	public boolean isSame(TimeEntryJson value, TimeEntryJson ref) {
-		return false;
+		return value.unit.equals(ref.unit) && value.day.equals(ref.day) && value.rate.equals(ref.rate) && value.collaborator == ref.collaborator;
 	}
 
+	public TimeEntry getById(long i) {
+		return jsonStorage.getById(i).asTimeEntry(collaboratorRepository, clientRepository);
+	}
+
+	public Set<Long> getIdsFor(Set<TimeEntry> allEntries) {
+		Set<Long> result = new LinkedHashSet<Long>();
+		for (TimeEntry e : allEntries) {
+			result.add(jsonStorage.getIdFor(new TimeEntryJson(e, collaboratorRepository, clientRepository)));
+		}
+		return result;
+	}
 }

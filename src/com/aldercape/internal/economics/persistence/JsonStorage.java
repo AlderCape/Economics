@@ -98,6 +98,7 @@ public class JsonStorage<T> {
 
 	private T addToCache(ElementParser<T> parser, Entry<String, JsonElement> entry) {
 		long id = getId(entry);
+		System.out.println(entry);
 		T client = parser.deserialize(entry.getValue());
 		values.put(id, client);
 		return client;
