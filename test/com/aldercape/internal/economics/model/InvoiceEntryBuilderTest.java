@@ -1,8 +1,7 @@
 package com.aldercape.internal.economics.model;
 
-import static com.aldercape.internal.economics.model.CustomModelAsserts.assertInvoiceEntryEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static com.aldercape.internal.economics.model.CustomModelAsserts.*;
+import static org.junit.Assert.*;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -34,15 +33,15 @@ public class InvoiceEntryBuilderTest {
 	public void noEntries() {
 		Set<TimeEntry> entries = Collections.emptySet();
 		InvoiceEntryBuilder builder = new InvoiceEntryBuilder(entries);
-		Set<? extends Entry<Day>> invoiceEntry = builder.createInvoiceEntry();
+		Set<InvoiceEntry> invoiceEntry = builder.createInvoiceEntry();
 		assertTrue(invoiceEntry.isEmpty());
 	}
 
 	@Test
 	public void oneEntry() {
 		InvoiceEntryBuilder builder = new InvoiceEntryBuilder(Collections.singleton(createTimeEntry(me, myCompany, Day.january(3, 2012))));
-		Entry<Day> invoiceEntry = builder.createInvoiceEntry().iterator().next();
-		Entry<Day> expected = new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(50)), me, myCompany, Day.january(3, 2012));
+		InvoiceEntry invoiceEntry = builder.createInvoiceEntry().iterator().next();
+		InvoiceEntry expected = new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(50)), me, myCompany, Day.january(3, 2012));
 		assertInvoiceEntryEquals(expected, invoiceEntry);
 	}
 
@@ -52,8 +51,8 @@ public class InvoiceEntryBuilderTest {
 		entries.add(createTimeEntry(me, myCompany, Day.january(3, 2012)));
 		entries.add(createTimeEntry(me, myCompany, Day.january(4, 2012)));
 		InvoiceEntryBuilder builder = new InvoiceEntryBuilder(entries);
-		Entry<Day> invoiceEntry = builder.createInvoiceEntry().iterator().next();
-		Entry<Day> expected = new SimpleInvoiceEntry(Unit.days(2), Rate.daily(new Euro(50)), me, myCompany, Day.january(3, 2012));
+		InvoiceEntry invoiceEntry = builder.createInvoiceEntry().iterator().next();
+		InvoiceEntry expected = new SimpleInvoiceEntry(Unit.days(2), Rate.daily(new Euro(50)), me, myCompany, Day.january(3, 2012));
 		assertInvoiceEntryEquals(expected, invoiceEntry);
 	}
 
@@ -63,12 +62,12 @@ public class InvoiceEntryBuilderTest {
 		entries.add(createTimeEntry(me, myCompany, Day.january(3, 2012)));
 		entries.add(createTimeEntry(me, myCompany, Day.february(3, 2012)));
 		InvoiceEntryBuilder builder = new InvoiceEntryBuilder(entries);
-		Set<? extends Entry<Day>> invoiceEntry = builder.createInvoiceEntry();
+		Set<InvoiceEntry> invoiceEntry = builder.createInvoiceEntry();
 		assertEquals(2, invoiceEntry.size());
-		Entry<Day> expected = new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(50)), me, myCompany, Day.january(3, 2012));
-		Iterator<? extends Entry<Day>> iterator = invoiceEntry.iterator();
+		InvoiceEntry expected = new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(50)), me, myCompany, Day.january(3, 2012));
+		Iterator<InvoiceEntry> iterator = invoiceEntry.iterator();
 		assertInvoiceEntryEquals(expected, iterator.next());
-		Entry<Day> expected2 = new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(50)), me, myCompany, Day.february(3, 2012));
+		InvoiceEntry expected2 = new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(50)), me, myCompany, Day.february(3, 2012));
 		assertInvoiceEntryEquals(expected2, iterator.next());
 	}
 
@@ -78,11 +77,11 @@ public class InvoiceEntryBuilderTest {
 		entries.add(createTimeEntry(me, myCompany, Day.january(3, 2012)));
 		entries.add(createTimeEntry(other, myCompany, Day.january(3, 2012)));
 		InvoiceEntryBuilder builder = new InvoiceEntryBuilder(entries);
-		Set<? extends Entry<Day>> invoiceEntry = builder.createInvoiceEntry();
-		Iterator<? extends Entry<Day>> iterator = invoiceEntry.iterator();
-		Entry<Day> expected = new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(50)), me, myCompany, Day.january(3, 2012));
+		Set<InvoiceEntry> invoiceEntry = builder.createInvoiceEntry();
+		Iterator<InvoiceEntry> iterator = invoiceEntry.iterator();
+		InvoiceEntry expected = new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(50)), me, myCompany, Day.january(3, 2012));
 		assertInvoiceEntryEquals(expected, iterator.next());
-		Entry<Day> expected2 = new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(50)), other, myCompany, Day.january(3, 2012));
+		InvoiceEntry expected2 = new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(50)), other, myCompany, Day.january(3, 2012));
 		assertInvoiceEntryEquals(expected2, iterator.next());
 	}
 
@@ -92,11 +91,11 @@ public class InvoiceEntryBuilderTest {
 		entries.add(createTimeEntry(me, myCompany, Day.january(3, 2012)));
 		entries.add(createTimeEntry(me, otherCompany, Day.january(3, 2012)));
 		InvoiceEntryBuilder builder = new InvoiceEntryBuilder(entries);
-		Set<? extends Entry<Day>> invoiceEntry = builder.createInvoiceEntry();
-		Iterator<? extends Entry<Day>> iterator = invoiceEntry.iterator();
-		Entry<Day> expected = new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(50)), me, myCompany, Day.january(3, 2012));
+		Set<InvoiceEntry> invoiceEntry = builder.createInvoiceEntry();
+		Iterator<InvoiceEntry> iterator = invoiceEntry.iterator();
+		InvoiceEntry expected = new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(50)), me, myCompany, Day.january(3, 2012));
 		assertInvoiceEntryEquals(expected, iterator.next());
-		Entry<Day> expected2 = new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(50)), me, otherCompany, Day.january(3, 2012));
+		InvoiceEntry expected2 = new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(50)), me, otherCompany, Day.january(3, 2012));
 		assertInvoiceEntryEquals(expected2, iterator.next());
 	}
 
@@ -106,12 +105,12 @@ public class InvoiceEntryBuilderTest {
 		entries.add(createTimeEntry(me, myCompany, Day.january(3, 2012)));
 		entries.add(createTimeEntry(new Euro(150), me, myCompany, Day.january(3, 2012)));
 		InvoiceEntryBuilder builder = new InvoiceEntryBuilder(entries);
-		Set<? extends Entry<Day>> invoiceEntry = builder.createInvoiceEntry();
-		Iterator<? extends Entry<Day>> iterator = invoiceEntry.iterator();
+		Set<InvoiceEntry> invoiceEntry = builder.createInvoiceEntry();
+		Iterator<InvoiceEntry> iterator = invoiceEntry.iterator();
 		assertEquals(2, invoiceEntry.size());
-		Entry<Day> expected = new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(50)), me, myCompany, Day.january(3, 2012));
+		InvoiceEntry expected = new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(50)), me, myCompany, Day.january(3, 2012));
 		assertInvoiceEntryEquals(expected, iterator.next());
-		Entry<Day> expected2 = new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(150)), me, myCompany, Day.january(3, 2012));
+		InvoiceEntry expected2 = new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(150)), me, myCompany, Day.january(3, 2012));
 		assertInvoiceEntryEquals(expected2, iterator.next());
 	}
 
@@ -121,8 +120,8 @@ public class InvoiceEntryBuilderTest {
 		entries.add(createTimeEntry(me, myCompany, Day.january(3, 2012)));
 		entries.add(createTimeEntry(me, myCompany, Day.january(3, 2012)));
 		InvoiceEntryBuilder builder = new InvoiceEntryBuilder(entries);
-		Entry<Day> invoiceEntry = builder.createInvoiceEntry().iterator().next();
-		Entry<Day> expected = new SimpleInvoiceEntry(Unit.days(2), Rate.daily(new Euro(50)), me, myCompany, Day.january(3, 2012));
+		InvoiceEntry invoiceEntry = builder.createInvoiceEntry().iterator().next();
+		InvoiceEntry expected = new SimpleInvoiceEntry(Unit.days(2), Rate.daily(new Euro(50)), me, myCompany, Day.january(3, 2012));
 		assertInvoiceEntryEquals(expected, invoiceEntry);
 	}
 
@@ -137,9 +136,9 @@ public class InvoiceEntryBuilderTest {
 		entries.add(createTimeEntry(new Euro(200), other, myCompany, Day.january(3, 2012)));
 
 		InvoiceEntryBuilder builder = new InvoiceEntryBuilder(entries);
-		Iterator<? extends Entry<Day>> result = builder.createInvoiceEntry().iterator();
-		Entry<Day> invoiceEntry = result.next();
-		Entry<Day> expected = new SimpleInvoiceEntry(Unit.days(3), Rate.daily(new Euro(200)), me, myCompany, Day.january(1, 2012));
+		Iterator<InvoiceEntry> result = builder.createInvoiceEntry().iterator();
+		InvoiceEntry invoiceEntry = result.next();
+		InvoiceEntry expected = new SimpleInvoiceEntry(Unit.days(3), Rate.daily(new Euro(200)), me, myCompany, Day.january(1, 2012));
 		assertInvoiceEntryEquals(expected, invoiceEntry);
 
 		invoiceEntry = result.next();

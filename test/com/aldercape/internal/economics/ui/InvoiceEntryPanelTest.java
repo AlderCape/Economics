@@ -13,8 +13,8 @@ import org.junit.Test;
 import com.aldercape.internal.economics.model.Client;
 import com.aldercape.internal.economics.model.Collaborator;
 import com.aldercape.internal.economics.model.Day;
-import com.aldercape.internal.economics.model.Entry;
 import com.aldercape.internal.economics.model.Euro;
+import com.aldercape.internal.economics.model.InvoiceEntry;
 import com.aldercape.internal.economics.model.Ledger;
 import com.aldercape.internal.economics.model.Rate;
 import com.aldercape.internal.economics.model.SimpleInvoiceEntry;
@@ -60,7 +60,7 @@ public class InvoiceEntryPanelTest {
 		panel.setEntry(populateWith);
 		panel.addEntry();
 		assertEquals(1, ledger.numberOfEntries());
-		Entry<Day> entry = ledger.entry(0);
+		InvoiceEntry entry = (InvoiceEntry) ledger.entry(0);
 		assertInvoiceEntryEquals(populateWith, entry);
 
 	}

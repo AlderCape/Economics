@@ -6,8 +6,10 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.aldercape.internal.economics.model.ComposedInvoiceEntry;
 import com.aldercape.internal.economics.model.InvoiceEntry;
 import com.aldercape.internal.economics.model.InvoiceEntryGroupingRule;
+import com.aldercape.internal.economics.model.TimeEntry;
 import com.aldercape.internal.economics.persistence.InvoiceEntryFileSystemRepository.InvoiceEntryJson;
 import com.aldercape.internal.economics.persistence.JsonStorage.ElementParser;
 import com.google.gson.JsonArray;
@@ -29,7 +31,10 @@ public class InvoiceEntryFileSystemRepository implements ElementParser<InvoiceEn
 		}
 
 		public InvoiceEntry asInvoiceEntry(TimeEntryFileSystemRepository timeEntryRepository) {
-			return new InvoiceEntry(new InvoiceEntryGroupingRule(), timeEntryRepository.getById(timeEntries.iterator().next()));
+			Set<TimeEntry> entries = timeEntryRepository.findByIds(timeEntries);
+			ComposedInvoiceEntry result = new ComposedInvoiceEntry(new InvoiceEntryGroupingRule(), entries);
+
+			return result;
 		}
 
 	}
@@ -57,8 +62,9 @@ public class InvoiceEntryFileSystemRepository implements ElementParser<InvoiceEn
 	public InvoiceEntryJson deserialize(JsonElement entry) {
 		Set<Long> ids = new LinkedHashSet<Long>();
 		JsonObject jsonObject = entry.getAsJsonObject();
-		JsonArray asJsonArray = jsonObject.get("timeEntries").getAsJsonArray();
-		ids.add(asJsonArray.get(0).getAsLong());
+		for (JsonElement jsonElement : jsonObject.get("timeEntries").getAsJsonArray()) {
+			ids.add(jsonElement.getAsLong());
+		}
 		return new InvoiceEntryJson(ids);
 	}
 

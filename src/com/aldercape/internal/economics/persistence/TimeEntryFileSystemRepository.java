@@ -115,4 +115,12 @@ public class TimeEntryFileSystemRepository implements ElementParser<TimeEntryJso
 		}
 		return result;
 	}
+
+	public Set<TimeEntry> findByIds(Set<Long> ids) {
+		Set<TimeEntry> result = new LinkedHashSet<>();
+		for (Long id : ids) {
+			result.add(getById(id));
+		}
+		return result;
+	}
 }

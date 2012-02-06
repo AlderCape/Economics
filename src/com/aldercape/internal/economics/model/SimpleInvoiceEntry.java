@@ -1,6 +1,9 @@
 package com.aldercape.internal.economics.model;
 
-public class SimpleInvoiceEntry extends AbstractEntry<Day> {
+import java.util.Collections;
+import java.util.Set;
+
+public class SimpleInvoiceEntry extends AbstractEntry<Day> implements InvoiceEntry {
 
 	public SimpleInvoiceEntry(Unit units, Rate rate, Collaborator person, Client client, Day issueDate) {
 		super(units, rate, person, client, issueDate);
@@ -16,6 +19,11 @@ public class SimpleInvoiceEntry extends AbstractEntry<Day> {
 
 	public SimpleInvoiceEntry addTime(Unit units) {
 		return new SimpleInvoiceEntry(units().plus(units), rate(), collaborator(), client(), issueDate());
+	}
+
+	@Override
+	public Set<TimeEntry> getAllEntries() {
+		return Collections.singleton(new TimeEntry(units(), rate(), collaborator(), client(), getTimePoint()));
 	}
 
 }

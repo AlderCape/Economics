@@ -16,11 +16,11 @@ public class InvoiceEntryBuilder {
 	}
 
 	public Set<InvoiceEntry> createInvoiceEntry() {
-		InvoiceEntry currentInvoiceEntry = null;
+		ComposedInvoiceEntry currentInvoiceEntry = null;
 		LinkedHashSet<InvoiceEntry> result = new LinkedHashSet<InvoiceEntry>();
 		for (TimeEntry entry : entries) {
 			if (currentInvoiceEntry == null || !currentInvoiceEntry.belongsTo(entry)) {
-				currentInvoiceEntry = new InvoiceEntry(rule, entry);
+				currentInvoiceEntry = new ComposedInvoiceEntry(rule, entry);
 				result.add(currentInvoiceEntry);
 			} else {
 				currentInvoiceEntry.addTimeEntry(entry);
