@@ -5,8 +5,6 @@ import java.io.File;
 import com.aldercape.internal.economics.model.Collaborator;
 import com.aldercape.internal.economics.model.CollaboratorRepository;
 import com.aldercape.internal.economics.persistence.JsonStorage.ElementParser;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
 public class CollaboratorFileSystemRepository extends InMemoryCollaboratorRepository implements CollaboratorRepository, ElementParser<Collaborator> {
 
@@ -21,17 +19,8 @@ public class CollaboratorFileSystemRepository extends InMemoryCollaboratorReposi
 	}
 
 	private CollaboratorFileSystemRepository(File storageFile, boolean prettyPrinting) {
-		jsonStorage = new JsonStorage<Collaborator>(storageFile, false, this);
+		jsonStorage = new JsonStorage<Collaborator>(storageFile, false, this, "collaborator");
 		jsonStorage.populateCache();
-	}
-
-	@Override
-	public Collaborator deserialize(JsonElement entry) {
-		JsonObject collaborator = entry.getAsJsonObject();
-		String firstname = collaborator.get("firstname").getAsString();
-		String lastname = collaborator.get("lastname").getAsString();
-		String email = collaborator.get("email").getAsString();
-		return new Collaborator(firstname, lastname, email);
 	}
 
 	@Override

@@ -7,14 +7,11 @@ import java.util.List;
 import java.util.Set;
 
 import com.aldercape.internal.economics.model.Day;
-import com.aldercape.internal.economics.model.MonthLiteral;
 import com.aldercape.internal.economics.model.Rate;
 import com.aldercape.internal.economics.model.TimeEntry;
 import com.aldercape.internal.economics.model.Unit;
 import com.aldercape.internal.economics.persistence.JsonStorage.ElementParser;
 import com.aldercape.internal.economics.persistence.TimeEntryFileSystemRepository.TimeEntryJson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
 public class TimeEntryFileSystemRepository implements ElementParser<TimeEntryJson> {
 
@@ -55,8 +52,9 @@ public class TimeEntryFileSystemRepository implements ElementParser<TimeEntryJso
 	public TimeEntryFileSystemRepository(File newFile, CollaboratorFileSystemRepository collaboratorRepository, ClientFileSystemRepository clientRepository) {
 		this.collaboratorRepository = collaboratorRepository;
 		this.clientRepository = clientRepository;
-		jsonStorage = new JsonStorage<TimeEntryJson>(newFile, false, this);
+		jsonStorage = new JsonStorage<TimeEntryJson>(newFile, false, this, "timeEntry");
 		jsonStorage.populateCache();
+
 	}
 
 	public List<TimeEntry> getAll() {
@@ -66,32 +64,6 @@ public class TimeEntryFileSystemRepository implements ElementParser<TimeEntryJso
 	public void add(TimeEntry timeEntry) {
 		jsonStorage.addToStorage(new TimeEntryJson(timeEntry, collaboratorRepository, clientRepository));
 		jsonStorage.writeAllToFile();
-	}
-
-	@Override
-	public TimeEntryJson deserialize(JsonElement entry) {
-		JsonObject timeEntryJson = entry.getAsJsonObject();
-		long collaboratorId = timeEntryJson.get("collaborator").getAsLong();
-		long clientId = timeEntryJson.get("client").getAsLong();
-		JsonObject rateJson = timeEntryJson.get("rate").getAsJsonObject();
-		JsonObject unitJson = timeEntryJson.get("unit").getAsJsonObject();
-		JsonObject dayJson = timeEntryJson.get("day").getAsJsonObject();
-		return new TimeEntryJson(collaboratorId, clientId, deserializeRate(rateJson), deserializeUnit(unitJson), deserializeDay(dayJson));
-	}
-
-	private Day deserializeDay(JsonObject dayJson) {
-		int day = dayJson.get("day").getAsInt();
-		String month = dayJson.get("month").getAsJsonObject().get("month").getAsString();
-		int year = dayJson.get("month").getAsJsonObject().get("year").getAsInt();
-		return Day.createFrom(MonthLiteral.valueOf(month), day, year);
-	}
-
-	private Unit deserializeUnit(JsonObject unitJson) {
-		return Unit.days(unitJson.get("amount").getAsInt());
-	}
-
-	private Rate deserializeRate(JsonObject rateJson) {
-		return Rate.daily(rateJson.get("amount").getAsJsonObject().get("amount").getAsInt());
 	}
 
 	@Override

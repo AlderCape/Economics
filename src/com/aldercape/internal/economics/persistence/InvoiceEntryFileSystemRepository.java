@@ -12,9 +12,6 @@ import com.aldercape.internal.economics.model.InvoiceEntryGroupingRule;
 import com.aldercape.internal.economics.model.TimeEntry;
 import com.aldercape.internal.economics.persistence.InvoiceEntryFileSystemRepository.InvoiceEntryJson;
 import com.aldercape.internal.economics.persistence.JsonStorage.ElementParser;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
 public class InvoiceEntryFileSystemRepository implements ElementParser<InvoiceEntryJson> {
 
@@ -45,7 +42,7 @@ public class InvoiceEntryFileSystemRepository implements ElementParser<InvoiceEn
 
 	public InvoiceEntryFileSystemRepository(File invoiceEntryFile, TimeEntryFileSystemRepository timeEntryRepository) {
 		this.timeEntryRepository = timeEntryRepository;
-		jsonStorage = new JsonStorage<InvoiceEntryJson>(invoiceEntryFile, false, this);
+		jsonStorage = new JsonStorage<InvoiceEntryJson>(invoiceEntryFile, false, this, "invoiceEntry");
 		jsonStorage.populateCache();
 	}
 
@@ -56,16 +53,6 @@ public class InvoiceEntryFileSystemRepository implements ElementParser<InvoiceEn
 	public void add(InvoiceEntry entry) {
 		jsonStorage.addToStorage(new InvoiceEntryJson(entry, timeEntryRepository));
 		jsonStorage.writeAllToFile();
-	}
-
-	@Override
-	public InvoiceEntryJson deserialize(JsonElement entry) {
-		Set<Long> ids = new LinkedHashSet<Long>();
-		JsonObject jsonObject = entry.getAsJsonObject();
-		for (JsonElement jsonElement : jsonObject.get("timeEntries").getAsJsonArray()) {
-			ids.add(jsonElement.getAsLong());
-		}
-		return new InvoiceEntryJson(ids);
 	}
 
 	@Override

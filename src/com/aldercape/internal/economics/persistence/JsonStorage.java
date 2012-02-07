@@ -20,9 +20,9 @@ import com.google.gson.JsonSyntaxException;
 
 public class JsonStorage<T> {
 
-	public interface ElementParser<T> {
-		public T deserialize(JsonElement entry);
+	private JsonModule module;
 
+	public interface ElementParser<T> {
 		public void addWithoutCache(T t);
 
 		public boolean isSame(T value, T ref);
@@ -30,13 +30,16 @@ public class JsonStorage<T> {
 
 	private File storageFile;
 	private boolean prettyPrinting;
-	Map<Long, T> values;
+	private Map<Long, T> values;
 	private ElementParser<T> parser;
+	private String mainType;
 
-	public JsonStorage(File storageFile, boolean prettyPrinting, ElementParser<T> elementParser) {
+	public JsonStorage(File storageFile, boolean prettyPrinting, ElementParser<T> elementParser, String mainType) {
 		this.storageFile = storageFile;
 		this.prettyPrinting = prettyPrinting;
 		this.parser = elementParser;
+		this.mainType = mainType;
+		this.module = new JsonModule(this);
 	}
 
 	public void writeAllToFile() {
@@ -98,8 +101,7 @@ public class JsonStorage<T> {
 
 	private T addToCache(ElementParser<T> parser, Entry<String, JsonElement> entry) {
 		long id = getId(entry);
-		System.out.println(entry);
-		T client = parser.deserialize(entry.getValue());
+		T client = (T) module.getDeserializer(mainType()).deserialize(entry.getValue().getAsJsonObject());
 		values.put(id, client);
 		return client;
 	}
@@ -124,4 +126,9 @@ public class JsonStorage<T> {
 	public T getById(long key) {
 		return values.get(key);
 	}
+
+	private String mainType() {
+		return mainType;
+	}
+
 }
