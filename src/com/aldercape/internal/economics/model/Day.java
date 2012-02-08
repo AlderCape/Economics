@@ -145,6 +145,11 @@ public class Day extends TimePoint implements Comparable<Day> {
 		return new Day(nextDayInMonth, newMonth);
 	}
 
+	public int daysBetween(Day issueDay) {
+		// TODO: Make tests and implement
+		return 30;
+	}
+
 	public boolean after(Day other) {
 		return compareTo(other) > 0;
 	}

@@ -1,7 +1,6 @@
 package com.aldercape.internal.economics.ui;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 
 import java.awt.BorderLayout;
 
@@ -13,6 +12,7 @@ import org.junit.Test;
 
 import com.aldercape.internal.economics.ApplicationModel;
 import com.aldercape.internal.economics.model.CollaboratorRepository;
+import com.aldercape.internal.economics.persistence.InMemoryCollaboratorRepository;
 
 public class AddCollaboratorDialogTest {
 
@@ -22,6 +22,7 @@ public class AddCollaboratorDialogTest {
 	@Before
 	public void setUp() {
 		ApplicationModel model = new ApplicationModel(null);
+		model.setCollaboraorRepository(new InMemoryCollaboratorRepository());
 		repository = model.getCollaboratorRepository();
 		addCollaboratorDialog = new AddCollaboratorDialog(null, model);
 	}

@@ -15,9 +15,9 @@ public class InvoiceEntryBuilder {
 		this.entries.addAll(entries);
 	}
 
-	public Set<? extends Entry<Day>> createInvoiceEntry() {
+	public Set<InvoiceEntry> createInvoiceEntry() {
 		ComposedInvoiceEntry currentInvoiceEntry = null;
-		LinkedHashSet<ComposedInvoiceEntry> result = new LinkedHashSet<ComposedInvoiceEntry>();
+		LinkedHashSet<InvoiceEntry> result = new LinkedHashSet<InvoiceEntry>();
 		for (TimeEntry entry : entries) {
 			if (currentInvoiceEntry == null || !currentInvoiceEntry.belongsTo(entry)) {
 				currentInvoiceEntry = new ComposedInvoiceEntry(rule, entry);

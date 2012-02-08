@@ -51,4 +51,40 @@ public class ClientField extends JComboBox<Client> implements ClientRenderTarget
 
 	}
 
+	@Override
+	public void renderContactPerson(String contactPerson) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void renderStreetName(String streetName) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void renderStreetNumber(String streetNumber) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void renderZipcode(String zipcode) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void renderCity(String city) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void renderVatNumber(String vatNumber) {
+		// TODO Auto-generated method stub
+
+	}
+
 }

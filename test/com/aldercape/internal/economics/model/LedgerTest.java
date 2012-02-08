@@ -1,7 +1,7 @@
 package com.aldercape.internal.economics.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static com.aldercape.internal.economics.model.CustomModelAsserts.*;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -102,7 +102,7 @@ public class LedgerTest {
 		ledger.addEntry(entryToKeep);
 		ledger = ledger.filter(new ClientCriteria<Day>(objectMother.otherCompany()));
 		assertEquals(1, ledger.numberOfEntries());
-		CustomModelAsserts.assertInvoiceEntryEquals(entryToKeep, ledger.entry(0));
+		assertInvoiceEntryEquals(entryToKeep, (InvoiceEntry) ledger.entry(0));
 	}
 
 	@Test
@@ -113,7 +113,7 @@ public class LedgerTest {
 		ledger.addEntry(entryToKeep);
 		ledger = ledger.filter(new CollaboratorCriteria<Day>(objectMother.other()));
 		assertEquals(1, ledger.numberOfEntries());
-		CustomModelAsserts.assertInvoiceEntryEquals(entryToKeep, ledger.entry(0));
+		assertInvoiceEntryEquals(entryToKeep, (InvoiceEntry) ledger.entry(0));
 	}
 
 }

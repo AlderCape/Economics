@@ -1,7 +1,7 @@
 package com.aldercape.internal.economics.ui;
 
-import static com.aldercape.internal.economics.model.CustomModelAsserts.assertCollaboratorEquals;
-import static org.junit.Assert.assertEquals;
+import static com.aldercape.internal.economics.model.CustomModelAsserts.*;
+import static org.junit.Assert.*;
 
 import java.awt.Component;
 
@@ -13,6 +13,7 @@ import org.junit.Test;
 import com.aldercape.internal.economics.ApplicationModel;
 import com.aldercape.internal.economics.model.Collaborator;
 import com.aldercape.internal.economics.model.Ledger;
+import com.aldercape.internal.economics.persistence.InMemoryCollaboratorRepository;
 
 public class CollaboratorPanelTest {
 
@@ -22,6 +23,7 @@ public class CollaboratorPanelTest {
 	@Before
 	public void setUp() {
 		model = new ApplicationModel(new Ledger());
+		model.setCollaboraorRepository(new InMemoryCollaboratorRepository());
 		panel = new CollaboratorPanel(model);
 	}
 

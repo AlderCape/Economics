@@ -1,8 +1,6 @@
 package com.aldercape.internal.economics.ui;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -51,7 +49,7 @@ public class LedgerFrameTest {
 		ledger.addEntry(new TimeEntry(Unit.days(1), Rate.daily(new Euro(200)), other, myCompany, Day.january(1, 2012)));
 		ledger.addEntry(new TimeEntry(Unit.days(1), Rate.daily(new Euro(200)), other, myCompany, Day.january(2, 2012)));
 		ledger.addEntry(new TimeEntry(Unit.days(1), Rate.daily(new Euro(200)), other, myCompany, Day.january(3, 2012)));
-		model = new ApplicationModel(ledger);
+		model = new InMemoryApplicationModel(ledger);
 		frame = new LedgerFrame(model);
 	}
 

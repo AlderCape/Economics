@@ -1,9 +1,6 @@
 package com.aldercape.internal.economics;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,8 +13,8 @@ import com.aldercape.internal.economics.model.LedgerListener;
 import com.aldercape.internal.economics.model.Rate;
 import com.aldercape.internal.economics.model.SimpleInvoiceEntry;
 import com.aldercape.internal.economics.model.Unit;
-import com.aldercape.internal.economics.persistence.InMemoryClientRepository;
-import com.aldercape.internal.economics.persistence.InMemoryCollaboratorRepository;
+import com.aldercape.internal.economics.persistence.ClientFileSystemRepository;
+import com.aldercape.internal.economics.persistence.CollaboratorFileSystemRepository;
 import com.aldercape.internal.economics.ui.__TestObjectMother;
 
 public class ApplicationModelTest {
@@ -58,10 +55,10 @@ public class ApplicationModelTest {
 	}
 
 	@Test
-	public void shouldHaveInMemoryRepositories() {
-		assertEquals(InMemoryClientRepository.class, model.getClientRepository().getClass());
+	public void shouldHaveRepositories() {
+		assertEquals(ClientFileSystemRepository.class, model.getClientRepository().getClass());
 		assertSame(model.getClientRepository(), model.getClientRepository());
-		assertEquals(InMemoryCollaboratorRepository.class, model.getCollaboratorRepository().getClass());
+		assertEquals(CollaboratorFileSystemRepository.class, model.getCollaboratorRepository().getClass());
 		assertSame(model.getCollaboratorRepository(), model.getCollaboratorRepository());
 	}
 }

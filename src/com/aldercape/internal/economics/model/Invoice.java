@@ -63,8 +63,12 @@ public class Invoice {
 		return day.after(dueDate());
 	}
 
+	public List<Entry<Day>> entries() {
+		return entries;
+	}
+
 	public static void assertIsForClient(Entry<Day> entry, Client client) {
-		if (!entry.client().equals(client)) {
+		if (!entry.client().name().equals(client.name())) {
 			throw new EntryNotForClientException("Invoice is for " + client.name() + " but got " + entry.client().name());
 		}
 	}

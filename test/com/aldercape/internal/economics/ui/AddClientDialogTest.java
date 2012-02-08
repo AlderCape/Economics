@@ -1,7 +1,6 @@
 package com.aldercape.internal.economics.ui;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 
 import java.awt.BorderLayout;
 
@@ -13,6 +12,7 @@ import org.junit.Test;
 
 import com.aldercape.internal.economics.ApplicationModel;
 import com.aldercape.internal.economics.model.ClientRepository;
+import com.aldercape.internal.economics.persistence.InMemoryClientRepository;
 
 public class AddClientDialogTest {
 
@@ -22,6 +22,7 @@ public class AddClientDialogTest {
 	@Before
 	public void setUp() {
 		ApplicationModel model = new ApplicationModel(null);
+		model.setClientRepository(new InMemoryClientRepository());
 		repository = model.getClientRepository();
 		addClientDialog = new AddClientDialog(null, model);
 	}

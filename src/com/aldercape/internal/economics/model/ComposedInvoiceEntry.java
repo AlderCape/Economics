@@ -1,9 +1,10 @@
 package com.aldercape.internal.economics.model;
 
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-class ComposedInvoiceEntry implements Entry<Day> {
+public class ComposedInvoiceEntry implements InvoiceEntry {
 
 	private Set<TimeEntry> entries = new LinkedHashSet<TimeEntry>();
 	private InvoiceEntryGroupingRule rule;
@@ -11,6 +12,11 @@ class ComposedInvoiceEntry implements Entry<Day> {
 	public ComposedInvoiceEntry(InvoiceEntryGroupingRule rule, TimeEntry baseEntry) {
 		this.rule = rule;
 		addTimeEntry(baseEntry);
+	}
+
+	public ComposedInvoiceEntry(InvoiceEntryGroupingRule rule, Set<TimeEntry> entries) {
+		this.rule = rule;
+		this.entries = new LinkedHashSet<>(entries);
 	}
 
 	public void addTimeEntry(TimeEntry entry) {
@@ -74,5 +80,22 @@ class ComposedInvoiceEntry implements Entry<Day> {
 
 	private TimeEntry firstEntry() {
 		return entries.iterator().next();
+	}
+
+	@Override
+	public Set<TimeEntry> getAllEntries() {
+		return Collections.unmodifiableSet(entries);
+	}
+
+	@Override
+	public String title() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String description() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

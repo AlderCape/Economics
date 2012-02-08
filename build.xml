@@ -40,7 +40,7 @@
           target: report              
          ================================= -->
     <target name="report" depends="resolve" description="--> generates a report of dependencies">
-        <ivy:report todir="${build.doc.dir}"/>
+        <ivy:report todir="${build.doc.dir}" dot="true"/>
     </target>
 
     <!-- ================================= 
@@ -101,5 +101,5 @@
 	<target name="clean-cache" description="--> clean the ivy cache">
 		<ivy:cleancache />
 	</target>
-
+	
 </project>

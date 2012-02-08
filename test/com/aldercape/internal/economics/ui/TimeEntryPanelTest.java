@@ -1,8 +1,7 @@
 package com.aldercape.internal.economics.ui;
 
-import static com.aldercape.internal.economics.model.CustomModelAsserts.assertTimeEntryEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static com.aldercape.internal.economics.model.CustomModelAsserts.*;
+import static org.junit.Assert.*;
 
 import java.awt.Component;
 
@@ -32,7 +31,7 @@ public class TimeEntryPanelTest {
 	@Before
 	public void setUp() {
 		ledger = new Ledger();
-		model = new ApplicationModel(ledger);
+		model = new InMemoryApplicationModel(ledger);
 		panel = new TimeEntryPanel(model);
 		__TestObjectMother objectMother = new __TestObjectMother();
 		me = objectMother.me();

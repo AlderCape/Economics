@@ -1,9 +1,7 @@
 package com.aldercape.internal.economics.ui;
 
-import static com.aldercape.internal.economics.model.CustomModelAsserts.assertInvoiceEntryEquals;
-import static com.aldercape.internal.economics.model.CustomModelAsserts.assertTimeEntryEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static com.aldercape.internal.economics.model.CustomModelAsserts.*;
+import static org.junit.Assert.*;
 
 import java.util.Set;
 
@@ -18,6 +16,7 @@ import com.aldercape.internal.economics.model.Collaborator;
 import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.Entry;
 import com.aldercape.internal.economics.model.Euro;
+import com.aldercape.internal.economics.model.InvoiceEntry;
 import com.aldercape.internal.economics.model.Ledger;
 import com.aldercape.internal.economics.model.Rate;
 import com.aldercape.internal.economics.model.SimpleInvoiceEntry;
@@ -80,7 +79,7 @@ public class LedgetTableTest {
 		table.getSelectionModel().setSelectionInterval(1, 2);
 		Set<? extends Entry<Day>> entries = table.createInvoiceEntriesFromSelection();
 		assertEquals(1, entries.size());
-		assertInvoiceEntryEquals(new SimpleInvoiceEntry(Unit.days(2), Rate.daily(new Euro(10)), me, myCompany, Day.january(4, 2012)), entries.iterator().next());
+		assertInvoiceEntryEquals(new SimpleInvoiceEntry(Unit.days(2), Rate.daily(new Euro(10)), me, myCompany, Day.january(4, 2012)), (InvoiceEntry) entries.iterator().next());
 	}
 
 	@Test
@@ -92,6 +91,6 @@ public class LedgetTableTest {
 		table.getSelectionModel().setSelectionInterval(0, 1);
 		Set<? extends Entry<Day>> entries = table.createInvoiceEntriesFromSelection();
 		assertEquals(1, entries.size());
-		assertInvoiceEntryEquals(new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(10)), me, myCompany, Day.january(4, 2012)), entries.iterator().next());
+		assertInvoiceEntryEquals(new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(10)), me, myCompany, Day.january(4, 2012)), (InvoiceEntry) entries.iterator().next());
 	}
 }
