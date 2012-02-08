@@ -16,7 +16,6 @@ import com.aldercape.internal.economics.persistence.JsonStorage.ElementParser;
 public class InvoiceEntryFileSystemRepository implements ElementParser<InvoiceEntryJson> {
 
 	static class InvoiceEntryJson {
-
 		private Set<Long> timeEntries = new LinkedHashSet<Long>();
 
 		public InvoiceEntryJson(InvoiceEntry entry, TimeEntryFileSystemRepository timeEntryRepository) {
@@ -62,8 +61,15 @@ public class InvoiceEntryFileSystemRepository implements ElementParser<InvoiceEn
 
 	@Override
 	public boolean isSame(InvoiceEntryJson value, InvoiceEntryJson ref) {
-		// TODO Auto-generated method stub
-		return false;
+		return value.timeEntries.equals(ref.timeEntries);
+	}
+
+	public long getIdFor(InvoiceEntry e) {
+		return jsonStorage.getIdFor(new InvoiceEntryJson(e, timeEntryRepository));
+	}
+
+	public InvoiceEntry getById(long id) {
+		return jsonStorage.getById(id).asInvoiceEntry(timeEntryRepository);
 	}
 
 }

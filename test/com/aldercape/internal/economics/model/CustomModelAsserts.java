@@ -2,6 +2,8 @@ package com.aldercape.internal.economics.model;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 public class CustomModelAsserts {
 
 	public static void assertInvoiceEntryEquals(InvoiceEntry populateWith, InvoiceEntry entry) {
@@ -10,6 +12,20 @@ public class CustomModelAsserts {
 		assertEquals(populateWith.collaborator().fullname(), entry.collaborator().fullname());
 		assertEquals(populateWith.client().name(), entry.client().name());
 		assertEquals(populateWith.getTimePoint(), entry.getTimePoint());
+	}
+
+	public static void assertInvoiceEquals(Invoice expected, Invoice actual) {
+		assertClientEquals(expected.client(), actual.client());
+		assertClientEquals(expected.company(), actual.company());
+		assertEquals(expected.dueDate(), actual.dueDate());
+		List<Entry<Day>> expectedEntries = expected.entries();
+		List<Entry<Day>> actualEntries = actual.entries();
+		assertEquals(expectedEntries.size(), actualEntries.size());
+		for (int i = 0; i < expectedEntries.size(); i++) {
+			assertInvoiceEntryEquals((InvoiceEntry) expectedEntries.get(i), (InvoiceEntry) actualEntries.get(i));
+		}
+
+		assertEquals(expected.issueDate(), actual.issueDate());
 	}
 
 	public static void assertTimeEntryEquals(TimeEntry expected, TimeEntry actual) {

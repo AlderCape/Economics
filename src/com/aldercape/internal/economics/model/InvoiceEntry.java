@@ -4,6 +4,10 @@ import java.util.Set;
 
 public interface InvoiceEntry extends Entry<Day> {
 
-	Set<TimeEntry> getAllEntries();
+	public Set<TimeEntry> getAllEntries();
+
+	public String title();
+
+	public String description();
 
 }

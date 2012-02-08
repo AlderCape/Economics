@@ -16,6 +16,7 @@ public class JsonModule {
 		deserializers.put("collaborator", new CollaboratorJsonDeserializer());
 		deserializers.put("invoiceEntry", new InvoiceEntryDeserializer());
 		deserializers.put("timeEntry", new TimeEntryJsonDeserializer(this));
+		deserializers.put("invoice", new InvoiceJsonDeserializer(this));
 
 	}
 

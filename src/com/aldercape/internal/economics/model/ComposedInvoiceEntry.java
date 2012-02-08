@@ -86,4 +86,16 @@ public class ComposedInvoiceEntry implements InvoiceEntry {
 	public Set<TimeEntry> getAllEntries() {
 		return Collections.unmodifiableSet(entries);
 	}
+
+	@Override
+	public String title() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String description() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -23,6 +23,7 @@ public class JsonStorage<T> {
 	private JsonModule module;
 
 	public interface ElementParser<T> {
+
 		public void addWithoutCache(T t);
 
 		public boolean isSame(T value, T ref);
@@ -120,7 +121,7 @@ public class JsonStorage<T> {
 				return entry.getKey();
 			}
 		}
-		return -1;
+		throw new RuntimeException("Id not found for " + t);
 	}
 
 	public T getById(long key) {

@@ -29,8 +29,9 @@ public class InvoiceBuilder {
 		return this;
 	}
 
-	public void addEntry(Entry<Day> entry) {
+	public InvoiceBuilder addEntry(Entry<Day> entry) {
 		entries.add(entry);
+		return this;
 
 	}
 
@@ -89,5 +90,10 @@ public class InvoiceBuilder {
 
 	public List<Entry<Day>> entries() {
 		return Collections.unmodifiableList(entries);
+	}
+
+	public InvoiceBuilder dueDate(Day dueDate) {
+		daysToPay = dueDate.daysBetween(issueDay);
+		return this;
 	}
 }

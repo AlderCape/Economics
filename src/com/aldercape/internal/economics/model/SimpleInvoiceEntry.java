@@ -26,4 +26,12 @@ public class SimpleInvoiceEntry extends AbstractEntry<Day> implements InvoiceEnt
 		return Collections.singleton(new TimeEntry(units(), rate(), collaborator(), client(), getTimePoint()));
 	}
 
+	public String title() {
+		return null;
+	}
+
+	public String description() {
+		return null;
+	}
+
 }
