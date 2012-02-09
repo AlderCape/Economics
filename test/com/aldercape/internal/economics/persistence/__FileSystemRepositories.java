@@ -2,13 +2,19 @@ package com.aldercape.internal.economics.persistence;
 
 import java.io.File;
 
+import com.aldercape.internal.economics.model.ClientRepository;
+import com.aldercape.internal.economics.model.CollaboratorRepository;
+import com.aldercape.internal.economics.model.InvoiceEntryRepository;
+import com.aldercape.internal.economics.model.InvoiceRepository;
+import com.aldercape.internal.economics.model.TimeEntryRepository;
+
 public class __FileSystemRepositories {
 
-	private InvoiceFileSystemRepository invoiceRepository;
-	private InvoiceEntryFileSystemRepository invoiceEntryRepository;
-	private CollaboratorFileSystemRepository collaboratorRepository;
-	private ClientFileSystemRepository clientRepository;
-	private TimeEntryFileSystemRepository timeEntryRepository;
+	private InvoiceRepository invoiceRepository;
+	private InvoiceEntryRepository invoiceEntryRepository;
+	private CollaboratorRepository collaboratorRepository;
+	private ClientRepository clientRepository;
+	private TimeEntryRepository timeEntryRepository;
 
 	public __FileSystemRepositories(File baseDir) {
 		collaboratorRepository = new CollaboratorFileSystemRepository(new File(baseDir, "collaborators.json"));
@@ -18,23 +24,23 @@ public class __FileSystemRepositories {
 		invoiceRepository = new InvoiceFileSystemRepository(new File(baseDir, "invoices.json"), invoiceEntryRepository);
 	}
 
-	public InvoiceFileSystemRepository invoiceRepository() {
+	public InvoiceRepository invoiceRepository() {
 		return invoiceRepository;
 	}
 
-	public InvoiceEntryFileSystemRepository invoiceEntryRepository() {
+	public InvoiceEntryRepository invoiceEntryRepository() {
 		return invoiceEntryRepository;
 	}
 
-	public CollaboratorFileSystemRepository collaboratorRepository() {
+	public CollaboratorRepository collaboratorRepository() {
 		return collaboratorRepository;
 	}
 
-	public ClientFileSystemRepository clientRepository() {
+	public ClientRepository clientRepository() {
 		return clientRepository;
 	}
 
-	public TimeEntryFileSystemRepository timeEntryRepository() {
+	public TimeEntryRepository timeEntryRepository() {
 		return timeEntryRepository;
 	}
 }

@@ -6,14 +6,17 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.aldercape.internal.economics.model.ClientRepository;
+import com.aldercape.internal.economics.model.CollaboratorRepository;
 import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.Rate;
 import com.aldercape.internal.economics.model.TimeEntry;
+import com.aldercape.internal.economics.model.TimeEntryRepository;
 import com.aldercape.internal.economics.model.Unit;
 import com.aldercape.internal.economics.persistence.JsonStorage.ElementParser;
 import com.aldercape.internal.economics.persistence.TimeEntryFileSystemRepository.TimeEntryJson;
 
-public class TimeEntryFileSystemRepository implements ElementParser<TimeEntryJson> {
+public class TimeEntryFileSystemRepository implements ElementParser<TimeEntryJson>, TimeEntryRepository {
 
 	static class TimeEntryJson {
 
@@ -23,7 +26,7 @@ public class TimeEntryFileSystemRepository implements ElementParser<TimeEntryJso
 		private Unit unit;
 		private Day day;
 
-		public TimeEntryJson(TimeEntry timeEntry, CollaboratorFileSystemRepository collaboratorRepository, ClientFileSystemRepository clientRepository) {
+		public TimeEntryJson(TimeEntry timeEntry, CollaboratorRepository collaboratorRepository, ClientRepository clientRepository) {
 			this.unit = timeEntry.units();
 			this.rate = timeEntry.rate();
 			this.day = timeEntry.day();
@@ -39,17 +42,17 @@ public class TimeEntryFileSystemRepository implements ElementParser<TimeEntryJso
 			this.day = day;
 		}
 
-		public TimeEntry asTimeEntry(CollaboratorFileSystemRepository collaboratorRepository, ClientFileSystemRepository clientRepository) {
+		public TimeEntry asTimeEntry(CollaboratorRepository collaboratorRepository, ClientRepository clientRepository) {
 			return new TimeEntry(unit, rate, collaboratorRepository.getById(collaborator), clientRepository.getById(client), day);
 		}
 	}
 
 	private JsonStorage<TimeEntryJson> jsonStorage;
-	private CollaboratorFileSystemRepository collaboratorRepository;
-	private ClientFileSystemRepository clientRepository;
+	private CollaboratorRepository collaboratorRepository;
+	private ClientRepository clientRepository;
 	private List<TimeEntry> entries = new ArrayList<TimeEntry>();
 
-	public TimeEntryFileSystemRepository(File newFile, CollaboratorFileSystemRepository collaboratorRepository, ClientFileSystemRepository clientRepository) {
+	public TimeEntryFileSystemRepository(File newFile, CollaboratorRepository collaboratorRepository, ClientRepository clientRepository) {
 		this.collaboratorRepository = collaboratorRepository;
 		this.clientRepository = clientRepository;
 		jsonStorage = new JsonStorage<TimeEntryJson>(newFile, false, this, "timeEntry");

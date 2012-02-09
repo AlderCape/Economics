@@ -6,4 +6,8 @@ public interface ClientRepository extends BaseRepository<Client> {
 
 	public Client getByName(String name) throws NoMatchingRecordException;
 
+	public Client getById(long client);
+
+	public long getIdFor(Client client);
+
 }

@@ -9,16 +9,18 @@ import java.util.Set;
 import com.aldercape.internal.economics.model.ComposedInvoiceEntry;
 import com.aldercape.internal.economics.model.InvoiceEntry;
 import com.aldercape.internal.economics.model.InvoiceEntryGroupingRule;
+import com.aldercape.internal.economics.model.InvoiceEntryRepository;
 import com.aldercape.internal.economics.model.TimeEntry;
+import com.aldercape.internal.economics.model.TimeEntryRepository;
 import com.aldercape.internal.economics.persistence.InvoiceEntryFileSystemRepository.InvoiceEntryJson;
 import com.aldercape.internal.economics.persistence.JsonStorage.ElementParser;
 
-public class InvoiceEntryFileSystemRepository implements ElementParser<InvoiceEntryJson> {
+public class InvoiceEntryFileSystemRepository implements ElementParser<InvoiceEntryJson>, InvoiceEntryRepository {
 
 	static class InvoiceEntryJson {
 		private Set<Long> timeEntries = new LinkedHashSet<Long>();
 
-		public InvoiceEntryJson(InvoiceEntry entry, TimeEntryFileSystemRepository timeEntryRepository) {
+		public InvoiceEntryJson(InvoiceEntry entry, TimeEntryRepository timeEntryRepository) {
 			timeEntries = timeEntryRepository.getIdsFor(entry.getAllEntries());
 		}
 
@@ -26,7 +28,7 @@ public class InvoiceEntryFileSystemRepository implements ElementParser<InvoiceEn
 			this.timeEntries = timeEntries;
 		}
 
-		public InvoiceEntry asInvoiceEntry(TimeEntryFileSystemRepository timeEntryRepository) {
+		public InvoiceEntry asInvoiceEntry(TimeEntryRepository timeEntryRepository) {
 			Set<TimeEntry> entries = timeEntryRepository.findByIds(timeEntries);
 			ComposedInvoiceEntry result = new ComposedInvoiceEntry(new InvoiceEntryGroupingRule(), entries);
 
@@ -37,9 +39,9 @@ public class InvoiceEntryFileSystemRepository implements ElementParser<InvoiceEn
 
 	private List<InvoiceEntry> entries = new ArrayList<InvoiceEntry>();
 	private JsonStorage<InvoiceEntryJson> jsonStorage;
-	private TimeEntryFileSystemRepository timeEntryRepository;
+	private TimeEntryRepository timeEntryRepository;
 
-	public InvoiceEntryFileSystemRepository(File invoiceEntryFile, TimeEntryFileSystemRepository timeEntryRepository) {
+	public InvoiceEntryFileSystemRepository(File invoiceEntryFile, TimeEntryRepository timeEntryRepository) {
 		this.timeEntryRepository = timeEntryRepository;
 		jsonStorage = new JsonStorage<InvoiceEntryJson>(invoiceEntryFile, false, this, "invoiceEntry");
 		jsonStorage.populateCache();

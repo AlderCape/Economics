@@ -6,4 +6,8 @@ public interface CollaboratorRepository extends BaseRepository<Collaborator> {
 
 	public Collaborator findByEmail(String email);
 
+	public Collaborator getById(long collaborator);
+
+	public long getIdFor(Collaborator collaborator);
+
 }

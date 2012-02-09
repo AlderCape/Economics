@@ -10,18 +10,20 @@ import com.aldercape.internal.economics.model.Entry;
 import com.aldercape.internal.economics.model.Invoice;
 import com.aldercape.internal.economics.model.InvoiceBuilder;
 import com.aldercape.internal.economics.model.InvoiceEntry;
+import com.aldercape.internal.economics.model.InvoiceEntryRepository;
+import com.aldercape.internal.economics.model.InvoiceRepository;
 import com.aldercape.internal.economics.model.Rate;
 import com.aldercape.internal.economics.model.Unit;
 import com.aldercape.internal.economics.persistence.InvoiceFileSystemRepository.InvoiceJson;
 import com.aldercape.internal.economics.persistence.JsonStorage.ElementParser;
 
-public class InvoiceFileSystemRepository implements ElementParser<InvoiceJson> {
+public class InvoiceFileSystemRepository implements ElementParser<InvoiceJson>, InvoiceRepository {
 
 	static class InvoiceJson {
 
 		static class InvoiceItemJson {
 
-			public InvoiceItemJson(InvoiceEntry entry, InvoiceEntryFileSystemRepository invoiceEntryRepository) {
+			public InvoiceItemJson(InvoiceEntry entry, InvoiceEntryRepository invoiceEntryRepository) {
 				InvoiceEntry e = entry;
 				title = e.title();
 				description = e.description();
@@ -44,7 +46,7 @@ public class InvoiceFileSystemRepository implements ElementParser<InvoiceJson> {
 			private Rate rate;
 			private long id;
 
-			public InvoiceEntry asInvoiceEntry(InvoiceEntryFileSystemRepository invoiceEntryRepository) {
+			public InvoiceEntry asInvoiceEntry(InvoiceEntryRepository invoiceEntryRepository) {
 				return invoiceEntryRepository.getById(id);
 			}
 
@@ -65,7 +67,7 @@ public class InvoiceFileSystemRepository implements ElementParser<InvoiceJson> {
 			this.entries = entries;
 		}
 
-		public InvoiceJson(Invoice invoice, InvoiceEntryFileSystemRepository invoiceEntryRepository) {
+		public InvoiceJson(Invoice invoice, InvoiceEntryRepository invoiceEntryRepository) {
 			company = invoice.company();
 			client = invoice.client();
 			issueDate = invoice.issueDate();
@@ -76,7 +78,7 @@ public class InvoiceFileSystemRepository implements ElementParser<InvoiceJson> {
 			}
 		}
 
-		public Invoice asInvoice(InvoiceEntryFileSystemRepository invoiceEntryRepository) {
+		public Invoice asInvoice(InvoiceEntryRepository invoiceEntryRepository) {
 			if (invoice == null) {
 				InvoiceBuilder invoiceBuilder = new InvoiceBuilder(company);
 				invoiceBuilder.forClient(client);
@@ -93,9 +95,9 @@ public class InvoiceFileSystemRepository implements ElementParser<InvoiceJson> {
 
 	private JsonStorage<InvoiceJson> jsonStorage;
 	private List<Invoice> entries = new ArrayList<>();
-	private InvoiceEntryFileSystemRepository invoiceEntryRepository;
+	private InvoiceEntryRepository invoiceEntryRepository;
 
-	public InvoiceFileSystemRepository(File invoiceFile, InvoiceEntryFileSystemRepository invoiceEntryRepository) {
+	public InvoiceFileSystemRepository(File invoiceFile, InvoiceEntryRepository invoiceEntryRepository) {
 		this.invoiceEntryRepository = invoiceEntryRepository;
 		jsonStorage = new JsonStorage<InvoiceJson>(invoiceFile, false, this, "invoice");
 		jsonStorage.populateCache();
