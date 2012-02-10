@@ -1,27 +1,28 @@
 package com.aldercape.internal.economics.persistence;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.aldercape.internal.economics.model.Address;
+import com.aldercape.internal.economics.model.Client;
+import com.aldercape.internal.economics.model.Collaborator;
+import com.aldercape.internal.economics.model.Day;
+import com.aldercape.internal.economics.model.Rate;
+import com.aldercape.internal.economics.model.Unit;
+import com.aldercape.internal.economics.persistence.InvoiceEntryFileSystemRepository.InvoiceEntryJson;
+import com.aldercape.internal.economics.persistence.InvoiceFileSystemRepository.InvoiceJson;
+import com.aldercape.internal.economics.persistence.TimeEntryFileSystemRepository.TimeEntryJson;
+import com.google.gson.GsonBuilder;
 
 public class JsonModule {
 
-	Map<String, JsonModelDeserializer<?>> deserializers = new HashMap<>();
-
-	public JsonModule(JsonStorage<?> storage) {
-		deserializers.put("rate", new RateJsonDeserialize());
-		deserializers.put("unit", new UnitJsonDeserializer());
-		deserializers.put("day", new DayJsonDeserializer());
-		deserializers.put("address", new AddressJsonDeserializer());
-		deserializers.put("client", new ClientJsonDeserializer(this));
-		deserializers.put("collaborator", new CollaboratorJsonDeserializer());
-		deserializers.put("invoiceEntry", new InvoiceEntryDeserializer());
-		deserializers.put("timeEntry", new TimeEntryJsonDeserializer(this));
-		deserializers.put("invoice", new InvoiceJsonDeserializer(this));
-
-	}
-
-	public JsonModelDeserializer<?> getDeserializer(String mainType) {
-		return deserializers.get(mainType);
+	public void regiterOn(GsonBuilder gsonBuilder) {
+		gsonBuilder.registerTypeAdapter(Day.class, new DayJsonDeserializer());
+		gsonBuilder.registerTypeAdapter(Rate.class, new RateJsonDeserializer());
+		gsonBuilder.registerTypeAdapter(Unit.class, new UnitJsonDeserializer());
+		gsonBuilder.registerTypeAdapter(Address.class, new AddressJsonDeserializer());
+		gsonBuilder.registerTypeAdapter(Client.class, new ClientJsonDeserializer());
+		gsonBuilder.registerTypeAdapter(Collaborator.class, new CollaboratorJsonDeserializer());
+		gsonBuilder.registerTypeAdapter(InvoiceEntryJson.class, new InvoiceEntryDeserializer());
+		gsonBuilder.registerTypeAdapter(TimeEntryJson.class, new TimeEntryJsonDeserializer());
+		gsonBuilder.registerTypeAdapter(InvoiceJson.class, new InvoiceJsonDeserializer());
 	}
 
 }

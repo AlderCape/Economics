@@ -3,6 +3,7 @@ package com.aldercape.internal.economics.persistence;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.aldercape.internal.economics.model.Client;
 import com.aldercape.internal.economics.model.Day;
@@ -15,9 +16,10 @@ import com.aldercape.internal.economics.model.InvoiceRepository;
 import com.aldercape.internal.economics.model.Rate;
 import com.aldercape.internal.economics.model.Unit;
 import com.aldercape.internal.economics.persistence.InvoiceFileSystemRepository.InvoiceJson;
-import com.aldercape.internal.economics.persistence.JsonStorage.ElementParser;
+import com.aldercape.internal.economics.persistence.JsonStorage.ElementStorage;
+import com.google.gson.reflect.TypeToken;
 
-public class InvoiceFileSystemRepository implements ElementParser<InvoiceJson>, InvoiceRepository {
+public class InvoiceFileSystemRepository implements ElementStorage<InvoiceJson>, InvoiceRepository {
 
 	static class InvoiceJson {
 
@@ -48,6 +50,22 @@ public class InvoiceFileSystemRepository implements ElementParser<InvoiceJson>, 
 
 			public InvoiceEntry asInvoiceEntry(InvoiceEntryRepository invoiceEntryRepository) {
 				return invoiceEntryRepository.getById(id);
+			}
+
+			public String getTitle() {
+				return title;
+			}
+
+			public String getDescription() {
+				return description;
+			}
+
+			public Unit getUnits() {
+				return units;
+			}
+
+			public Rate getRate() {
+				return rate;
 			}
 
 		}
@@ -99,8 +117,9 @@ public class InvoiceFileSystemRepository implements ElementParser<InvoiceJson>, 
 
 	public InvoiceFileSystemRepository(File invoiceFile, InvoiceEntryRepository invoiceEntryRepository) {
 		this.invoiceEntryRepository = invoiceEntryRepository;
-		jsonStorage = new JsonStorage<InvoiceJson>(invoiceFile, false, this, "invoice");
-		jsonStorage.populateCache();
+		jsonStorage = new JsonStorage<InvoiceJson>(invoiceFile, false, this);
+		jsonStorage.populateCache(new TypeToken<Map<Long, InvoiceJson>>() {
+		});
 	}
 
 	public List<Invoice> getAll() {

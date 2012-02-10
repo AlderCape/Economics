@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.aldercape.internal.economics.model.ClientRepository;
@@ -13,10 +14,11 @@ import com.aldercape.internal.economics.model.Rate;
 import com.aldercape.internal.economics.model.TimeEntry;
 import com.aldercape.internal.economics.model.TimeEntryRepository;
 import com.aldercape.internal.economics.model.Unit;
-import com.aldercape.internal.economics.persistence.JsonStorage.ElementParser;
+import com.aldercape.internal.economics.persistence.JsonStorage.ElementStorage;
 import com.aldercape.internal.economics.persistence.TimeEntryFileSystemRepository.TimeEntryJson;
+import com.google.gson.reflect.TypeToken;
 
-public class TimeEntryFileSystemRepository implements ElementParser<TimeEntryJson>, TimeEntryRepository {
+public class TimeEntryFileSystemRepository implements ElementStorage<TimeEntryJson>, TimeEntryRepository {
 
 	static class TimeEntryJson {
 
@@ -55,8 +57,9 @@ public class TimeEntryFileSystemRepository implements ElementParser<TimeEntryJso
 	public TimeEntryFileSystemRepository(File newFile, CollaboratorRepository collaboratorRepository, ClientRepository clientRepository) {
 		this.collaboratorRepository = collaboratorRepository;
 		this.clientRepository = clientRepository;
-		jsonStorage = new JsonStorage<TimeEntryJson>(newFile, false, this, "timeEntry");
-		jsonStorage.populateCache();
+		jsonStorage = new JsonStorage<TimeEntryJson>(newFile, false, this);
+		jsonStorage.populateCache(new TypeToken<Map<Long, TimeEntryJson>>() {
+		});
 
 	}
 
@@ -64,6 +67,7 @@ public class TimeEntryFileSystemRepository implements ElementParser<TimeEntryJso
 		return entries;
 	}
 
+	@Override
 	public void add(TimeEntry timeEntry) {
 		jsonStorage.addToStorage(new TimeEntryJson(timeEntry, collaboratorRepository, clientRepository));
 		jsonStorage.writeAllToFile();
@@ -83,6 +87,7 @@ public class TimeEntryFileSystemRepository implements ElementParser<TimeEntryJso
 		return jsonStorage.getById(i).asTimeEntry(collaboratorRepository, clientRepository);
 	}
 
+	@Override
 	public Set<Long> getIdsFor(Set<TimeEntry> allEntries) {
 		Set<Long> result = new LinkedHashSet<Long>();
 		for (TimeEntry e : allEntries) {
@@ -91,6 +96,7 @@ public class TimeEntryFileSystemRepository implements ElementParser<TimeEntryJso
 		return result;
 	}
 
+	@Override
 	public Set<TimeEntry> findByIds(Set<Long> ids) {
 		Set<TimeEntry> result = new LinkedHashSet<>();
 		for (Long id : ids) {

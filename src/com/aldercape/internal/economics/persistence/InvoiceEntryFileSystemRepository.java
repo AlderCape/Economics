@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.aldercape.internal.economics.model.ComposedInvoiceEntry;
@@ -13,9 +14,10 @@ import com.aldercape.internal.economics.model.InvoiceEntryRepository;
 import com.aldercape.internal.economics.model.TimeEntry;
 import com.aldercape.internal.economics.model.TimeEntryRepository;
 import com.aldercape.internal.economics.persistence.InvoiceEntryFileSystemRepository.InvoiceEntryJson;
-import com.aldercape.internal.economics.persistence.JsonStorage.ElementParser;
+import com.aldercape.internal.economics.persistence.JsonStorage.ElementStorage;
+import com.google.gson.reflect.TypeToken;
 
-public class InvoiceEntryFileSystemRepository implements ElementParser<InvoiceEntryJson>, InvoiceEntryRepository {
+public class InvoiceEntryFileSystemRepository implements ElementStorage<InvoiceEntryJson>, InvoiceEntryRepository {
 
 	static class InvoiceEntryJson {
 		private Set<Long> timeEntries = new LinkedHashSet<Long>();
@@ -43,14 +45,16 @@ public class InvoiceEntryFileSystemRepository implements ElementParser<InvoiceEn
 
 	public InvoiceEntryFileSystemRepository(File invoiceEntryFile, TimeEntryRepository timeEntryRepository) {
 		this.timeEntryRepository = timeEntryRepository;
-		jsonStorage = new JsonStorage<InvoiceEntryJson>(invoiceEntryFile, false, this, "invoiceEntry");
-		jsonStorage.populateCache();
+		jsonStorage = new JsonStorage<InvoiceEntryJson>(invoiceEntryFile, false, this);
+		jsonStorage.populateCache(new TypeToken<Map<Long, InvoiceEntryJson>>() {
+		});
 	}
 
 	public List<InvoiceEntry> getAll() {
 		return entries;
 	}
 
+	@Override
 	public void add(InvoiceEntry entry) {
 		jsonStorage.addToStorage(new InvoiceEntryJson(entry, timeEntryRepository));
 		jsonStorage.writeAllToFile();
@@ -66,10 +70,12 @@ public class InvoiceEntryFileSystemRepository implements ElementParser<InvoiceEn
 		return value.timeEntries.equals(ref.timeEntries);
 	}
 
+	@Override
 	public long getIdFor(InvoiceEntry e) {
 		return jsonStorage.getIdFor(new InvoiceEntryJson(e, timeEntryRepository));
 	}
 
+	@Override
 	public InvoiceEntry getById(long id) {
 		return jsonStorage.getById(id).asInvoiceEntry(timeEntryRepository);
 	}
