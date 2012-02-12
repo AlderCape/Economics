@@ -7,6 +7,7 @@ public class RepositoryRegistry {
 
 	private Map<Class<?>, Object> repositories = new HashMap<>();
 
+	@SuppressWarnings("unchecked")
 	public <T> T getRepository(Class<T> klass) {
 		return (T) repositories.get(klass);
 	}
