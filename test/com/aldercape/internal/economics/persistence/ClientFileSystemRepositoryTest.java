@@ -28,11 +28,9 @@ public class ClientFileSystemRepositoryTest {
 	private ClientFileSystemRepository repository;
 	private String myCompanyJson;
 	private String otherCompanyJSon;
-	private __FileSystemRepositories repositories;
 
 	@Before
 	public void setUp() throws IOException {
-		repositories = new __FileSystemRepositories(baseFolder.getRoot());
 		newFile = baseFolder.newFile("TestFile");
 		repository = new ClientFileSystemRepository(newFile);
 		myCompanyJson = "{\"name\":\"My Company\",\"vatNumber\":\"0123456789\",\"address\":{\"streetName\":\"Sesame Street\",\"streetNumber\":\"1\",\"zipcode\":\"12345\",\"city\":\"My City\"},\"contactPerson\":\"My contact\"}";

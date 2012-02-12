@@ -19,12 +19,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+import com.aldercape.internal.economics.model.ClientRepository;
+import com.aldercape.internal.economics.model.CollaboratorRepository;
 import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.Euro;
 import com.aldercape.internal.economics.model.InvoiceEntry;
 import com.aldercape.internal.economics.model.InvoiceEntryBuilder;
 import com.aldercape.internal.economics.model.Rate;
 import com.aldercape.internal.economics.model.TimeEntry;
+import com.aldercape.internal.economics.model.TimeEntryRepository;
 import com.aldercape.internal.economics.model.Unit;
 import com.aldercape.internal.economics.ui.__TestObjectMother;
 
@@ -33,14 +36,14 @@ public class InvoiceEntryFileSystemRepositoryTest {
 	@Rule
 	public TemporaryFolder baseFolder = new TemporaryFolder();
 	private File invoiceEntryFile;
-	InvoiceEntryFileSystemRepository repository;
+	private InvoiceEntryFileSystemRepository repository;
 	private String entryJson;
 	private TimeEntry entry;
 	private TimeEntry otherEntry;
 	private String otherEntryJson;
-	private CollaboratorFileSystemRepository collaboratorRepository;
-	private ClientFileSystemRepository clientRepository;
-	private TimeEntryFileSystemRepository timeEntryRepository;
+	private CollaboratorRepository collaboratorRepository;
+	private ClientRepository clientRepository;
+	private TimeEntryRepository timeEntryRepository;
 	private TimeEntry thirdEntry;
 	private InvoiceEntry firstInvoiceEntry;
 	private InvoiceEntry secondInvoiceEntry;
@@ -49,27 +52,29 @@ public class InvoiceEntryFileSystemRepositoryTest {
 	public void setUp() throws IOException {
 		invoiceEntryFile = baseFolder.newFile("TestFile");
 		__FileSystemRepositories repositories = new __FileSystemRepositories(baseFolder.getRoot());
-		File collaboratorFile = baseFolder.newFile("collaborators.json");
-		File clientsFile = baseFolder.newFile("clients.json");
-		File timeEntriesFile = baseFolder.newFile("timeEntries.json");
-		collaboratorRepository = new CollaboratorFileSystemRepository(collaboratorFile);
-		clientRepository = new ClientFileSystemRepository(clientsFile);
 		__TestObjectMother objectMother = new __TestObjectMother();
-		timeEntryRepository = new TimeEntryFileSystemRepository(timeEntriesFile, collaboratorRepository, clientRepository);
+
+		collaboratorRepository = repositories.collaboratorRepository();
+		clientRepository = repositories.clientRepository();
+		timeEntryRepository = repositories.timeEntryRepository();
+
 		collaboratorRepository.add(objectMother.me());
 		collaboratorRepository.add(objectMother.other());
 		clientRepository.add(objectMother.myCompany());
 		clientRepository.add(objectMother.otherCompany());
+
 		repository = new InvoiceEntryFileSystemRepository(invoiceEntryFile, timeEntryRepository);
 		entry = new TimeEntry(Unit.days(1), Rate.daily(new Euro(200)), objectMother.me(), objectMother.otherCompany(), Day.january(2, 2012));
-		entryJson = "{\"timeEntries\":[1]}";
 		timeEntryRepository.add(entry);
 		otherEntry = new TimeEntry(Unit.days(1), Rate.daily(new Euro(200)), objectMother.other(), objectMother.myCompany(), Day.january(2, 2012));
 		timeEntryRepository.add(otherEntry);
 		thirdEntry = new TimeEntry(Unit.days(1), Rate.daily(new Euro(200)), objectMother.other(), objectMother.myCompany(), Day.january(3, 2012));
 		timeEntryRepository.add(thirdEntry);
+
+		entryJson = "{\"timeEntries\":[1]}";
 		otherEntryJson = "{\"timeEntries\":[2,3]}";
 		firstInvoiceEntry = new InvoiceEntryBuilder(Collections.singleton(entry)).createInvoiceEntry().iterator().next();
+
 		Set<TimeEntry> entries = new HashSet<TimeEntry>();
 		entries.add(otherEntry);
 		entries.add(thirdEntry);

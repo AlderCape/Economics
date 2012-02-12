@@ -18,12 +18,10 @@ public class TimeEntryFileSystemRepository implements ElementStorage<TimeEntry>,
 
 	private JsonStorage<TimeEntry> jsonStorage;
 	private CollaboratorRepository collaboratorRepository;
-	private ClientRepository clientRepository;
 	private List<TimeEntry> entries = new ArrayList<TimeEntry>();
 
 	public TimeEntryFileSystemRepository(File newFile, CollaboratorRepository collaboratorRepository, ClientRepository clientRepository) {
 		this.collaboratorRepository = collaboratorRepository;
-		this.clientRepository = clientRepository;
 		jsonStorage = new JsonStorage<TimeEntry>(newFile, false, this, this, clientRepository, collaboratorRepository);
 		jsonStorage.populateCache(new TypeToken<Map<Long, TimeEntry>>() {
 		});
