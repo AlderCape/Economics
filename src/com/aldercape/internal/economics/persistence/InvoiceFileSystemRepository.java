@@ -18,9 +18,9 @@ public class InvoiceFileSystemRepository implements ElementStorage<Invoice>, Inv
 	private List<Invoice> entries = new ArrayList<>();
 
 	public InvoiceFileSystemRepository(File invoiceFile, InvoiceEntryRepository invoiceEntryRepository, TimeEntryRepository timeEntryRepository) {
-		jsonStorage = new JsonStorage<Invoice>(invoiceFile, false, this, timeEntryRepository);
-		jsonStorage.populateCache(new TypeToken<Map<Long, Invoice>>() {
+		jsonStorage = new JsonStorage<Invoice>(invoiceFile, false, this, timeEntryRepository, new TypeToken<Map<Long, Invoice>>() {
 		});
+		jsonStorage.populateCache();
 	}
 
 	public List<Invoice> getAll() {

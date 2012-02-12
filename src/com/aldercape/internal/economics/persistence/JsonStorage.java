@@ -33,38 +33,21 @@ public class JsonStorage<T> {
 	private Map<Long, T> values;
 	private ElementStorage<T> parser;
 	JsonModule module;
+	private TypeToken<?> token;
 
-	public JsonStorage(File storageFile, boolean prettyPrinting, ElementStorage<T> elementParser, TimeEntryRepository timeEntryRepository, ClientRepository clientRepository, CollaboratorRepository collaboratorRepository) {
+	public JsonStorage(File storageFile, boolean prettyPrinting, ElementStorage<T> elementParser, TimeEntryRepository timeEntryRepository, ClientRepository clientRepository, CollaboratorRepository collaboratorRepository, TypeToken<?> token) {
 		this.storageFile = storageFile;
 		this.prettyPrinting = prettyPrinting;
 		this.parser = elementParser;
 		this.module = new JsonModule(timeEntryRepository, clientRepository, collaboratorRepository);
+		this.token = token;
 	}
 
-	public JsonStorage(File storageFile, boolean prettyPrinting, ElementStorage<T> elementParser, TimeEntryRepository timeEntryRepository) {
-		this(storageFile, prettyPrinting, elementParser, timeEntryRepository, null, null);
+	public JsonStorage(File storageFile, boolean prettyPrinting, ElementStorage<T> elementParser, TimeEntryRepository timeEntryRepository, TypeToken<?> token) {
+		this(storageFile, prettyPrinting, elementParser, timeEntryRepository, null, null, token);
 	}
 
 	public void writeAllToFile() {
-		BufferedWriter bufferedWriter = null;
-		try {
-			bufferedWriter = new BufferedWriter(new FileWriter(storageFile));
-			bufferedWriter.append(module.createJsonEngine(prettyPrinting).toJson(values));
-			bufferedWriter.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (bufferedWriter != null) {
-				try {
-					bufferedWriter.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-
-	public void writeAllToFile(TypeToken<?> token) {
 		BufferedWriter bufferedWriter = null;
 		try {
 			bufferedWriter = new BufferedWriter(new FileWriter(storageFile));
@@ -83,11 +66,7 @@ public class JsonStorage<T> {
 		}
 	}
 
-	public void addToStorage(T client) {
-		values.put(getNextId(), client);
-	}
-
-	public void populateCache(TypeToken<?> token) {
+	public void populateCache() {
 		values = new HashMap<Long, T>();
 		if (storageFile.length() != 0) {
 			try {
@@ -102,11 +81,8 @@ public class JsonStorage<T> {
 		}
 	}
 
-	private Long getNextId() {
-		if (values.isEmpty()) {
-			return 1l;
-		}
-		return Collections.max(values.keySet()) + 1;
+	public void addToStorage(T client) {
+		values.put(getNextId(), client);
 	}
 
 	public long getIdFor(T t) {
@@ -121,6 +97,13 @@ public class JsonStorage<T> {
 
 	public T getById(long key) {
 		return values.get(key);
+	}
+
+	private Long getNextId() {
+		if (values.isEmpty()) {
+			return 1l;
+		}
+		return Collections.max(values.keySet()) + 1;
 	}
 
 }

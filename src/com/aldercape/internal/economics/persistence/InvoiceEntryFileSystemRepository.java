@@ -19,9 +19,9 @@ public class InvoiceEntryFileSystemRepository implements ElementStorage<InvoiceE
 
 	public InvoiceEntryFileSystemRepository(File invoiceEntryFile, TimeEntryRepository timeEntryRepository) {
 		this.timeEntryRepository = timeEntryRepository;
-		jsonStorage = new JsonStorage<>(invoiceEntryFile, false, this, timeEntryRepository, null, null);
-		jsonStorage.populateCache(new TypeToken<Map<Long, InvoiceEntry>>() {
+		jsonStorage = new JsonStorage<>(invoiceEntryFile, false, this, timeEntryRepository, null, null, new TypeToken<Map<Long, InvoiceEntry>>() {
 		});
+		jsonStorage.populateCache();
 	}
 
 	public List<InvoiceEntry> getAll() {
@@ -31,8 +31,7 @@ public class InvoiceEntryFileSystemRepository implements ElementStorage<InvoiceE
 	@Override
 	public void add(InvoiceEntry entry) {
 		jsonStorage.addToStorage(entry);
-		jsonStorage.writeAllToFile(new TypeToken<Map<Long, InvoiceEntry>>() {
-		});
+		jsonStorage.writeAllToFile();
 	}
 
 	@Override

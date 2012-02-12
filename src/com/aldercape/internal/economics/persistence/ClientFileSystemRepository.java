@@ -21,9 +21,9 @@ public class ClientFileSystemRepository extends InMemoryClientRepository impleme
 	}
 
 	public ClientFileSystemRepository(File storageFile, boolean prettyPrinting) {
-		storage = new JsonStorage<Client>(storageFile, prettyPrinting, this, null);
-		storage.populateCache(new TypeToken<Map<Long, Client>>() {
+		storage = new JsonStorage<Client>(storageFile, prettyPrinting, this, null, new TypeToken<Map<Long, Client>>() {
 		});
+		storage.populateCache();
 	}
 
 	@Override
