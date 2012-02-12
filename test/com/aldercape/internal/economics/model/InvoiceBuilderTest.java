@@ -1,9 +1,7 @@
 package com.aldercape.internal.economics.model;
 
-import static com.aldercape.internal.economics.model.CustomModelAsserts.assertClientEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static com.aldercape.internal.economics.model.CustomModelAsserts.*;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +14,7 @@ public class InvoiceBuilderTest {
 	private Client client;
 	private SimpleInvoiceEntry validEntry;
 	private InvoiceBuilder invoice;
-	private Entry<Day> invalidEntry;
+	private InvoiceEntry invalidEntry;
 
 	@Before
 	public void setUp() {

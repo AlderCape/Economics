@@ -18,11 +18,11 @@ public class CustomModelAsserts {
 		assertClientEquals(expected.client(), actual.client());
 		assertClientEquals(expected.company(), actual.company());
 		assertEquals(expected.dueDate(), actual.dueDate());
-		List<Entry<Day>> expectedEntries = expected.entries();
-		List<Entry<Day>> actualEntries = actual.entries();
+		List<InvoiceEntry> expectedEntries = expected.entries();
+		List<InvoiceEntry> actualEntries = actual.entries();
 		assertEquals(expectedEntries.size(), actualEntries.size());
 		for (int i = 0; i < expectedEntries.size(); i++) {
-			assertInvoiceEntryEquals((InvoiceEntry) expectedEntries.get(i), (InvoiceEntry) actualEntries.get(i));
+			assertInvoiceEntryEquals(expectedEntries.get(i), actualEntries.get(i));
 		}
 
 		assertEquals(expected.issueDate(), actual.issueDate());

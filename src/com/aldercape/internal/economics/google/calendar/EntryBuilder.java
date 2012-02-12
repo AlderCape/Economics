@@ -44,6 +44,7 @@ public class EntryBuilder {
 		return numberOfHours() == 0;
 	}
 
+	@SuppressWarnings("deprecation")
 	private int numberOfHours() {
 		return new Date(base.getEnd().getDateTime().getValue()).getHours() - new Date(base.getStart().getDateTime().getValue()).getHours();
 	}

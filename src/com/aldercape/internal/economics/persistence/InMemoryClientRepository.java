@@ -19,4 +19,16 @@ public class InMemoryClientRepository extends InMemoryRepository<Client> impleme
 		throw new NoMatchingRecordException("No client with the name " + name);
 	}
 
+	@Override
+	public Client getById(long client) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public long getIdFor(Client client) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

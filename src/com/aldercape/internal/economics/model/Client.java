@@ -72,4 +72,8 @@ public class Client {
 		target.renderCity(city());
 		target.renderVatNumber(vatNumber());
 	}
+
+	public Address address() {
+		return address;
+	}
 }

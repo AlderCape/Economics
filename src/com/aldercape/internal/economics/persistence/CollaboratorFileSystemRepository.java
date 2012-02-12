@@ -1,12 +1,14 @@
 package com.aldercape.internal.economics.persistence;
 
 import java.io.File;
+import java.util.Map;
 
 import com.aldercape.internal.economics.model.Collaborator;
 import com.aldercape.internal.economics.model.CollaboratorRepository;
-import com.aldercape.internal.economics.persistence.JsonStorage.ElementParser;
+import com.aldercape.internal.economics.persistence.JsonStorage.ElementStorage;
+import com.google.gson.reflect.TypeToken;
 
-public class CollaboratorFileSystemRepository extends InMemoryCollaboratorRepository implements CollaboratorRepository, ElementParser<Collaborator> {
+public class CollaboratorFileSystemRepository extends InMemoryCollaboratorRepository implements CollaboratorRepository, ElementStorage<Collaborator> {
 
 	private JsonStorage<Collaborator> jsonStorage;
 
@@ -19,7 +21,8 @@ public class CollaboratorFileSystemRepository extends InMemoryCollaboratorReposi
 	}
 
 	private CollaboratorFileSystemRepository(File storageFile, boolean prettyPrinting) {
-		jsonStorage = new JsonStorage<Collaborator>(storageFile, false, this, "collaborator");
+		jsonStorage = new JsonStorage<Collaborator>(storageFile, false, this, new RepositoryRegistry(), new TypeToken<Map<Long, Collaborator>>() {
+		});
 		jsonStorage.populateCache();
 	}
 
@@ -35,6 +38,7 @@ public class CollaboratorFileSystemRepository extends InMemoryCollaboratorReposi
 		super.add(collaborator);
 	}
 
+	@Override
 	public long getIdFor(Collaborator collaborator) {
 		return jsonStorage.getIdFor(collaborator);
 	}
@@ -44,6 +48,7 @@ public class CollaboratorFileSystemRepository extends InMemoryCollaboratorReposi
 		return value.compareTo(ref) == 0;
 	}
 
+	@Override
 	public Collaborator getById(long collaborator) {
 		return jsonStorage.getById(collaborator);
 	}

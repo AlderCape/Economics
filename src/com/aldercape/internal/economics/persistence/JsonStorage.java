@@ -12,17 +12,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
-import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 
 public class JsonStorage<T> {
 
-	private JsonModule module;
-
-	public interface ElementParser<T> {
+	public interface ElementStorage<T> {
 
 		public void addWithoutCache(T t);
 
@@ -30,28 +26,26 @@ public class JsonStorage<T> {
 	}
 
 	private File storageFile;
-	private boolean prettyPrinting;
+	boolean prettyPrinting;
 	private Map<Long, T> values;
-	private ElementParser<T> parser;
-	private String mainType;
+	private ElementStorage<T> parser;
+	JsonModule module;
+	private TypeToken<?> token;
 
-	public JsonStorage(File storageFile, boolean prettyPrinting, ElementParser<T> elementParser, String mainType) {
+	public JsonStorage(File storageFile, boolean prettyPrinting, ElementStorage<T> elementParser, RepositoryRegistry repositoryRegistry, TypeToken<?> token) {
 		this.storageFile = storageFile;
 		this.prettyPrinting = prettyPrinting;
 		this.parser = elementParser;
-		this.mainType = mainType;
-		this.module = new JsonModule(this);
+
+		this.module = new JsonModule(repositoryRegistry, prettyPrinting);
+		this.token = token;
 	}
 
 	public void writeAllToFile() {
 		BufferedWriter bufferedWriter = null;
 		try {
 			bufferedWriter = new BufferedWriter(new FileWriter(storageFile));
-			GsonBuilder gsonBuilder = new GsonBuilder();
-			if (prettyPrinting) {
-				gsonBuilder = gsonBuilder.setPrettyPrinting();
-			}
-			bufferedWriter.append(gsonBuilder.create().toJson(values));
+			bufferedWriter.append(module.createJsonEngine().toJson(values, token.getType()));
 			bufferedWriter.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -66,52 +60,23 @@ public class JsonStorage<T> {
 		}
 	}
 
-	public void addToStorage(T client) {
-		values.put(getNextId(), client);
-	}
-
 	public void populateCache() {
 		values = new HashMap<Long, T>();
 		if (storageFile.length() != 0) {
 			try {
-				JsonElement parseResult = parseJson();
-				addEntries(parseResult);
+
+				values = module.createJsonEngine().fromJson(new FileReader(storageFile), token.getType());
+				for (T value : values.values()) {
+					parser.addWithoutCache(value);
+				}
 			} catch (JsonIOException | JsonSyntaxException | FileNotFoundException e) {
 				new RuntimeException(e);
 			}
 		}
 	}
 
-	private void addEntries(JsonElement parseResult) {
-		for (Entry<String, JsonElement> entry : parseResult.getAsJsonObject().entrySet()) {
-			T client = addToCache(parser, entry);
-			parser.addWithoutCache(client);
-		}
-	}
-
-	private JsonElement parseJson() throws FileNotFoundException {
-		JsonParser jsonParser = new JsonParser();
-		JsonElement parseResult = jsonParser.parse(new FileReader(storageFile));
-		return parseResult;
-	}
-
-	private long getId(Entry<String, JsonElement> entry) {
-		long id = Long.parseLong(entry.getKey());
-		return id;
-	}
-
-	private T addToCache(ElementParser<T> parser, Entry<String, JsonElement> entry) {
-		long id = getId(entry);
-		T client = (T) module.getDeserializer(mainType()).deserialize(entry.getValue().getAsJsonObject());
-		values.put(id, client);
-		return client;
-	}
-
-	private Long getNextId() {
-		if (values.isEmpty()) {
-			return 1l;
-		}
-		return Collections.max(values.keySet()) + 1;
+	public void addToStorage(T client) {
+		values.put(getNextId(), client);
 	}
 
 	public long getIdFor(T t) {
@@ -128,8 +93,11 @@ public class JsonStorage<T> {
 		return values.get(key);
 	}
 
-	private String mainType() {
-		return mainType;
+	private Long getNextId() {
+		if (values.isEmpty()) {
+			return 1l;
+		}
+		return Collections.max(values.keySet()) + 1;
 	}
 
 }

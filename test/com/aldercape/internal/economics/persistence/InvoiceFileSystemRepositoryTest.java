@@ -22,6 +22,7 @@ import com.aldercape.internal.economics.model.Invoice;
 import com.aldercape.internal.economics.model.InvoiceBuilder;
 import com.aldercape.internal.economics.model.Rate;
 import com.aldercape.internal.economics.model.SimpleInvoiceEntry;
+import com.aldercape.internal.economics.model.TimeEntryRepository;
 import com.aldercape.internal.economics.model.Unit;
 import com.aldercape.internal.economics.ui.__TestObjectMother;
 
@@ -34,12 +35,16 @@ public class InvoiceFileSystemRepositoryTest {
 	private InvoiceFileSystemRepository repository;
 	private String entryJson;
 	private __FileSystemRepositories repositories;
+	private RepositoryRegistry repositoryRegistry;
 
 	@Before
 	public void setUp() throws IOException {
 		invoiceFile = baseFolder.newFile("invoice.json");
 		repositories = new __FileSystemRepositories(baseFolder.getRoot());
-		repository = new InvoiceFileSystemRepository(invoiceFile, repositories.invoiceEntryRepository());
+		repositoryRegistry = new RepositoryRegistry();
+		repositoryRegistry.setRepository(TimeEntryRepository.class, repositories.timeEntryRepository());
+
+		repository = new InvoiceFileSystemRepository(invoiceFile, repositoryRegistry);
 
 		__TestObjectMother objectMother = new __TestObjectMother();
 		repositories.collaboratorRepository().add(objectMother.me());
@@ -48,7 +53,7 @@ public class InvoiceFileSystemRepositoryTest {
 		repositories.timeEntryRepository().add(validEntry.getAllEntries().iterator().next());
 		repositories.invoiceEntryRepository().add(validEntry);
 		firstInvoice = new InvoiceBuilder(objectMother.myCompany()).daysToPay(30).forClient(objectMother.otherCompany()).issued(Day.january(31, 2012)).addEntry(validEntry).create();
-		entryJson = "{\"company\":{\"name\":\"My Company\",\"vatNumber\":\"0123456789\",\"address\":{\"streetName\":\"Sesame Street\",\"streetNumber\":\"1\",\"zipcode\":\"12345\",\"city\":\"My City\"},\"contactPerson\":\"My contact\"},\"client\":{\"name\":\"Other Company\",\"vatNumber\":\"9876543210\",\"address\":{\"streetName\":\"Other street\",\"streetNumber\":\"5\",\"zipcode\":\"54321\",\"city\":\"Other City\"},\"contactPerson\":\"Other contact\"},\"issueDate\":{\"day\":31,\"month\":{\"month\":\"January\",\"year\":2012}},\"dueDate\":{\"day\":1,\"month\":{\"month\":\"Mars\",\"year\":2012}},\"entries\":[{\"units\":{\"amount\":1,\"unit\":\"DAY\"},\"rate\":{\"amount\":{\"amount\":100}},\"id\":1}]}";
+		entryJson = "{\"company\":{\"name\":\"My Company\",\"vatNumber\":\"0123456789\",\"address\":{\"streetName\":\"Sesame Street\",\"streetNumber\":\"1\",\"zipcode\":\"12345\",\"city\":\"My City\"},\"contactPerson\":\"My contact\"},\"client\":{\"name\":\"Other Company\",\"vatNumber\":\"9876543210\",\"address\":{\"streetName\":\"Other street\",\"streetNumber\":\"5\",\"zipcode\":\"54321\",\"city\":\"Other City\"},\"contactPerson\":\"Other contact\"},\"issueDate\":{\"day\":31,\"month\":{\"month\":\"January\",\"year\":2012}},\"dueDate\":{\"day\":1,\"month\":{\"month\":\"Mars\",\"year\":2012}},\"entries\":[{\"timeEntries\":[1]}]}";
 	}
 
 	@Test
@@ -68,7 +73,7 @@ public class InvoiceFileSystemRepositoryTest {
 	public void shouldHaveOneClientIfFileHaveOneClientOnInstanciation() throws Exception {
 		createFileWithContent("{\"1\":" + entryJson + "}");
 		assertFalse(invoiceFile.length() == 0);
-		repository = new InvoiceFileSystemRepository(invoiceFile, repositories.invoiceEntryRepository());
+		repository = new InvoiceFileSystemRepository(invoiceFile, repositoryRegistry);
 		List<Invoice> all = repository.getAll();
 		assertEquals(1, all.size());
 		assertInvoiceEquals(firstInvoice, all.get(0));

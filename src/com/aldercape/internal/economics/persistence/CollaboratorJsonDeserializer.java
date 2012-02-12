@@ -1,15 +1,20 @@
 package com.aldercape.internal.economics.persistence;
 
-import com.aldercape.internal.economics.model.Collaborator;
-import com.google.gson.JsonObject;
+import java.lang.reflect.Type;
 
-public class CollaboratorJsonDeserializer implements JsonModelDeserializer<Collaborator> {
+import com.aldercape.internal.economics.model.Collaborator;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+
+public class CollaboratorJsonDeserializer implements JsonDeserializer<Collaborator> {
 
 	@Override
-	public Collaborator deserialize(JsonObject collaborator) {
-		String firstname = collaborator.get("firstname").getAsString();
-		String lastname = collaborator.get("lastname").getAsString();
-		String email = collaborator.get("email").getAsString();
+	public Collaborator deserialize(JsonElement arg0, Type arg1, JsonDeserializationContext arg2) throws JsonParseException {
+		String firstname = arg0.getAsJsonObject().get("firstname").getAsString();
+		String lastname = arg0.getAsJsonObject().get("lastname").getAsString();
+		String email = arg0.getAsJsonObject().get("email").getAsString();
 		return new Collaborator(firstname, lastname, email);
 	}
 
