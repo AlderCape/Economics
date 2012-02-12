@@ -17,11 +17,22 @@ public class __FileSystemRepositories {
 	private TimeEntryRepository timeEntryRepository;
 
 	public __FileSystemRepositories(File baseDir) {
+		RepositoryRegistry repositoryRegistry = new RepositoryRegistry();
+
 		collaboratorRepository = new CollaboratorFileSystemRepository(new File(baseDir, "collaborators.json"));
+		repositoryRegistry.setRepository(CollaboratorRepository.class, collaboratorRepository);
+
 		clientRepository = new ClientFileSystemRepository(new File(baseDir, "clients.json"));
-		timeEntryRepository = new TimeEntryFileSystemRepository(new File(baseDir, "timeEntries.json"), collaboratorRepository, clientRepository);
-		invoiceEntryRepository = new InvoiceEntryFileSystemRepository(new File(baseDir, "invoiceEntries.json"), timeEntryRepository);
-		invoiceRepository = new InvoiceFileSystemRepository(new File(baseDir, "invoices.json"), invoiceEntryRepository, timeEntryRepository);
+		repositoryRegistry.setRepository(ClientRepository.class, clientRepository);
+
+		timeEntryRepository = new TimeEntryFileSystemRepository(new File(baseDir, "timeEntries.json"), repositoryRegistry);
+		repositoryRegistry.setRepository(TimeEntryRepository.class, timeEntryRepository);
+
+		invoiceEntryRepository = new InvoiceEntryFileSystemRepository(new File(baseDir, "invoiceEntries.json"), repositoryRegistry);
+		repositoryRegistry.setRepository(InvoiceEntryRepository.class, invoiceEntryRepository);
+
+		invoiceRepository = new InvoiceFileSystemRepository(new File(baseDir, "invoices.json"), repositoryRegistry);
+		repositoryRegistry.setRepository(InvoiceRepository.class, invoiceRepository);
 	}
 
 	public InvoiceRepository invoiceRepository() {

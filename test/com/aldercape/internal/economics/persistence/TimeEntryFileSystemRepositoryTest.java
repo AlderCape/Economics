@@ -18,6 +18,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+import com.aldercape.internal.economics.model.ClientRepository;
+import com.aldercape.internal.economics.model.CollaboratorRepository;
 import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.Euro;
 import com.aldercape.internal.economics.model.Rate;
@@ -37,6 +39,7 @@ public class TimeEntryFileSystemRepositoryTest {
 	private String otherEntryJson;
 	private CollaboratorFileSystemRepository collaboratorRepository;
 	private ClientFileSystemRepository clientRepository;
+	private RepositoryRegistry repositoryRegistry;
 
 	@Before
 	public void setUp() throws IOException {
@@ -50,7 +53,12 @@ public class TimeEntryFileSystemRepositoryTest {
 		clientRepository = new ClientFileSystemRepository(clientsFile);
 		clientRepository.add(objectMother.myCompany());
 		clientRepository.add(objectMother.otherCompany());
-		repository = new TimeEntryFileSystemRepository(timeEntryFile, collaboratorRepository, clientRepository);
+
+		repositoryRegistry = new RepositoryRegistry();
+		repositoryRegistry.setRepository(ClientRepository.class, clientRepository);
+		repositoryRegistry.setRepository(CollaboratorRepository.class, collaboratorRepository);
+
+		repository = new TimeEntryFileSystemRepository(timeEntryFile, repositoryRegistry);
 		entry = new TimeEntry(Unit.days(1), Rate.daily(new Euro(200)), objectMother.me(), objectMother.otherCompany(), Day.january(2, 2012));
 		entryJson = "{\"collaboratorId\":1,\"clientId\":2,\"rate\":{\"amount\":{\"amount\":200}},\"unit\":{\"amount\":1,\"unit\":\"DAY\"},\"day\":{\"day\":2,\"month\":{\"month\":\"January\",\"year\":2012}}}";
 		otherEntry = new TimeEntry(Unit.days(1), Rate.daily(new Euro(200)), objectMother.other(), objectMother.myCompany(), Day.january(2, 2012));
@@ -83,7 +91,7 @@ public class TimeEntryFileSystemRepositoryTest {
 	public void shouldHaveOneClientIfFileHaveOneClientOnInstanciation() throws Exception {
 		createFileWithContent("{\"1\":" + entryJson + "}");
 		assertFalse(timeEntryFile.length() == 0);
-		repository = new TimeEntryFileSystemRepository(timeEntryFile, collaboratorRepository, clientRepository);
+		repository = new TimeEntryFileSystemRepository(timeEntryFile, repositoryRegistry);
 		List<TimeEntry> all = repository.getAll();
 		assertEquals(1, all.size());
 		assertTimeEntryEquals(entry, all.get(0));
@@ -93,7 +101,7 @@ public class TimeEntryFileSystemRepositoryTest {
 	public void shouldHaveTwoClientIfFileHaveTwoClientOnInstanciation() throws Exception {
 		createFileWithContent("{\"1\":" + entryJson + ", \"2\":" + otherEntryJson + "}");
 		assertFalse(timeEntryFile.length() == 0);
-		repository = new TimeEntryFileSystemRepository(timeEntryFile, collaboratorRepository, clientRepository);
+		repository = new TimeEntryFileSystemRepository(timeEntryFile, repositoryRegistry);
 		List<TimeEntry> all = repository.getAll();
 		assertEquals(2, all.size());
 		assertTimeEntryEquals(entry, all.get(0));
@@ -104,7 +112,7 @@ public class TimeEntryFileSystemRepositoryTest {
 	public void shouldBePossibleToGetTheIdFromAnEntry() throws Exception {
 		createFileWithContent("{\"1\":" + entryJson + ", \"2\":" + otherEntryJson + "}");
 		assertFalse(timeEntryFile.length() == 0);
-		repository = new TimeEntryFileSystemRepository(timeEntryFile, collaboratorRepository, clientRepository);
+		repository = new TimeEntryFileSystemRepository(timeEntryFile, repositoryRegistry);
 		Set<Long> all = repository.getIdsFor(Collections.singleton(entry));
 		assertEquals(1, all.size());
 		assertEquals(1L, (long) all.iterator().next());

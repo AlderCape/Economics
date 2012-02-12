@@ -22,6 +22,7 @@ import com.aldercape.internal.economics.model.Invoice;
 import com.aldercape.internal.economics.model.InvoiceBuilder;
 import com.aldercape.internal.economics.model.Rate;
 import com.aldercape.internal.economics.model.SimpleInvoiceEntry;
+import com.aldercape.internal.economics.model.TimeEntryRepository;
 import com.aldercape.internal.economics.model.Unit;
 import com.aldercape.internal.economics.ui.__TestObjectMother;
 
@@ -34,12 +35,16 @@ public class InvoiceFileSystemRepositoryTest {
 	private InvoiceFileSystemRepository repository;
 	private String entryJson;
 	private __FileSystemRepositories repositories;
+	private RepositoryRegistry repositoryRegistry;
 
 	@Before
 	public void setUp() throws IOException {
 		invoiceFile = baseFolder.newFile("invoice.json");
 		repositories = new __FileSystemRepositories(baseFolder.getRoot());
-		repository = new InvoiceFileSystemRepository(invoiceFile, repositories.invoiceEntryRepository(), repositories.timeEntryRepository());
+		repositoryRegistry = new RepositoryRegistry();
+		repositoryRegistry.setRepository(TimeEntryRepository.class, repositories.timeEntryRepository());
+
+		repository = new InvoiceFileSystemRepository(invoiceFile, repositoryRegistry);
 
 		__TestObjectMother objectMother = new __TestObjectMother();
 		repositories.collaboratorRepository().add(objectMother.me());
@@ -68,7 +73,7 @@ public class InvoiceFileSystemRepositoryTest {
 	public void shouldHaveOneClientIfFileHaveOneClientOnInstanciation() throws Exception {
 		createFileWithContent("{\"1\":" + entryJson + "}");
 		assertFalse(invoiceFile.length() == 0);
-		repository = new InvoiceFileSystemRepository(invoiceFile, repositories.invoiceEntryRepository(), repositories.timeEntryRepository());
+		repository = new InvoiceFileSystemRepository(invoiceFile, repositoryRegistry);
 		List<Invoice> all = repository.getAll();
 		assertEquals(1, all.size());
 		assertInvoiceEquals(firstInvoice, all.get(0));

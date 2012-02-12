@@ -6,9 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.aldercape.internal.economics.model.Invoice;
-import com.aldercape.internal.economics.model.InvoiceEntryRepository;
 import com.aldercape.internal.economics.model.InvoiceRepository;
-import com.aldercape.internal.economics.model.TimeEntryRepository;
 import com.aldercape.internal.economics.persistence.JsonStorage.ElementStorage;
 import com.google.gson.reflect.TypeToken;
 
@@ -17,8 +15,8 @@ public class InvoiceFileSystemRepository implements ElementStorage<Invoice>, Inv
 	private JsonStorage<Invoice> jsonStorage;
 	private List<Invoice> entries = new ArrayList<>();
 
-	public InvoiceFileSystemRepository(File invoiceFile, InvoiceEntryRepository invoiceEntryRepository, TimeEntryRepository timeEntryRepository) {
-		jsonStorage = new JsonStorage<Invoice>(invoiceFile, false, this, timeEntryRepository, new TypeToken<Map<Long, Invoice>>() {
+	public InvoiceFileSystemRepository(File invoiceFile, RepositoryRegistry repositoryRegistry) {
+		jsonStorage = new JsonStorage<Invoice>(invoiceFile, false, this, repositoryRegistry, new TypeToken<Map<Long, Invoice>>() {
 		});
 		jsonStorage.populateCache();
 	}

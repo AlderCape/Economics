@@ -12,9 +12,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import com.aldercape.internal.economics.model.ClientRepository;
-import com.aldercape.internal.economics.model.CollaboratorRepository;
-import com.aldercape.internal.economics.model.TimeEntryRepository;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
@@ -35,23 +32,20 @@ public class JsonStorage<T> {
 	JsonModule module;
 	private TypeToken<?> token;
 
-	public JsonStorage(File storageFile, boolean prettyPrinting, ElementStorage<T> elementParser, TimeEntryRepository timeEntryRepository, ClientRepository clientRepository, CollaboratorRepository collaboratorRepository, TypeToken<?> token) {
+	public JsonStorage(File storageFile, boolean prettyPrinting, ElementStorage<T> elementParser, RepositoryRegistry repositoryRegistry, TypeToken<?> token) {
 		this.storageFile = storageFile;
 		this.prettyPrinting = prettyPrinting;
 		this.parser = elementParser;
-		this.module = new JsonModule(timeEntryRepository, clientRepository, collaboratorRepository);
-		this.token = token;
-	}
 
-	public JsonStorage(File storageFile, boolean prettyPrinting, ElementStorage<T> elementParser, TimeEntryRepository timeEntryRepository, TypeToken<?> token) {
-		this(storageFile, prettyPrinting, elementParser, timeEntryRepository, null, null, token);
+		this.module = new JsonModule(repositoryRegistry, prettyPrinting);
+		this.token = token;
 	}
 
 	public void writeAllToFile() {
 		BufferedWriter bufferedWriter = null;
 		try {
 			bufferedWriter = new BufferedWriter(new FileWriter(storageFile));
-			bufferedWriter.append(module.createJsonEngine(prettyPrinting).toJson(values, token.getType()));
+			bufferedWriter.append(module.createJsonEngine().toJson(values, token.getType()));
 			bufferedWriter.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -71,7 +65,7 @@ public class JsonStorage<T> {
 		if (storageFile.length() != 0) {
 			try {
 
-				values = module.createJsonEngine(prettyPrinting).fromJson(new FileReader(storageFile), token.getType());
+				values = module.createJsonEngine().fromJson(new FileReader(storageFile), token.getType());
 				for (T value : values.values()) {
 					parser.addWithoutCache(value);
 				}

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.aldercape.internal.economics.model.ClientRepository;
 import com.aldercape.internal.economics.model.CollaboratorRepository;
 import com.aldercape.internal.economics.model.TimeEntry;
 import com.aldercape.internal.economics.model.TimeEntryRepository;
@@ -20,9 +19,9 @@ public class TimeEntryFileSystemRepository implements ElementStorage<TimeEntry>,
 	private CollaboratorRepository collaboratorRepository;
 	private List<TimeEntry> entries = new ArrayList<TimeEntry>();
 
-	public TimeEntryFileSystemRepository(File newFile, CollaboratorRepository collaboratorRepository, ClientRepository clientRepository) {
-		this.collaboratorRepository = collaboratorRepository;
-		jsonStorage = new JsonStorage<TimeEntry>(newFile, false, this, this, clientRepository, collaboratorRepository, new TypeToken<Map<Long, TimeEntry>>() {
+	public TimeEntryFileSystemRepository(File newFile, RepositoryRegistry repositoryRegistry) {
+		this.collaboratorRepository = repositoryRegistry.getRepository(CollaboratorRepository.class);
+		jsonStorage = new JsonStorage<TimeEntry>(newFile, false, this, repositoryRegistry, new TypeToken<Map<Long, TimeEntry>>() {
 		});
 		jsonStorage.populateCache();
 

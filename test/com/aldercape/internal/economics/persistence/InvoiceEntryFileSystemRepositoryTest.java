@@ -47,6 +47,7 @@ public class InvoiceEntryFileSystemRepositoryTest {
 	private TimeEntry thirdEntry;
 	private InvoiceEntry firstInvoiceEntry;
 	private InvoiceEntry secondInvoiceEntry;
+	private RepositoryRegistry repositoryRegistry;
 
 	@Before
 	public void setUp() throws IOException {
@@ -63,7 +64,10 @@ public class InvoiceEntryFileSystemRepositoryTest {
 		clientRepository.add(objectMother.myCompany());
 		clientRepository.add(objectMother.otherCompany());
 
-		repository = new InvoiceEntryFileSystemRepository(invoiceEntryFile, timeEntryRepository);
+		repositoryRegistry = new RepositoryRegistry();
+		repositoryRegistry.setRepository(TimeEntryRepository.class, timeEntryRepository);
+
+		repository = new InvoiceEntryFileSystemRepository(invoiceEntryFile, repositoryRegistry);
 		entry = new TimeEntry(Unit.days(1), Rate.daily(new Euro(200)), objectMother.me(), objectMother.otherCompany(), Day.january(2, 2012));
 		timeEntryRepository.add(entry);
 		otherEntry = new TimeEntry(Unit.days(1), Rate.daily(new Euro(200)), objectMother.other(), objectMother.myCompany(), Day.january(2, 2012));
@@ -107,7 +111,7 @@ public class InvoiceEntryFileSystemRepositoryTest {
 	public void shouldHaveOneClientIfFileHaveOneClientOnInstanciation() throws Exception {
 		createFileWithContent("{\"1\":" + entryJson + "}");
 		assertFalse(invoiceEntryFile.length() == 0);
-		repository = new InvoiceEntryFileSystemRepository(invoiceEntryFile, timeEntryRepository);
+		repository = new InvoiceEntryFileSystemRepository(invoiceEntryFile, repositoryRegistry);
 		List<InvoiceEntry> all = repository.getAll();
 		assertEquals(1, all.size());
 		assertInvoiceEntryEquals(firstInvoiceEntry, all.get(0));
@@ -117,7 +121,7 @@ public class InvoiceEntryFileSystemRepositoryTest {
 	public void shouldHaveTwoClientIfFileHaveTwoClientOnInstanciation() throws Exception {
 		createFileWithContent("{\"1\":" + entryJson + ", \"2\":" + otherEntryJson + "}");
 		assertFalse(invoiceEntryFile.length() == 0);
-		repository = new InvoiceEntryFileSystemRepository(invoiceEntryFile, timeEntryRepository);
+		repository = new InvoiceEntryFileSystemRepository(invoiceEntryFile, repositoryRegistry);
 		List<InvoiceEntry> all = repository.getAll();
 		assertEquals(2, all.size());
 		assertInvoiceEntryEquals(firstInvoiceEntry, all.get(0));

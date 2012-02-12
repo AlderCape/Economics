@@ -17,14 +17,12 @@ import com.google.gson.GsonBuilder;
 
 public class JsonModule {
 
-	private TimeEntryRepository timeEntryRepository;
-	private ClientRepository clientRepository;
-	private CollaboratorRepository collaboratorRepository;
+	private RepositoryRegistry repositoryRegistry;
+	private boolean prettyPrinting;
 
-	public JsonModule(TimeEntryRepository timeEntryRepository, ClientRepository clientRepository, CollaboratorRepository collaboratorRepository) {
-		this.timeEntryRepository = timeEntryRepository;
-		this.clientRepository = clientRepository;
-		this.collaboratorRepository = collaboratorRepository;
+	public JsonModule(RepositoryRegistry repositoryRegistry, boolean prettyPrinting) {
+		this.repositoryRegistry = repositoryRegistry;
+		this.prettyPrinting = prettyPrinting;
 	}
 
 	public void regiterOn(GsonBuilder gsonBuilder) {
@@ -34,12 +32,12 @@ public class JsonModule {
 		gsonBuilder.registerTypeAdapter(Address.class, new AddressJsonDeserializer());
 		gsonBuilder.registerTypeAdapter(Client.class, new ClientJsonDeserializer());
 		gsonBuilder.registerTypeAdapter(Collaborator.class, new CollaboratorJsonDeserializer());
-		gsonBuilder.registerTypeAdapter(InvoiceEntry.class, new InvoiceEntryDeserializer(timeEntryRepository));
-		gsonBuilder.registerTypeAdapter(TimeEntry.class, new TimeEntryJsonDeserializer(collaboratorRepository, clientRepository));
+		gsonBuilder.registerTypeAdapter(InvoiceEntry.class, new InvoiceEntryDeserializer(getTimeEntryRepository()));
+		gsonBuilder.registerTypeAdapter(TimeEntry.class, new TimeEntryJsonDeserializer(getCollaboratorRepository(), getClientRepository()));
 		gsonBuilder.registerTypeAdapter(Invoice.class, new InvoiceJsonDeserializer());
 	}
 
-	public Gson createJsonEngine(boolean prettyPrinting) {
+	public Gson createJsonEngine() {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		regiterOn(gsonBuilder);
 		if (prettyPrinting) {
@@ -47,6 +45,18 @@ public class JsonModule {
 		}
 		Gson json = gsonBuilder.create();
 		return json;
+	}
+
+	private TimeEntryRepository getTimeEntryRepository() {
+		return repositoryRegistry.getRepository(TimeEntryRepository.class);
+	}
+
+	private ClientRepository getClientRepository() {
+		return repositoryRegistry.getRepository(ClientRepository.class);
+	}
+
+	private CollaboratorRepository getCollaboratorRepository() {
+		return repositoryRegistry.getRepository(CollaboratorRepository.class);
 	}
 
 }

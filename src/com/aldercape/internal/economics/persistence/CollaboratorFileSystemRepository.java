@@ -21,7 +21,7 @@ public class CollaboratorFileSystemRepository extends InMemoryCollaboratorReposi
 	}
 
 	private CollaboratorFileSystemRepository(File storageFile, boolean prettyPrinting) {
-		jsonStorage = new JsonStorage<Collaborator>(storageFile, false, this, null, new TypeToken<Map<Long, Collaborator>>() {
+		jsonStorage = new JsonStorage<Collaborator>(storageFile, false, this, new RepositoryRegistry(), new TypeToken<Map<Long, Collaborator>>() {
 		});
 		jsonStorage.populateCache();
 	}
