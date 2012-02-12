@@ -52,9 +52,9 @@ public class TimeEntryFileSystemRepositoryTest {
 		clientRepository.add(objectMother.otherCompany());
 		repository = new TimeEntryFileSystemRepository(timeEntryFile, collaboratorRepository, clientRepository);
 		entry = new TimeEntry(Unit.days(1), Rate.daily(new Euro(200)), objectMother.me(), objectMother.otherCompany(), Day.january(2, 2012));
-		entryJson = "{\"collaborator\":1,\"client\":2,\"rate\":{\"amount\":{\"amount\":200}},\"unit\":{\"amount\":1,\"unit\":\"DAY\"},\"day\":{\"day\":2,\"month\":{\"month\":\"January\",\"year\":2012}}}";
+		entryJson = "{\"collaboratorId\":1,\"clientId\":2,\"rate\":{\"amount\":{\"amount\":200}},\"unit\":{\"amount\":1,\"unit\":\"DAY\"},\"day\":{\"day\":2,\"month\":{\"month\":\"January\",\"year\":2012}}}";
 		otherEntry = new TimeEntry(Unit.days(1), Rate.daily(new Euro(200)), objectMother.other(), objectMother.myCompany(), Day.january(2, 2012));
-		otherEntryJson = "{\"collaborator\":2,\"client\":1,\"rate\":{\"amount\":{\"amount\":200}},\"unit\":{\"amount\":1,\"unit\":\"DAY\"},\"day\":{\"day\":2,\"month\":{\"month\":\"January\",\"year\":2012}}}";
+		otherEntryJson = "{\"collaboratorId\":2,\"clientId\":1,\"rate\":{\"amount\":{\"amount\":200}},\"unit\":{\"amount\":1,\"unit\":\"DAY\"},\"day\":{\"day\":2,\"month\":{\"month\":\"January\",\"year\":2012}}}";
 	}
 
 	@Test

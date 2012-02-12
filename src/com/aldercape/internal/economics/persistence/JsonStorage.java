@@ -12,14 +12,14 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import com.google.gson.GsonBuilder;
+import com.aldercape.internal.economics.model.ClientRepository;
+import com.aldercape.internal.economics.model.CollaboratorRepository;
+import com.aldercape.internal.economics.model.TimeEntryRepository;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
 public class JsonStorage<T> {
-
-	private JsonModule module;
 
 	public interface ElementStorage<T> {
 
@@ -29,27 +29,46 @@ public class JsonStorage<T> {
 	}
 
 	private File storageFile;
-	private boolean prettyPrinting;
+	boolean prettyPrinting;
 	private Map<Long, T> values;
 	private ElementStorage<T> parser;
+	JsonModule module;
 
-	public JsonStorage(File storageFile, boolean prettyPrinting, ElementStorage<T> elementParser) {
+	public JsonStorage(File storageFile, boolean prettyPrinting, ElementStorage<T> elementParser, TimeEntryRepository timeEntryRepository, ClientRepository clientRepository, CollaboratorRepository collaboratorRepository) {
 		this.storageFile = storageFile;
 		this.prettyPrinting = prettyPrinting;
 		this.parser = elementParser;
-		this.module = new JsonModule();
+		this.module = new JsonModule(timeEntryRepository, clientRepository, collaboratorRepository);
+	}
+
+	public JsonStorage(File storageFile, boolean prettyPrinting, ElementStorage<T> elementParser, TimeEntryRepository timeEntryRepository) {
+		this(storageFile, prettyPrinting, elementParser, timeEntryRepository, null, null);
 	}
 
 	public void writeAllToFile() {
 		BufferedWriter bufferedWriter = null;
 		try {
 			bufferedWriter = new BufferedWriter(new FileWriter(storageFile));
-			GsonBuilder gsonBuilder = new GsonBuilder();
-			module.regiterOn(gsonBuilder);
-			if (prettyPrinting) {
-				gsonBuilder = gsonBuilder.setPrettyPrinting();
+			bufferedWriter.append(module.createJsonEngine(prettyPrinting).toJson(values));
+			bufferedWriter.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (bufferedWriter != null) {
+				try {
+					bufferedWriter.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
-			bufferedWriter.append(gsonBuilder.create().toJson(values));
+		}
+	}
+
+	public void writeAllToFile(TypeToken<?> token) {
+		BufferedWriter bufferedWriter = null;
+		try {
+			bufferedWriter = new BufferedWriter(new FileWriter(storageFile));
+			bufferedWriter.append(module.createJsonEngine(prettyPrinting).toJson(values, token.getType()));
 			bufferedWriter.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -72,11 +91,8 @@ public class JsonStorage<T> {
 		values = new HashMap<Long, T>();
 		if (storageFile.length() != 0) {
 			try {
-				GsonBuilder gsonBuilder = new GsonBuilder();
-				module.regiterOn(gsonBuilder);
 
-				values = gsonBuilder.create().fromJson(new FileReader(storageFile), token.getType());
-
+				values = module.createJsonEngine(prettyPrinting).fromJson(new FileReader(storageFile), token.getType());
 				for (T value : values.values()) {
 					parser.addWithoutCache(value);
 				}

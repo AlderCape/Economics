@@ -21,7 +21,7 @@ public class __FileSystemRepositories {
 		clientRepository = new ClientFileSystemRepository(new File(baseDir, "clients.json"));
 		timeEntryRepository = new TimeEntryFileSystemRepository(new File(baseDir, "timeEntries.json"), collaboratorRepository, clientRepository);
 		invoiceEntryRepository = new InvoiceEntryFileSystemRepository(new File(baseDir, "invoiceEntries.json"), timeEntryRepository);
-		invoiceRepository = new InvoiceFileSystemRepository(new File(baseDir, "invoices.json"), invoiceEntryRepository);
+		invoiceRepository = new InvoiceFileSystemRepository(new File(baseDir, "invoices.json"), invoiceEntryRepository, timeEntryRepository);
 	}
 
 	public InvoiceRepository invoiceRepository() {

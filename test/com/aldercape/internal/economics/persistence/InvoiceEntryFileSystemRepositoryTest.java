@@ -48,17 +48,18 @@ public class InvoiceEntryFileSystemRepositoryTest {
 	@Before
 	public void setUp() throws IOException {
 		invoiceEntryFile = baseFolder.newFile("TestFile");
+		__FileSystemRepositories repositories = new __FileSystemRepositories(baseFolder.getRoot());
 		File collaboratorFile = baseFolder.newFile("collaborators.json");
 		File clientsFile = baseFolder.newFile("clients.json");
 		File timeEntriesFile = baseFolder.newFile("timeEntries.json");
 		collaboratorRepository = new CollaboratorFileSystemRepository(collaboratorFile);
+		clientRepository = new ClientFileSystemRepository(clientsFile);
 		__TestObjectMother objectMother = new __TestObjectMother();
+		timeEntryRepository = new TimeEntryFileSystemRepository(timeEntriesFile, collaboratorRepository, clientRepository);
 		collaboratorRepository.add(objectMother.me());
 		collaboratorRepository.add(objectMother.other());
-		clientRepository = new ClientFileSystemRepository(clientsFile);
 		clientRepository.add(objectMother.myCompany());
 		clientRepository.add(objectMother.otherCompany());
-		timeEntryRepository = new TimeEntryFileSystemRepository(timeEntriesFile, collaboratorRepository, clientRepository);
 		repository = new InvoiceEntryFileSystemRepository(invoiceEntryFile, timeEntryRepository);
 		entry = new TimeEntry(Unit.days(1), Rate.daily(new Euro(200)), objectMother.me(), objectMother.otherCompany(), Day.january(2, 2012));
 		entryJson = "{\"timeEntries\":[1]}";

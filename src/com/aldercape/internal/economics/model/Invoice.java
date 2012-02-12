@@ -7,11 +7,11 @@ public class Invoice {
 	private static final int VAT = 21;
 	private Client client;
 	private Day issueDate;
-	private List<Entry<Day>> entries;
+	private List<InvoiceEntry> entries;
 	private int daysToPay;
 	private Client company;
 
-	public Invoice(Client company, Client client, Day issueDate, List<Entry<Day>> entries, int daysToPay) throws EntryNotForClientException {
+	public Invoice(Client company, Client client, Day issueDate, List<InvoiceEntry> entries, int daysToPay) throws EntryNotForClientException {
 		this.company = company;
 		this.client = client;
 		this.issueDate = issueDate;
@@ -63,7 +63,7 @@ public class Invoice {
 		return day.after(dueDate());
 	}
 
-	public List<Entry<Day>> entries() {
+	public List<InvoiceEntry> entries() {
 		return entries;
 	}
 
