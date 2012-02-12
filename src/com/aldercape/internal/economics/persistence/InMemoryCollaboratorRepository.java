@@ -16,4 +16,16 @@ public class InMemoryCollaboratorRepository extends InMemoryRepository<Collabora
 		throw new NoMatchingRecordException("No collaborator found with wmail " + email);
 	}
 
+	@Override
+	public Collaborator getById(long collaborator) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public long getIdFor(Collaborator collaborator) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

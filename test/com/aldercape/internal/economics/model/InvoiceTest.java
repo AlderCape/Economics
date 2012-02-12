@@ -1,9 +1,7 @@
 package com.aldercape.internal.economics.model;
 
-import static com.aldercape.internal.economics.model.CustomModelAsserts.assertClientEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static com.aldercape.internal.economics.model.CustomModelAsserts.*;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +17,7 @@ public class InvoiceTest {
 	private Client company;
 	private Client client;
 	private Collaborator worker;
-	private List<Entry<Day>> entries;
+	private List<InvoiceEntry> entries;
 
 	@Before
 	public void setUp() {
@@ -27,7 +25,7 @@ public class InvoiceTest {
 		company = objectMother.myCompany();
 		client = objectMother.otherCompany();
 		worker = objectMother.me();
-		entries = new ArrayList<Entry<Day>>();
+		entries = new ArrayList<>();
 	}
 
 	@Test

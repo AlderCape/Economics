@@ -8,7 +8,7 @@ public class InvoiceBuilder {
 
 	private Client company;
 	private Client client;
-	private List<Entry<Day>> entries = new ArrayList<Entry<Day>>();
+	private List<InvoiceEntry> entries = new ArrayList<>();
 	private int daysToPay;
 	private Day issueDay;
 	private boolean failOnIntegretyChecks = true;
@@ -19,8 +19,8 @@ public class InvoiceBuilder {
 
 	public InvoiceBuilder forClient(Client client) {
 		this.client = client;
-		List<Entry<Day>> newEntries = new ArrayList<Entry<Day>>();
-		for (Entry<Day> entry : entries) {
+		List<InvoiceEntry> newEntries = new ArrayList<>();
+		for (InvoiceEntry entry : entries) {
 			if (isValid(entry)) {
 				newEntries.add(entry);
 			}
@@ -29,7 +29,7 @@ public class InvoiceBuilder {
 		return this;
 	}
 
-	public InvoiceBuilder addEntry(Entry<Day> entry) {
+	public InvoiceBuilder addEntry(InvoiceEntry entry) {
 		entries.add(entry);
 		return this;
 
@@ -52,7 +52,7 @@ public class InvoiceBuilder {
 		return this;
 	}
 
-	public InvoiceBuilder andEntry(Entry<Day> entry) {
+	public InvoiceBuilder andEntry(InvoiceEntry entry) {
 		if (isValid(entry)) {
 			addEntry(entry);
 		}
@@ -88,7 +88,7 @@ public class InvoiceBuilder {
 		failOnIntegretyChecks = false;
 	}
 
-	public List<Entry<Day>> entries() {
+	public List<InvoiceEntry> entries() {
 		return Collections.unmodifiableList(entries);
 	}
 
