@@ -1,20 +1,9 @@
 package com.aldercape.internal.economics.persistence;
 
-import static com.aldercape.internal.economics.model.CustomModelAsserts.*;
-import static org.junit.Assert.*;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
 
 import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
 
 import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.Euro;
@@ -26,96 +15,70 @@ import com.aldercape.internal.economics.model.TimeEntryRepository;
 import com.aldercape.internal.economics.model.Unit;
 import com.aldercape.internal.economics.ui.__TestObjectMother;
 
-public class InvoiceFileSystemRepositoryTest {
+public class InvoiceFileSystemRepositoryTest extends BaseFileSystemRepositoryTest<Invoice> {
 
-	@Rule
-	public TemporaryFolder baseFolder = new TemporaryFolder();
-	private File invoiceFile;
 	private Invoice firstInvoice;
 	private InvoiceFileSystemRepository repository;
-	private String entryJson;
 	private __FileSystemRepositories repositories;
 	private RepositoryRegistry repositoryRegistry;
+	private Invoice secondInvoice;
 
 	@Before
 	public void setUp() throws IOException {
-		invoiceFile = baseFolder.newFile("invoice.json");
-		repositories = new __FileSystemRepositories(baseFolder.getRoot());
-		repositoryRegistry = new RepositoryRegistry();
-		repositoryRegistry.setRepository(TimeEntryRepository.class, repositories.timeEntryRepository());
-
-		repository = new InvoiceFileSystemRepository(invoiceFile, repositoryRegistry);
-
 		__TestObjectMother objectMother = new __TestObjectMother();
 		repositories.collaboratorRepository().add(objectMother.me());
 		repositories.clientRepository().add(objectMother.otherCompany());
+
 		SimpleInvoiceEntry validEntry = new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(100)), objectMother.me(), objectMother.otherCompany(), Day.january(31, 2012));
 		repositories.timeEntryRepository().add(validEntry.getAllEntries().iterator().next());
 		repositories.invoiceEntryRepository().add(validEntry);
 		firstInvoice = new InvoiceBuilder(objectMother.myCompany()).daysToPay(30).forClient(objectMother.otherCompany()).issued(Day.january(31, 2012)).addEntry(validEntry).create();
-		entryJson = "{\"company\":{\"name\":\"My Company\",\"vatNumber\":\"0123456789\",\"address\":{\"streetName\":\"Sesame Street\",\"streetNumber\":\"1\",\"zipcode\":\"12345\",\"city\":\"My City\"},\"contactPerson\":\"My contact\"},\"client\":{\"name\":\"Other Company\",\"vatNumber\":\"9876543210\",\"address\":{\"streetName\":\"Other street\",\"streetNumber\":\"5\",\"zipcode\":\"54321\",\"city\":\"Other City\"},\"contactPerson\":\"Other contact\"},\"issueDate\":{\"day\":31,\"month\":{\"month\":\"January\",\"year\":2012}},\"dueDate\":{\"day\":1,\"month\":{\"month\":\"Mars\",\"year\":2012}},\"entries\":[{\"timeEntries\":[1]}]}";
+
+		SimpleInvoiceEntry secondEntry = new SimpleInvoiceEntry(Unit.days(1), Rate.daily(new Euro(100)), objectMother.me(), objectMother.otherCompany(), Day.february(1, 2012));
+		repositories.timeEntryRepository().add(secondEntry.getAllEntries().iterator().next());
+		repositories.invoiceEntryRepository().add(secondEntry);
+		secondInvoice = new InvoiceBuilder(objectMother.myCompany()).daysToPay(30).forClient(objectMother.otherCompany()).issued(Day.january(31, 2012)).addEntry(secondEntry).create();
 	}
 
-	@Test
-	public void emptyFileShouldHaveNoInvoices() {
-		assertTrue(repository.getAll().isEmpty());
+	@Override
+	protected String getFirstEntryJson() {
+		return "{\"company\":{\"name\":\"My Company\",\"vatNumber\":\"0123456789\",\"address\":{\"streetName\":\"Sesame Street\",\"streetNumber\":\"1\",\"zipcode\":\"12345\",\"city\":\"My City\"},\"contactPerson\":\"My contact\"},\"client\":{\"name\":\"Other Company\",\"vatNumber\":\"9876543210\",\"address\":{\"streetName\":\"Other street\",\"streetNumber\":\"5\",\"zipcode\":\"54321\",\"city\":\"Other City\"},\"contactPerson\":\"Other contact\"},\"issueDate\":{\"day\":31,\"month\":{\"month\":\"January\",\"year\":2012}},\"dueDate\":{\"day\":1,\"month\":{\"month\":\"Mars\",\"year\":2012}},\"entries\":[{\"timeEntries\":[1]}]}";
 	}
 
-	@Test
-	public void shouldSaveOneEntryToFileSystemOnAddInJsonFormat() throws Exception {
-		assertEquals(0, invoiceFile.length());
-		repository.add(firstInvoice);
-		assertTrue(invoiceFile.length() > 0);
-		assertEquals("{\"1\":" + entryJson + "}", getContent(invoiceFile));
+	@Override
+	protected String getSecondEntryJson() {
+		return "{\"company\":{\"name\":\"My Company\",\"vatNumber\":\"0123456789\",\"address\":{\"streetName\":\"Sesame Street\",\"streetNumber\":\"1\",\"zipcode\":\"12345\",\"city\":\"My City\"},\"contactPerson\":\"My contact\"},\"client\":{\"name\":\"Other Company\",\"vatNumber\":\"9876543210\",\"address\":{\"streetName\":\"Other street\",\"streetNumber\":\"5\",\"zipcode\":\"54321\",\"city\":\"Other City\"},\"contactPerson\":\"Other contact\"},\"issueDate\":{\"day\":31,\"month\":{\"month\":\"January\",\"year\":2012}},\"dueDate\":{\"day\":1,\"month\":{\"month\":\"Mars\",\"year\":2012}},\"entries\":[{\"timeEntries\":[2]}]}";
 	}
 
-	@Test
-	public void shouldHaveOneClientIfFileHaveOneClientOnInstanciation() throws Exception {
-		createFileWithContent("{\"1\":" + entryJson + "}");
-		assertFalse(invoiceFile.length() == 0);
-		repository = new InvoiceFileSystemRepository(invoiceFile, repositoryRegistry);
-		List<Invoice> all = repository.getAll();
-		assertEquals(1, all.size());
-		assertInvoiceEquals(firstInvoice, all.get(0));
+	@Override
+	protected Invoice getFirstEntry() {
+		return firstInvoice;
 	}
 
-	// @Test
-	// public void shouldHaveTwoClientIfFileHaveTwoClientOnInstanciation()
-	// throws Exception {
-	// createFileWithContent("{\"1\":" + entryJson + ", \"2\":" + otherEntryJson
-	// + "}");
-	// assertFalse(invoiceFile.length() == 0);
-	// repository = new InvoiceFileSystemRepository(invoiceFile);
-	// List<Invoice> all = repository.getAll();
-	// assertEquals(2, all.size());
-	// assertInvoiceEquals(firstInvoiceEntry, all.get(0));
-	// assertInvoiceEquals(secondInvoiceEntry, all.get(1));
-	// }
-	//
-	private String getContent(File newFile) throws IOException {
-		StringBuilder result = new StringBuilder();
-		BufferedReader reader = new BufferedReader(new FileReader(newFile));
-		int c;
-		while ((c = reader.read()) != -1) {
-			result.append((char) c);
-		}
-		return result.toString();
+	@Override
+	protected Invoice getSecondEntry() {
+		return secondInvoice;
 	}
 
-	private void createFileWithContent(String content) throws IOException {
-		BufferedWriter writer = null;
-		try {
-			writer = new BufferedWriter(new FileWriter(invoiceFile));
-			writer.write(content);
-			writer.flush();
-		} finally {
-			if (writer != null) {
-				try {
-					writer.close();
-				} catch (IOException e) {
-				}
-			}
-		}
+	@Override
+	protected InvoiceFileSystemRepository getRepository() {
+		return repository;
+	}
+
+	@Override
+	protected void assertEntryEquals(Invoice expected, Invoice actual) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void createNewRepository(File newFile) {
+		repositories = new __FileSystemRepositories(newFile.getParentFile());
+		repositoryRegistry = new RepositoryRegistry();
+		repositoryRegistry.setRepository(TimeEntryRepository.class, repositories.timeEntryRepository());
+
+		repository = new InvoiceFileSystemRepository(newFile, repositoryRegistry);
+
 	}
 
 }

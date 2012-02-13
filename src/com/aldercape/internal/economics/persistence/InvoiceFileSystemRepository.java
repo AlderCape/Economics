@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.aldercape.internal.economics.model.BaseRepository;
 import com.aldercape.internal.economics.model.Invoice;
 import com.aldercape.internal.economics.model.InvoiceRepository;
 import com.aldercape.internal.economics.persistence.JsonStorage.ElementStorage;
 import com.google.gson.reflect.TypeToken;
 
-public class InvoiceFileSystemRepository implements ElementStorage<Invoice>, InvoiceRepository {
+public class InvoiceFileSystemRepository implements ElementStorage<Invoice>, InvoiceRepository, BaseRepository<Invoice> {
 
 	private JsonStorage<Invoice> jsonStorage;
 	private List<Invoice> entries = new ArrayList<>();
@@ -21,10 +22,12 @@ public class InvoiceFileSystemRepository implements ElementStorage<Invoice>, Inv
 		jsonStorage.populateCache();
 	}
 
+	@Override
 	public List<Invoice> getAll() {
 		return entries;
 	}
 
+	@Override
 	public void add(Invoice invoice) {
 		jsonStorage.addToStorage(invoice);
 		jsonStorage.writeAllToFile();
@@ -39,6 +42,12 @@ public class InvoiceFileSystemRepository implements ElementStorage<Invoice>, Inv
 	public boolean isSame(Invoice value, Invoice ref) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void addListener(com.aldercape.internal.economics.model.BaseRepository.Listener listener) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
