@@ -7,13 +7,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.aldercape.internal.economics.model.BaseRepository;
 import com.aldercape.internal.economics.model.CollaboratorRepository;
 import com.aldercape.internal.economics.model.TimeEntry;
 import com.aldercape.internal.economics.model.TimeEntryRepository;
 import com.aldercape.internal.economics.persistence.JsonStorage.ElementStorage;
 import com.google.gson.reflect.TypeToken;
 
-public class TimeEntryFileSystemRepository implements ElementStorage<TimeEntry>, TimeEntryRepository {
+public class TimeEntryFileSystemRepository implements ElementStorage<TimeEntry>, TimeEntryRepository, BaseRepository<TimeEntry> {
 
 	private JsonStorage<TimeEntry> jsonStorage;
 	private CollaboratorRepository collaboratorRepository;
@@ -27,6 +28,7 @@ public class TimeEntryFileSystemRepository implements ElementStorage<TimeEntry>,
 
 	}
 
+	@Override
 	public List<TimeEntry> getAll() {
 		return entries;
 	}
@@ -67,5 +69,11 @@ public class TimeEntryFileSystemRepository implements ElementStorage<TimeEntry>,
 			result.add(getById(id));
 		}
 		return result;
+	}
+
+	@Override
+	public void addListener(com.aldercape.internal.economics.model.BaseRepository.Listener listener) {
+		// TODO Auto-generated method stub
+
 	}
 }

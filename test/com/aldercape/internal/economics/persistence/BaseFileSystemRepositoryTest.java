@@ -21,7 +21,7 @@ public abstract class BaseFileSystemRepositoryTest<T> {
 
 	@Rule
 	public TemporaryFolder baseFolder = new TemporaryFolder();
-	private File newFile;
+	protected File newFile;
 
 	@Before
 	public void baseSetUp() throws IOException {
@@ -35,7 +35,7 @@ public abstract class BaseFileSystemRepositoryTest<T> {
 	}
 
 	@Test
-	public void shouldSaveOneClientToFileSystemOnAddInJsonFormat() throws Exception {
+	public void shouldSaveOneEntryToFileSystemOnAddInJsonFormat() throws Exception {
 		assertEquals(0, newFile.length());
 		getRepository().add(getFirstEntry());
 		assertTrue(newFile.length() > 0);
@@ -43,7 +43,7 @@ public abstract class BaseFileSystemRepositoryTest<T> {
 	}
 
 	@Test
-	public void shouldSaveTwoClientsToFileSystemOnAddInJsonFormat() throws Exception {
+	public void shouldSaveTwoEntriesToFileSystemOnAddInJsonFormat() throws Exception {
 		assertEquals(0, newFile.length());
 		getRepository().add(getFirstEntry());
 		getRepository().add(getSecondEntry());
@@ -77,13 +77,13 @@ public abstract class BaseFileSystemRepositoryTest<T> {
 
 	protected abstract T getFirstEntry();
 
+	protected abstract T getSecondEntry();
+
 	protected abstract BaseRepository<T> getRepository();
 
 	protected abstract void assertEntryEquals(T expected, T actual);
 
 	protected abstract void createNewRepository(File newFile);
-
-	protected abstract T getSecondEntry();
 
 	protected void createFileWithContent(String content) throws IOException {
 		BufferedWriter writer = null;
