@@ -6,12 +6,12 @@ import java.util.List;
 
 public class CustomModelAsserts {
 
-	public static void assertInvoiceEntryEquals(InvoiceEntry populateWith, InvoiceEntry entry) {
-		assertEquals(populateWith.units(), entry.units());
-		assertEquals(populateWith.rate(), entry.rate());
-		assertEquals(populateWith.collaborator().fullname(), entry.collaborator().fullname());
-		assertEquals(populateWith.client().name(), entry.client().name());
-		assertEquals(populateWith.getTimePoint(), entry.getTimePoint());
+	public static void assertInvoiceEntryEquals(InvoiceEntry expected, InvoiceEntry actual) {
+		assertEquals(expected.units(), actual.units());
+		assertEquals(expected.rate(), actual.rate());
+		assertEquals(expected.collaborator().fullname(), actual.collaborator().fullname());
+		assertEquals(expected.client().name(), actual.client().name());
+		assertEquals(expected.getTimePoint(), actual.getTimePoint());
 	}
 
 	public static void assertInvoiceEquals(Invoice expected, Invoice actual) {

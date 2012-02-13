@@ -11,4 +11,6 @@ public interface BaseRepository<T> {
 	public interface Listener {
 		public void changed();
 	}
+
+	public void add(T t);
 }

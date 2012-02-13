@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.aldercape.internal.economics.model.BaseRepository;
 import com.aldercape.internal.economics.model.InvoiceEntry;
 import com.aldercape.internal.economics.model.InvoiceEntryRepository;
 import com.aldercape.internal.economics.model.TimeEntryRepository;
 import com.aldercape.internal.economics.persistence.JsonStorage.ElementStorage;
 import com.google.gson.reflect.TypeToken;
 
-public class InvoiceEntryFileSystemRepository implements ElementStorage<InvoiceEntry>, InvoiceEntryRepository {
+public class InvoiceEntryFileSystemRepository implements ElementStorage<InvoiceEntry>, InvoiceEntryRepository, BaseRepository<InvoiceEntry> {
 
 	private List<InvoiceEntry> entries = new ArrayList<InvoiceEntry>();
 	private JsonStorage<InvoiceEntry> jsonStorage;
@@ -24,6 +25,7 @@ public class InvoiceEntryFileSystemRepository implements ElementStorage<InvoiceE
 		jsonStorage.populateCache();
 	}
 
+	@Override
 	public List<InvoiceEntry> getAll() {
 		return entries;
 	}
@@ -52,6 +54,11 @@ public class InvoiceEntryFileSystemRepository implements ElementStorage<InvoiceE
 	@Override
 	public InvoiceEntry getById(long id) {
 		return jsonStorage.getById(id);
+	}
+
+	@Override
+	public void addListener(com.aldercape.internal.economics.model.BaseRepository.Listener listener) {
+
 	}
 
 }
