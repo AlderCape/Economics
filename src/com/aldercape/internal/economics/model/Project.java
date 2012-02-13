@@ -7,7 +7,6 @@ public class Project {
 
 	private String name;
 	private Client client;
-	private int memberCount;
 	private List<ProjectMember> members = new ArrayList<>();
 
 	public Project(String name, Client client) {
@@ -25,15 +24,18 @@ public class Project {
 
 	public void addMember(Collaborator member, Rate rate) {
 		members.add(new ProjectMember(member, rate));
-		memberCount++;
 	}
 
 	public int memberCount() {
-		return memberCount;
+		return members.size();
 	}
 
 	public ProjectMember getMember(int i) {
 		return members.get(i);
+	}
+
+	public List<ProjectMember> members() {
+		return members;
 	}
 
 }

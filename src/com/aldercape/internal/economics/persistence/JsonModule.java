@@ -8,6 +8,7 @@ import com.aldercape.internal.economics.model.CollaboratorRepository;
 import com.aldercape.internal.economics.model.Day;
 import com.aldercape.internal.economics.model.Invoice;
 import com.aldercape.internal.economics.model.InvoiceEntry;
+import com.aldercape.internal.economics.model.Project;
 import com.aldercape.internal.economics.model.Rate;
 import com.aldercape.internal.economics.model.TimeEntry;
 import com.aldercape.internal.economics.model.TimeEntryRepository;
@@ -35,6 +36,7 @@ public class JsonModule {
 		gsonBuilder.registerTypeAdapter(InvoiceEntry.class, new InvoiceEntryDeserializer(getTimeEntryRepository()));
 		gsonBuilder.registerTypeAdapter(TimeEntry.class, new TimeEntryJsonDeserializer(getCollaboratorRepository(), getClientRepository()));
 		gsonBuilder.registerTypeAdapter(Invoice.class, new InvoiceJsonDeserializer());
+		gsonBuilder.registerTypeAdapter(Project.class, new ProjectJsonDeserializer(getClientRepository(), getCollaboratorRepository()));
 	}
 
 	public Gson createJsonEngine() {

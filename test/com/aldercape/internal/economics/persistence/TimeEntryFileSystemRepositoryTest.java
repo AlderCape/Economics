@@ -24,10 +24,8 @@ import com.aldercape.internal.economics.ui.__TestObjectMother;
 public class TimeEntryFileSystemRepositoryTest extends BaseFileSystemRepositoryTest<TimeEntry> {
 
 	TimeEntryFileSystemRepository repository;
-	private String entryJson;
 	private TimeEntry entry;
 	private TimeEntry otherEntry;
-	private String otherEntryJson;
 	private RepositoryRegistry repositoryRegistry;
 	private __FileSystemRepositories repositories;
 
